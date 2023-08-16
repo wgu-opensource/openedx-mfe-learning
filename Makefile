@@ -61,3 +61,20 @@ pull_translations:
 
 	$(intl_imports) paragon frontend-component-header frontend-component-footer frontend-template-application
 endif
+
+setup-tutor:
+	@scripts/setup-tutor.sh
+
+start-tutor:
+	@scripts/start-tutor.sh
+
+npm-install:
+	npm install
+
+setup: setup-tutor start-tutor npm-install
+
+shell:
+	pipenv shell
+
+clean:
+	@scripts/clean.sh
