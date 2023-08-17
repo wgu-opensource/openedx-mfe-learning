@@ -1,10 +1,10 @@
 {
-  "name": "@edx/frontend-template-application",
+  "name": "@wgu-opensource/openedx-mfe-learning",
   "version": "0.1.0",
-  "description": "Frontend application template",
+  "description": "Learning Experience for OpenEDX",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openedx/frontend-template-application.git"
+    "url": "git+https://github.com/wgu-opensource/openedx-mfe-learning.git"
   },
   "browserslist": [
     "extends @edx/browserslist-config"
@@ -24,18 +24,18 @@
       "pre-commit": "npm run lint"
     }
   },
-  "author": "edX",
+  "author": "WGU",
   "license": "AGPL-3.0",
-  "homepage": "https://github.com/openedx/frontend-template-application#readme",
+  "homepage": "https://github.com/wgu-opensource/openedx-mfe-learning#readme",
   "publishConfig": {
     "access": "public"
   },
   "bugs": {
-    "url": "https://github.com/openedx/frontend-template-application/issues"
+    "url": "https://github.com/wgu-opensource/openedx-mfe-learning/issues"
   },
   "dependencies": {
     "@edx/brand": "npm:@edx/brand-openedx@1.2.0",
-    "@edx/frontend-app-learning": "github:wgu-opensource/frontend-app-learning#olive-dist",
+    "@edx/frontend-app-learning": "github:wgu-opensource/frontend-app-learning#0.1.0",
     "@edx/frontend-component-footer": "12.1.2",
     "@edx/frontend-component-header": "4.2.3",
     "@edx/frontend-platform": "4.5.1",
