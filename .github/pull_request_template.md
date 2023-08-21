@@ -1,7 +1,5 @@
 # Overview
 
-[Jira Link AGB-XXX](https://projects.wgu.edu/browse/AGB-XXX)
-
 [Please explain your changes and how to test them. Add screenshots if needed.]
 
 ## Checklist
