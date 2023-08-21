@@ -4,7 +4,6 @@
 
 ## Checklist
 
-- [ ] Updated Jira Story Link
 - [ ] Fulfills ticket acceptance criteria
 - [ ] Unit tests are updated and are passing
 - [ ] PR title follows [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary):
