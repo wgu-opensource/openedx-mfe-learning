@@ -1,6 +1,10 @@
-# Checklist
+# Overview
 
 [Jira Link AGB-XXX](https://projects.wgu.edu/browse/AGB-XXX)
+
+[Please explain your changes and how to test them. Add screenshots if needed.]
+
+## Checklist
 
 - [ ] Updated Jira Story Link
 - [ ] Fulfills ticket acceptance criteria
@@ -23,7 +27,3 @@
 - [ ] Fix any linting errors
 - [ ] SECURITY: No secrets where commited to the repo
 - [ ] COMPLIANCE: Commited code is not propietary and adheres to Open Source licensing
-
-## Explanation of what your changes do and how to test them
-
-[Please explain your changes and how to test them. Add screenshots if needed.]
