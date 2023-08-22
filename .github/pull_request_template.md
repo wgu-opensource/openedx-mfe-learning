@@ -4,7 +4,8 @@
 
 ## Checklist
 
-- [ ] Fulfills ticket acceptance criteria
+⚠️ **Please make sure to fill this checklist before asking for reviews.**
+
 - [ ] Unit tests are updated and are passing
 - [ ] PR title follows [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary):
       i.e. `feat(CUR-###): Feature title`
