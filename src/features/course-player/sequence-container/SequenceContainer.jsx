@@ -1,8 +1,8 @@
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { createSelector } from "reselect";
-import { Sequence, fetchCourse, fetchSequence } from "@edx/frontend-app-learning";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
+import PropTypes from 'prop-types';
+import { Sequence, fetchCourse, fetchSequence } from '@edx/frontend-app-learning';
+import { useEffect } from 'react';
 
 const currentCourseSelector = createSelector(
   (state) => state.models.coursewareMeta || {},
@@ -81,43 +81,13 @@ const sectionViaSequenceIdSelector = createSelector(
   (sectionsById, sequenceId) => (sectionsById[sequenceId] ? sectionsById[sequenceId] : null),
 );
 
-const MMP2P = {
-  "access": {
-    "isAudit": false,
-    "accessExpirationDate": null,
-    "upgradeUrl": null,
-    "price": null
-  },
-  "flyover": {
-    "isVisible": true
-  },
-  "meta": {
-    "blockContent": false,
-    "gradedLock": false,
-    "modalLock": false,
-    "showLock": false,
-    "verifiedLock": false
-  },
-  "state": {
-    "isEnabled": false,
-    "upgradeDeadline": null,
-    "afterUpgradeDeadline": false,
-    "subSections": [],
-    "isWhitelisted": false
-  }
-};
-const unitNavigationHandler = () => { }
-const nextSequenceHandler = () => { }
-const previousSequenceHandler = () => { }
-
-const ReduxTest = ({
-  match: {
-    params: {
-      courseId: routeCourseId,
-      sequenceId: routeSequenceId,
-      unitId:routeUnitId
-    },
-  },
+const SequenceContainer = ({
+  courseId,
+  sequenceId,
+  unitId,
+  nextSequenceHandler,
+  previousSequenceHandler,
+  unitNavigationHandler,
 }) => {
   const dispatch = useDispatch();
   const course = useSelector(state => currentCourseSelector(state));
@@ -126,20 +96,36 @@ const ReduxTest = ({
   const nextSequence = useSelector(state => nextSequenceSelector(state));
 
   useEffect(() => {
-    dispatch(fetchCourse(routeCourseId))
-    dispatch(fetchSequence(routeSequenceId))
-  }, [])
-  return <div>
-    <Sequence
-      unitId={routeUnitId}
-      sequenceId={routeSequenceId}
-      courseId={routeCourseId}
-      unitNavigationHandler={unitNavigationHandler}
-      nextSequenceHandler={nextSequenceHandler}
-      previousSequenceHandler={previousSequenceHandler}
-      mmp2p={MMP2P}
-    />
-  </div>
-}
+    dispatch(fetchCourse(courseId));
+    dispatch(fetchSequence(sequenceId));
+  }, []);
+  return (
+    <div>
+      <Sequence
+        unitId={unitId}
+        sequenceId={sequenceId}
+        courseId={courseId}
+        unitNavigationHandler={unitNavigationHandler}
+        nextSequenceHandler={nextSequenceHandler}
+        previousSequenceHandler={previousSequenceHandler}
+      />
+    </div>
+  );
+};
 
-export default ReduxTest
+SequenceContainer.propTypes = {
+  courseId: PropTypes.string,
+  sequenceId: PropTypes.string,
+  unitId: PropTypes.string,
+  nextSequenceHandler: PropTypes.func.isRequired,
+  previousSequenceHandler: PropTypes.func.isRequired,
+  unitNavigationHandler: PropTypes.func.isRequired,
+};
+
+SequenceContainer.defaultProps = {
+  courseId: null,
+  sequenceId: null,
+  unitId: null,
+};
+
+export default SequenceContainer;

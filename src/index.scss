@@ -4,3 +4,15 @@
 @import "@edx/brand/paragon/overrides.scss";
 @import "~@edx/frontend-component-header/dist/index";
 @import "~@edx/frontend-component-footer/dist/footer";
+@import "features/course-player/CoursePlayer.scss";
+@import "features/course-player/sequence-container/SequenceContainer.scss";
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  main {
+    flex-grow: 1;
+  }
+}

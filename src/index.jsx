@@ -2,15 +2,15 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {
   APP_INIT_ERROR, APP_READY, subscribe, initialize,
+  mergeConfig,
 } from '@edx/frontend-platform';
 import { AppProvider, ErrorPage, PageRoute } from '@edx/frontend-platform/react';
 import ReactDOM from 'react-dom';
+import { Switch } from 'react-router-dom';
 import messages from './i18n';
-import { getConfig, mergeConfig } from '@edx/frontend-platform';
-import "./index.scss"
+import './index.scss';
 import initializeStore from './app/store';
-import ReduxTest from './features/redux-test/ReduxTest';
-import { Switch } from "react-router-dom"
+import CoursePlayer from './features/course-player/CoursePlayer';
 import Layout from './features/layout/Layout';
 
 subscribe(APP_READY, () => {
@@ -18,19 +18,18 @@ subscribe(APP_READY, () => {
 
     <AppProvider store={initializeStore()}>
       <Layout>
-      <Switch>
-        <PageRoute
-          path={[
-            '/course/:courseId/:sequenceId/:unitId',
-            '/course/:courseId/:sequenceId',
-            '/course/:courseId',
-          ]}
-          component={ReduxTest}
-        />
-      </Switch>
+        <Switch>
+          <PageRoute
+            path={[
+              '/course/:courseId/:sequenceId/:unitId',
+              '/course/:courseId/:sequenceId',
+              '/course/:courseId',
+            ]}
+            component={CoursePlayer}
+          />
+        </Switch>
       </Layout>
-    </AppProvider>
-    ,
+    </AppProvider>,
     document.getElementById('root'),
   );
 });
@@ -38,7 +37,6 @@ subscribe(APP_READY, () => {
 subscribe(APP_INIT_ERROR, (error) => {
   ReactDOM.render(<ErrorPage message={error.message} />, document.getElementById('root'));
 });
-
 
 initialize({
   handlers: {
@@ -66,9 +64,5 @@ initialize({
       }, 'LearnerAppConfig');
     },
   },
-  messages
+  messages,
 });
-
-// initialize({
-//   messages,
-// });
