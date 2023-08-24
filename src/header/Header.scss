@@ -1,0 +1,58 @@
+.desktop-header,
+.mobile-header {
+  background-color: $primary-500;
+  color: $white;
+  position: relative;
+  z-index: 1000;
+
+  .course-title-lockup {
+    min-width: 0;
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-bottom: 0.1rem;
+    }
+  }
+}
+
+.desktop-header {
+  .d-flex {
+    height: 104px;
+  }
+
+  .desktop-logo {
+    display: block;
+    box-sizing: content-box;
+    top: -0.05em;
+    height: 3rem;
+    padding: 1rem 0;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    img {
+      height: 100%;
+    }
+  }
+
+  .course-title {
+    font-size: larger;
+    font-weight: 600;
+  }
+}
+
+.mobile-header {
+  .d-flex {
+    height: 56px;
+  }
+
+  .mobile-logo {
+    height: 1.5rem;
+    margin-right: 0.75rem;
+    margin-left: 0.75rem;
+  }
+
+  .course-title {
+    font-weight: 600;
+  }
+}
