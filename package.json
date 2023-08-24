@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@edx/brand": "npm:@edx/brand-openedx@1.2.0",
-    "@edx/frontend-app-learning": "file:../frontend-app-learning/edx-frontend-app-learning-1.0.0-semantically-released.tgz",
+    "@edx/frontend-app-learning": "file:../frontend-app-learning/edx-frontend-app-learning-1.0.2-semantically-released.tgz",
     "@edx/frontend-component-footer": "12.1.2",
     "@edx/frontend-component-header": "4.2.3",
     "@edx/frontend-platform": "4.2.0",
@@ -52,10 +52,10 @@
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "react-intl": "^5.25.0",
-    "react-redux": "7.2.8",
+    "react-redux": "7.2.9",
     "react-router": "5.3.4",
     "react-router-dom": "5.3.4",
-    "redux": "4.1.2",
+    "redux": "4.2.1",
     "regenerator-runtime": "0.13.11"
   },
   "devDependencies": {
