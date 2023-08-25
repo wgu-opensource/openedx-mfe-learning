@@ -52,13 +52,10 @@ const CoursePlayer = (props) => {
 
   // checkSaveSequencePosition
   useEffect(() => {
-    console.log('>>>routeunitid', routeUnitId);
     if (!sequence) {
       return;
     }
-    console.log('>>>saveSequencePosition', sequence.saveSequencePosition);
-    console.log('>>>>sequence', sequence);
-    console.log('>>>>sequencestatus', sequenceStatus, sequenceMightBeUnit);
+
     if (sequenceStatus === 'loaded' && sequence.saveUnitPosition && routeUnitId) {
       const activeUnitIndex = sequence.unitIds.indexOf(routeUnitId);
       saveSequencePosition(courseId, sequenceId, activeUnitIndex);
@@ -83,10 +80,8 @@ const CoursePlayer = (props) => {
     // there's a race condition where the route ids are for one course, but the status and the other ids are for a
     // different course. Since all the logic below depends on the status variables and the route unit id, we'll wait
     // until the ids match and thus the redux states got updated. So just bail for now.
-      console.log('>>>>Got here');
       return;
     }
-    console.log('>>>>Passed Got here');
 
     // All courseware URLs should normalize to the format /course/:courseId/:sequenceId/:unitId
     // via the series of redirection rules below.
