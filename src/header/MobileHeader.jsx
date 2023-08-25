@@ -58,8 +58,22 @@ const MobileHeader = ({
 
   return (
     <header className="mobile-header sticky-top">
-      <div className="w-100 d-flex justify-content-start align-items-center">
-        {headerLogo}
+      <div className="d-flex justify-content-start align-items-center">
+        <MobileMenu className="position-static">
+          <MobileMenuTrigger
+            tag="button"
+            className="icon-button"
+            title="Navigation Menu"
+          >
+            <MenuIcon role="img" aria-hidden focusable="false" style={{ width: '1.5rem', height: '1.5rem' }} />
+          </MobileMenuTrigger>
+          <MobileMenuContent
+            tag="nav"
+            className="nav flex-column pin-left pin-right border-top shadow py-2"
+          >
+            {renderMainMenu()}
+          </MobileMenuContent>
+        </MobileMenu>
         <div
           className="flex-grow-1 course-title-lockup align-items-center"
           style={{ lineHeight: 1 }}
@@ -71,21 +85,7 @@ const MobileHeader = ({
           </span>
         </div>
         <div className="d-flex align-items-center">
-          <MobileMenu className="position-static">
-            <MobileMenuTrigger
-              tag="button"
-              className="icon-button"
-              title="Navigation Menu"
-            >
-              <MenuIcon role="img" aria-hidden focusable="false" style={{ width: '1.5rem', height: '1.5rem' }} />
-            </MobileMenuTrigger>
-            <MobileMenuContent
-              tag="nav"
-              className="nav flex-column pin-left pin-right border-top shadow py-2"
-            >
-              {renderMainMenu()}
-            </MobileMenuContent>
-          </MobileMenu>
+          {headerLogo}
         </div>
       </div>
     </header>

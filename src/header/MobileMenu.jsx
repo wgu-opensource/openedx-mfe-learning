@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 
 const MenuIcon = (props) => (
   <svg
-    width="24px"
-    height="24px"
-    viewBox="0 0 24 24"
+    width="12px"
+    height="12px"
+    viewBox="0 0 16 16"
     version="1.0"
     {...props}
   >
-    <rect fill="white" x="2" y="5" width="20" height="2" />
-    <rect fill="white" x="2" y="11" width="20" height="2" />
-    <rect fill="white" x="2" y="17" width="20" height="2" />
+    <rect fill="white" x="1" y="2.5" width="10" height="1" />
+    <rect fill="white" x="1" y="5.5" width="10" height="1" />
+    <rect fill="white" x="1" y="8.5" width="10" height="1" />
   </svg>
 );
 

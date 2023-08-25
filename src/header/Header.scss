@@ -43,7 +43,7 @@
 
 .mobile-header {
   .d-flex {
-    height: 56px;
+    height: 64px;
   }
 
   .mobile-logo {
@@ -55,4 +55,55 @@
   .course-title {
     font-weight: 600;
   }
+}
+
+.menu {
+  position: relative;
+}
+
+.menu-content {
+  position: absolute;
+  top: 100%;
+  z-index: 10;
+  background: $white;
+  min-width: 10rem;
+  &.pin-left {
+    left: 0;
+  }
+  &.pin-right {
+    right: 0;
+  }
+}
+
+.menu-dropdown-enter {
+  opacity: 0;
+  transform-origin: 75% 0;
+  transform: scale3d(0.8, 0.8, 1);
+}
+
+.menu-dropdown-enter-active {
+  transform-origin: 75% 0;
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale3d(1, 1, 1);
+  opacity: 1;
+}
+
+.menu-dropdown-exit {
+  transform-origin: 75% 0;
+  transform: scale3d(1, 1, 1);
+  opacity: 1;
+}
+
+.menu-dropdown-exit-active {
+  transform-origin: 75% 0;
+  transform: scale3d(0.8, 0.8, 1);
+  transition: all 250ms cubic-bezier(0.8, 0, 0.6, 1);
+  opacity: 0;
+}
+
+.menu-trigger{
+  background-color: $primary-500;
+  margin-right: 0.75rem;
+  margin-left: 0.75rem;
+  border: none;
 }
