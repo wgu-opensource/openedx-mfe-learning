@@ -43,7 +43,7 @@
 
 .mobile-header {
   .d-flex {
-    height: 56px;
+    height: 64px;
   }
 
   .mobile-logo {
@@ -105,5 +105,6 @@
 .menu-trigger{
   background-color: $primary-500;
   margin-right: 0.75rem;
+  margin-left: 0.75rem;
   border: none;
 }
