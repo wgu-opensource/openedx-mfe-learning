@@ -5,5 +5,5 @@
 
 @import './example/index.scss';
 
-@import "~@edx/frontend-component-header/dist/index";
-@import "~@edx/frontend-component-footer/dist/footer";
+@import "~@edx/frontend-component-footer/dist/index";
+@import "./header/Header.scss";
