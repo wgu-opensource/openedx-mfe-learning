@@ -1,0 +1,25 @@
+#root > header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+#root > footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    position: relative;
+    bottom: unset;
+  }
+}
+
+#root > .layout-body {
+  padding-top: $desktop-header-height;
+  padding-bottom: $desktop-footer-height;
+
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    padding-top: $mobile-header-height;
+    padding-bottom: $mobile-footer-height;
+  }
+}

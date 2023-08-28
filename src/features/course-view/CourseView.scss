@@ -1,0 +1,27 @@
+$sidebar-width: 457px;
+
+.cv-course-sidebar {
+  background-color: $white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: $sidebar-width;
+
+  padding-top: $desktop-header-height;
+  padding-bottom: $desktop-footer-height;
+
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    padding-top: $mobile-header-height;
+    padding-bottom: $mobile-footer-height;
+    width: 100%;
+    z-index: 1;
+  }
+}
+
+.cv-course-content {
+  padding-left: $sidebar-width;
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    padding-left: 0px;
+  }
+}

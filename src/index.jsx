@@ -10,7 +10,7 @@ import { Switch } from 'react-router-dom';
 import messages from './i18n';
 import './index.scss';
 import initializeStore from './app/store';
-import CoursePlayer from './features/course-player/CoursePlayer';
+import CourseView from './features/course-view/CourseView';
 import Layout from './features/layout/Layout';
 
 subscribe(APP_READY, () => {
@@ -25,7 +25,7 @@ subscribe(APP_READY, () => {
               '/course/:courseId/:sequenceId',
               '/course/:courseId',
             ]}
-            component={CoursePlayer}
+            component={CourseView}
           />
         </Switch>
       </Layout>
