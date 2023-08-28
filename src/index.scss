@@ -2,6 +2,7 @@
 @import "@edx/brand/paragon/variables.scss";
 @import "@edx/paragon/scss/core/core.scss";
 @import "@edx/brand/paragon/overrides.scss";
+@import "variables.scss";
 @import "~@edx/frontend-component-footer/dist/footer";
 @import "features/course-player/CoursePlayer.scss";
 @import "features/course-player/sequence-container/SequenceContainer.scss";

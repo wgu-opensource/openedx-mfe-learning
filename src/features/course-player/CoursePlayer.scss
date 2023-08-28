@@ -1,10 +1,10 @@
 .course-player-main-content {
-  background-color: #9dabb8;
-  padding: 16px 32px 52px 32px;
+  background-color: $body-background;
+  padding: 1rem 2rem 3.25rem 2rem;
   .course-player-sequence-container {
-    padding: 8px 16px;
-    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
     background-color: white;
-    box-shadow: 0px 4px 8px 0px #0000001a;
+    box-shadow: 0rem 0.25rem 0.5rem 0rem $shadow-color;
   }
 }
