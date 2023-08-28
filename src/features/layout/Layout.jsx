@@ -1,6 +1,6 @@
-import Header from '@edx/frontend-component-header';
 import Footer from '@edx/frontend-component-footer';
 import PropTypes from 'prop-types';
+import Header from '../header/Header';
 
 const Layout = ({ children }) => (
   <div>

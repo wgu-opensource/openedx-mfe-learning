@@ -35,7 +35,10 @@ subscribe(APP_READY, () => {
 });
 
 subscribe(APP_INIT_ERROR, (error) => {
-  ReactDOM.render(<ErrorPage message={error.message} />, document.getElementById('root'));
+  ReactDOM.render(
+    <ErrorPage message={error.message} />,
+    document.getElementById('root'),
+  );
 });
 
 initialize({
