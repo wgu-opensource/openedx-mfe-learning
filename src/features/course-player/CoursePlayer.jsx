@@ -50,17 +50,16 @@ const CoursePlayer = (props) => {
     },
   } = props;
 
+  const saveUnitPosition = sequence?.saveUnitPosition;
+  const unitIds = sequence?.unitIds;
+
   // checkSaveSequencePosition
   useEffect(() => {
-    if (!sequence) {
-      return;
-    }
-
-    if (sequenceStatus === 'loaded' && sequence.saveUnitPosition && routeUnitId) {
-      const activeUnitIndex = sequence.unitIds.indexOf(routeUnitId);
+    if (sequenceStatus === 'loaded' && saveUnitPosition && routeUnitId && unitIds) {
+      const activeUnitIndex = unitIds.indexOf(routeUnitId);
       saveSequencePosition(courseId, sequenceId, activeUnitIndex);
     }
-  }, [routeUnitId]);
+  }, [courseId, routeUnitId, saveSequencePosition, saveUnitPosition, sequenceId, sequenceStatus, unitIds]);
 
   // checkFetchCourse
   useEffect(() => {
@@ -189,6 +188,7 @@ const sequenceShape = PropTypes.shape({
   id: PropTypes.string.isRequired,
   unitIds: PropTypes.arrayOf(PropTypes.string),
   sectionId: PropTypes.string.isRequired,
+  saveUnitPosition: PropTypes.any, // eslint-disable-line
 });
 
 const sectionShape = PropTypes.shape({
