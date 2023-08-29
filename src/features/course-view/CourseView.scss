@@ -8,6 +8,7 @@ $minimized-sidebar-width: 36px;
   left: 0;
   height: 100vh;
   width: $minimized-sidebar-width;
+  overflow-y: scroll;
 
   padding-top: $desktop-header-height;
   padding-bottom: $desktop-footer-height;
