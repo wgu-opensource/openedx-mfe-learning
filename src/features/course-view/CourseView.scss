@@ -1,4 +1,5 @@
-$sidebar-width: 457px;
+$extended-sidebar-width: 457px;
+$minimized-sidebar-width: 36px;
 
 .cv-course-sidebar {
   background-color: $white;
@@ -6,21 +7,41 @@ $sidebar-width: 457px;
   top: 0;
   left: 0;
   height: 100vh;
-  width: $sidebar-width;
+  width: $minimized-sidebar-width;
 
   padding-top: $desktop-header-height;
   padding-bottom: $desktop-footer-height;
 
   @media (max-width: map-get($grid-breakpoints, "md")) {
     padding-top: $mobile-header-height;
-    padding-bottom: $mobile-footer-height;
+    padding-bottom: 0px;
     width: 100%;
     z-index: 1;
   }
 }
 
+.cv-course-sidebar-mobile-closed {
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    display: none;
+  }
+}
+
+.cv-course-sidebar-extended {
+  width: $extended-sidebar-width;
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    width: 100%;
+  }
+}
+
 .cv-course-content {
-  padding-left: $sidebar-width;
+  padding-left: $minimized-sidebar-width;
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    padding-left: 0px;
+  }
+}
+
+.cv-course-content-sidebar-extended {
+  padding-left: $extended-sidebar-width;
   @media (max-width: map-get($grid-breakpoints, "md")) {
     padding-left: 0px;
   }

@@ -20,6 +20,6 @@
 
   @media (max-width: map-get($grid-breakpoints, "md")) {
     padding-top: $mobile-header-height;
-    padding-bottom: $mobile-footer-height;
+    padding-bottom: 0px;
   }
 }
