@@ -16,3 +16,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `patch-package` and patch for a problematic dependency, see `docs/how_tos/patching-frontend-lib-special-exams.md`
 - Added frontend-app-learning as an npm dependency
 - Implemented initial app base, setting up providers and Redux and importing components from frontend-app-learning
+- Implemented main app layout

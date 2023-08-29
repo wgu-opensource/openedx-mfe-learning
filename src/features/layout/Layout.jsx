@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import Header from '../header/Header';
 
 const Layout = ({ children }) => (
-  <div>
+  <>
     <Header />
-    {children}
+    <div className="layout-body">
+      {children}
+    </div>
     <Footer />
-  </div>
+  </>
 );
 
 Layout.propTypes = {

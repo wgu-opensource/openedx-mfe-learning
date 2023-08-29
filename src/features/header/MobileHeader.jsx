@@ -1,49 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 // Local Components
 import Logo from './Logo';
-import {
-  MobileMenu, MobileMenuTrigger, MobileMenuContent, MenuIcon,
-} from './MobileMenu';
+import { toggleMobileSidebar } from '../course-view/data/slice';
 
-function renderMainMenu() {
-  // Add menu items here
-  const { mainMenu } = [];
-
-  // Nodes are accepted as a prop
-  if (!Array.isArray(mainMenu)) {
-    return mainMenu;
-  }
-
-  return mainMenu.map((menuItem) => {
-    const {
-      type,
-      href,
-      content,
-      submenuContent,
-    } = menuItem;
-
-    if (type === 'item') {
-      return (
-        <a key={`${type}-${content}`} className="nav-link" href={href}>
-          {content}
-        </a>
-      );
-    }
-
-    return (
-      <MobileMenu key={`${type}-${content}`} tag="div" className="nav-item">
-        <MobileMenuTrigger tag="a" role="button" tabIndex="0" className="nav-link">
-          {content}
-        </MobileMenuTrigger>
-        <MobileMenuContent className="position-static pin-left pin-right py-2">
-          {submenuContent}
-        </MobileMenuContent>
-      </MobileMenu>
-    );
-  });
-}
+const MenuIcon = (props) => (
+  <svg
+    width="12px"
+    height="12px"
+    viewBox="0 0 16 16"
+    version="1.0"
+    {...props}
+  >
+    <rect fill="white" x="1" y="2.5" width="10" height="1" />
+    <rect fill="white" x="1" y="5.5" width="10" height="1" />
+    <rect fill="white" x="1" y="8.5" width="10" height="1" />
+  </svg>
+);
 
 const MobileHeader = ({
   courseNumber, courseTitle, logo, logoAltText,
@@ -56,24 +31,18 @@ const MobileHeader = ({
     />
   );
 
+  const dispatch = useDispatch();
+
+  const toggleMenu = () => {
+    dispatch(toggleMobileSidebar());
+  };
+
   return (
     <header className="mobile-header sticky-top">
       <div className="d-flex justify-content-start align-items-center">
-        <MobileMenu className="position-static">
-          <MobileMenuTrigger
-            tag="button"
-            className="icon-button"
-            title="Navigation Menu"
-          >
-            <MenuIcon role="img" aria-hidden focusable="false" style={{ width: '1.5rem', height: '1.5rem' }} />
-          </MobileMenuTrigger>
-          <MobileMenuContent
-            tag="nav"
-            className="nav flex-column pin-left pin-right border-top shadow py-2"
-          >
-            {renderMainMenu()}
-          </MobileMenuContent>
-        </MobileMenu>
+        <button className="menu-trigger" type="button" onClick={toggleMenu}>
+          <MenuIcon role="img" aria-hidden focusable="false" style={{ width: '1.5rem', height: '1.5rem' }} />
+        </button>
         <div
           className="flex-grow-1 course-title-lockup align-items-center"
           style={{ lineHeight: 1 }}
