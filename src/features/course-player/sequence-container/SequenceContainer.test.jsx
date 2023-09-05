@@ -2,12 +2,7 @@ import React from 'react';
 import { Factory } from 'rosie';
 import { breakpoints } from '@edx/paragon';
 import {
-  courseMetadataFactory,
-  sequenceMetadataFactory,
-  learningSequencesOutlineFactory,
-} from '@edx/frontend-app-learning';
-import {
-  loadUnit, render, screen, fireEvent, waitFor, initializeTestStore,
+  loadUnit, render, screen, waitFor, initializeTestStore, appendStyles,
 } from '../../../setupTest';
 import SequenceContainer from './SequenceContainer';
 
@@ -45,5 +40,64 @@ describe('SequenceContainer', () => {
 
     expect(screen.getByText('There is no content here.')).toBeInTheDocument();
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
+  });
+
+  it('handles loading unit', async () => {
+    render(<SequenceContainer {...mockData} />);
+    expect(await screen.findByText('Loading learning sequence...')).toBeInTheDocument();
+    // Renders navigation buttons plus one button for each unit.
+    expect(screen.getAllByRole('button')).toHaveLength(3 + unitBlocks.length);
+
+    loadUnit();
+    await waitFor(() => expect(screen.queryByText('Loading learning sequence...')).not.toBeInTheDocument());
+    // At this point there will be 2 `Previous` and 2 `Next` buttons.
+    expect(screen.getAllByRole('button', { name: /previous|next/i }).length).toEqual(4);
+  });
+
+  it('has top navigation hidden', async () => {
+    // Top navigation is part of the Sequence component, but we don't want to show it
+    const { container } = render(<SequenceContainer {...mockData} />);
+    appendStyles(container);
+
+    let nav;
+    await waitFor(() => {
+      nav = container.querySelector('#courseware-sequenceNavigation');
+      if (!nav) {
+        throw new Error('Top Navigation not found in the DOM');
+      }
+    });
+
+    expect(nav).not.toBeVisible();
+  });
+
+  it('has sidebar triggers button hidden', async () => {
+    // Sidebar triggers button is part of the Sequence component, shown only on sm screens,
+    // but we don't want to show it
+
+    // Set width to less than small so the component is rendered
+    global.innerWidth = breakpoints.extraSmall.maxWidth;
+
+    const { container } = render(<SequenceContainer {...mockData} />);
+    appendStyles(container);
+
+    let button;
+    await waitFor(() => {
+      button = container.querySelector('[aria-label="Show notification tray"]');
+      if (!button) {
+        throw new Error('Sidebar triggers button not found in the DOM');
+      }
+    });
+
+    expect(button).not.toBeVisible();
+  });
+
+  it('has bookmark button hidden', async () => {
+    // Bookmark button is part of the Sequence component, but we don't want to show it
+    const { container } = render(<SequenceContainer {...mockData} />);
+    appendStyles(container);
+
+    const bookmarkButton = await screen.findByText('Bookmark this page');
+
+    expect(bookmarkButton).not.toBeVisible();
   });
 });

@@ -2,6 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
+import path from 'path';
 import { getConfig, mergeConfig } from '@edx/frontend-platform';
 import { configure as configureI18n, IntlProvider } from '@edx/frontend-platform/i18n';
 import { configure as configureLogging } from '@edx/frontend-platform/logging';
@@ -23,12 +24,15 @@ import {
   learningSequencesOutlineFactory,
 } from '@edx/frontend-app-learning';
 
+import { readFileSync } from 'fs';
 import appMessages from './i18n';
 
 import { reducer as courseViewReducer } from './features/course-view/data';
 
 const buildSimpleCourseAndSequenceMetadata = sequenceMetadataFactory.default;
 const { buildOutlineFromBlocks } = learningSequencesOutlineFactory;
+
+jest.mock('@edx/frontend-platform/analytics');
 
 class MockLoggingService {
   // eslint-disable-next-line no-console
@@ -37,10 +41,6 @@ class MockLoggingService {
   // eslint-disable-next-line no-console
   logError = jest.fn(errorString => console.log(errorString));
 }
-
-window.getComputedStyle = jest.fn(() => ({
-  getPropertyValue: jest.fn(),
-}));
 
 // Mock Intersection Observer which is unavailable in the context of a test.
 global.IntersectionObserver = jest.fn(function mockIntersectionObserver() {
@@ -149,7 +149,7 @@ export async function initializeTestStore(options = {}, overrideStore = true) {
   courseHomeMetadataUrl = appendBrowserTimezoneToUrl(courseHomeMetadataUrl);
 
   axiosMock.onGet(courseMetadataUrl).reply(200, courseMetadata);
-  axiosMock.onGet(courseHomeMetadataUrl).reply(200, { }); // Empty response as we are not using this?
+  axiosMock.onGet(courseHomeMetadataUrl).reply(200, { }); // Empty response as we are not using this
   axiosMock.onGet(learningSequencesUrlRegExp).reply(200, buildOutlineFromBlocks(courseBlocks));
   axiosMock.onGet(discussionConfigUrl).reply(200, { provider: 'legacy' });
   sequenceMetadata.forEach(metadata => {
@@ -193,6 +193,14 @@ function render(
   };
 
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
+}
+
+// Appends compiled css styles to the Jest DOM
+export function appendStyles(container) {
+  const style = document.createElement('style');
+  const css = readFileSync(path.join(process.cwd(), 'dist/styles.css'));
+  style.innerHTML = css.toString();
+  container.append(style);
 }
 
 // Re-export everything.
