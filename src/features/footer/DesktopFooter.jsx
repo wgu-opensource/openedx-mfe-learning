@@ -1,17 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
-import { ensureConfig } from '@edx/frontend-platform/config';
 import { AppContext } from '@edx/frontend-platform/react';
-
-ensureConfig([
-  'ADA_URL',
-  'LMS_BASE_URL',
-  'LOGO_TRADEMARK_URL',
-  'PRIVACY_POLICY_URL',
-  'TERMS_OF_SERVICE_URL',
-  'COPY_RIGHT_STRING',
-], 'DesktopFooter component');
 
 const EVENT_NAMES = {
   ADA_LINK: 'edx.ada.footer.link',
@@ -29,7 +19,14 @@ class DesktopFooter extends React.Component {
 
   externalLinkClickHandler(event) {
     const label = event.currentTarget.getAttribute('href');
-    const eventName = EVENT_NAMES.ADA_LINK;
+    let eventName = null;
+    if (label.toLowerCase.contains('accommodations')) {
+      eventName = EVENT_NAMES.ADA_LINK;
+    } else if (label.toLowerCase.contains('privacy')) {
+      eventName = EVENT_NAMES.PRIVACY_POLICY_LINK;
+    } else if (label.toLowerCase.contains('terms')) {
+      eventName = EVENT_NAMES.TERMS_OF_SERVICE_LINK;
+    }
     const properties = {
       category: 'outbound_link',
       label,
