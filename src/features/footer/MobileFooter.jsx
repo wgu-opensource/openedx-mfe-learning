@@ -2,14 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { AppContext } from '@edx/frontend-platform/react';
-
-const EVENT_NAMES = {
-  ADA_LINK: 'edx.ada.footer.link',
-  PRIVACY_POLICY_LINK: 'edx.privacy.policy.footer.link',
-  TERMS_OF_SERVICE_LINK: 'edx.terms.of.service.footer.link',
-};
-
-const copySymbol = String.fromCodePoint(0x00A9);
+import { EVENT_NAMES, copySymbol } from './constants';
 
 class MobileFooter extends React.Component {
   constructor(props) {
