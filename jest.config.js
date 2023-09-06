@@ -14,6 +14,7 @@ module.exports = createConfig('jest', {
   // Mapping required for solving dependency conflicts
   moduleNameMapper: {
     rosie: path.resolve('./node_modules/rosie'),
+    '^@edx/frontend-app-learning/tests$': `${path.resolve('./node_modules/@edx/frontend-app-learning/dist/testExports.js')}`,
     '^@edx/frontend-platform(.*)$': `${path.resolve('./node_modules/@edx/frontend-platform')}$1`,
     '^@edx/paragon(.*)$': `${path.resolve('./node_modules/@edx/paragon')}$1`,
     '^prop-types$': path.resolve('./node_modules/prop-types'),

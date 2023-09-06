@@ -20,9 +20,12 @@ import {
   fetchSequence,
   appendBrowserTimezoneToUrl,
   executeThunk,
+} from '@edx/frontend-app-learning';
+import {
   sequenceMetadataFactory,
   learningSequencesOutlineFactory,
-} from '@edx/frontend-app-learning';
+// eslint-disable-next-line import/no-unresolved
+} from '@edx/frontend-app-learning/tests';
 
 import { readFileSync } from 'fs';
 import appMessages from './i18n';
