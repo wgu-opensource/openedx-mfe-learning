@@ -4,4 +4,4 @@ export const EVENT_NAMES = {
   TERMS_OF_SERVICE_LINK: 'edx.terms.of.service.footer.link',
 };
 
-export const copySymbol = String.fromCodePoint(0x00A9);
+export const COPY_SYMBOL = String.fromCodePoint(0x00A9);

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { AppContext } from '@edx/frontend-platform/react';
-import { EVENT_NAMES, copySymbol } from './constants';
+import { EVENT_NAMES, COPY_SYMBOL } from './constants';
 
 class DesktopFooter extends React.Component {
   constructor(props) {
@@ -61,7 +61,7 @@ class DesktopFooter extends React.Component {
         </div>
         <div className="container-fluid d-flex">
           <span className="copyright">
-            {copySymbol}
+            {COPY_SYMBOL}
             {' '}
             {copyRight}
           </span>
