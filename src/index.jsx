@@ -45,7 +45,9 @@ initialize({
   handlers: {
     config: () => {
       mergeConfig({
+        ADA_URL: process.env.ADA_URL || null,
         CONTACT_URL: process.env.CONTACT_URL || null,
+        COPYRIGHT_STRING: process.env.COPYRIGHT_STRING || null,
         CREDENTIALS_BASE_URL: process.env.CREDENTIALS_BASE_URL || null,
         CREDIT_HELP_LINK_URL: process.env.CREDIT_HELP_LINK_URL || null,
         DISCUSSIONS_MFE_BASE_URL: process.env.DISCUSSIONS_MFE_BASE_URL || null,
@@ -53,6 +55,7 @@ initialize({
         ENABLE_JUMPNAV: process.env.ENABLE_JUMPNAV || null,
         ENABLE_NOTICES: process.env.ENABLE_NOTICES || null,
         INSIGHTS_BASE_URL: process.env.INSIGHTS_BASE_URL || null,
+        PRIVACY_POLICY_URL: process.env.PRIVACY_POLICY_URL || null,
         SEARCH_CATALOG_URL: process.env.SEARCH_CATALOG_URL || null,
         SOCIAL_UTM_MILESTONE_CAMPAIGN: process.env.SOCIAL_UTM_MILESTONE_CAMPAIGN || null,
         STUDIO_BASE_URL: process.env.STUDIO_BASE_URL || null,

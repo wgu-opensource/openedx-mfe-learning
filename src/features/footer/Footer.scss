@@ -1,0 +1,49 @@
+.desktop-footer {
+  background-color: $primary-100;
+  font-size: $h5-font-size;
+  height: $desktop-footer-height;
+  padding-bottom: 5px;
+  padding-top: 5px;
+
+  .branded-link {
+    margin-left: 120px;
+  }
+
+  .d-flex {
+    padding-left: 64px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+
+.mobile-footer {
+  background-color: $primary-100;
+  font-size: $h6-mobile-font-size;
+  height: $mobile-footer-height;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
+  .d-flex {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  .left-align {
+    padding-left: 0px;
+  }
+}
+
+.branded-link {
+  color: $primary-500;
+  font-weight: $font-weight-bold;
+}
+
+.info-link {
+  font-weight: $font-weight-bold;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.link-divider {
+  color: $info-500;
+}
