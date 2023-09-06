@@ -1,4 +1,5 @@
 import { messages as paragonMessages } from '@edx/paragon';
+import { messages as falMessages } from '@edx/frontend-app-learning';
 
 import arMessages from './messages/ar.json';
 import caMessages from './messages/ca.json';
@@ -33,5 +34,6 @@ const appMessages = {
 
 export default [
   paragonMessages,
+  falMessages,
   appMessages,
 ];
