@@ -113,4 +113,3 @@ DesktopFooter.defaultProps = {
 };
 
 export default DesktopFooter;
-export { EVENT_NAMES };

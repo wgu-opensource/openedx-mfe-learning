@@ -115,4 +115,3 @@ MobileFooter.defaultProps = {
 };
 
 export default MobileFooter;
-export { EVENT_NAMES };
