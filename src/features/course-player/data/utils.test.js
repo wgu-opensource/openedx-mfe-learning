@@ -1,5 +1,6 @@
+/* eslint-disable import/first */
 /* eslint-disable no-import-assign */
-import * as edxFAL from '@edx/frontend-app-learning';
+import { getResumeBlock, getSequenceForUnitDeprecated } from '@edx/frontend-app-learning';
 import { history } from '@edx/frontend-platform';
 
 import {
@@ -22,14 +23,12 @@ describe('Utils library', () => {
   let unitId;
   let sequenceMightBeUnit;
   let routeUnitId;
+  let firstSequenceId;
+  let parentId;
+
+  history.replace = jest.fn();
 
   beforeEach(() => {
-    // Mocks and spies
-    edxFAL.getResumeBlock = jest.fn().mockResolvedValue(1);
-    edxFAL.getSequenceForUnitDeprecated = jest.fn().mockResolvedValue(1);
-    history.replace = jest.fn();
-
-    // Setup data
     courseStatus = 'loaded';
     courseId = 'courseId';
     sequenceStatus = 'failed';
@@ -40,19 +39,33 @@ describe('Utils library', () => {
     unitId = 'unitId';
     sequenceMightBeUnit = true;
     routeUnitId = 'routeUnitId';
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
+    firstSequenceId = 'firstSequenceId';
+    parentId = 'parentId';
   });
 
   describe('checkResumeRedirect', () => {
+    getResumeBlock.mockResolvedValueOnce(1).mockResolvedValue(2);
+
     it('', () => {
       sequenceId = null;
+      checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId).then((result) => {
+        expect(result).toEqual(1);
+        expect(getResumeBlock).toHaveBeenCalled();
+        expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${firstSequenceId}`);
+      });
+    });
+    it('', () => {
+      const data = {
+        sectionId: 'sectionId',
+        unitId: 'unitId',
+      };
+      sequenceId = null;
 
-      checkResumeRedirect(courseStatus, courseId, sequenceId, 'firstSequenceId');
-
-      expect(edxFAL.getResumeBlock).toHaveBeenCalled();
+      checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId).then((result) => {
+        expect(getResumeBlock).toHaveBeenCalled();
+        expect(result).toEqual(2);
+        expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${data.sectionId}/${data.unitId}`);
+      });
     });
   });
 
@@ -86,23 +99,12 @@ describe('Utils library', () => {
     });
   });
 
-  it('', () => {
-    unitId = null;
-    section.sequenceIds = [1];
-
-    checkSectionToSequenceRedirect(
-      courseStatus,
-      courseId,
-      sequenceStatus,
-      section,
-      unitId,
-    );
-
-    expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${section.sequenceIds[0]}`);
-  });
-
   describe('checkUnitToSequenceUnitRedirect', () => {
     it('', () => {
+      sequenceMightBeUnit = false;
+      section = null;
+      routeUnitId = null;
+
       checkUnitToSequenceUnitRedirect(
         courseStatus,
         courseId,
@@ -110,11 +112,46 @@ describe('Utils library', () => {
         sequenceMightBeUnit,
         sequenceId,
         section,
-        unitId,
         routeUnitId,
       );
 
-      expect(history.replace).toHaveBeenCalledWith('/course/courseId/unitId');
+      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
+    });
+
+    it('', () => {
+      section = null;
+      routeUnitId = null;
+      getSequenceForUnitDeprecated.mockResolvedValue(parentId);
+
+      checkUnitToSequenceUnitRedirect(
+        courseStatus,
+        courseId,
+        sequenceStatus,
+        sequenceMightBeUnit,
+        sequenceId,
+        section,
+        routeUnitId,
+      );
+
+      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${parentId}/${unitId}`);
+    });
+
+    it('', () => {
+      section = null;
+      routeUnitId = null;
+      getSequenceForUnitDeprecated.mockResolvedValue(null);
+
+      checkUnitToSequenceUnitRedirect(
+        courseStatus,
+        courseId,
+        sequenceStatus,
+        sequenceMightBeUnit,
+        sequenceId,
+        section,
+        routeUnitId,
+      );
+
+      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
     });
   });
 
@@ -149,6 +186,21 @@ describe('Utils library', () => {
       );
 
       expect(history.replace).toHaveBeenCalledWith('/course/courseId/unitId');
+    });
+  });
+  describe('checkSequenceToSequenceUnitRedirect', () => {
+    it('', () => {
+      unitId = null;
+
+      checkSequenceToSequenceUnitRedirect(
+        courseStatus,
+        courseId,
+        sequenceStatus,
+        section,
+        unitId,
+      );
+
+      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
     });
   });
 });
