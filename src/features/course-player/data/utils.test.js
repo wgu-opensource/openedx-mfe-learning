@@ -40,24 +40,23 @@ describe('Utils library', () => {
       courseId = mockId;
       sequenceId = mockId;
       firstSequenceId = mockId;
+      sequenceId = null;
     });
 
-    it('', () => {
+    it('it should replace history with "/course/courseId/firstSequenceId" when getResumeBlock does not return the required data', () => {
       getResumeBlock.mockResolvedValueOnce({});
 
-      sequenceId = null;
       checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId).then(() => {
         expect(getResumeBlock).toHaveBeenCalled();
         expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${firstSequenceId}`);
       });
     });
 
-    it('', () => {
+    it('it should replace history with "/course/courseId/data.sectionId/data.unitId" when getResumeBlock return the required data', () => {
       const data = {
         sectionId: 'sectionId',
         unitId: 'unitId',
       };
-      sequenceId = null;
       getResumeBlock.mockResolvedValueOnce(data);
 
       checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId).then(() => {
@@ -84,7 +83,7 @@ describe('Utils library', () => {
       unitId = mockId;
     });
 
-    it('', () => {
+    it('it should replace history with "/course/courseId/unitId"', () => {
       checkSectionUnitToUnitRedirect(
         courseStatus,
         courseId,
@@ -110,12 +109,10 @@ describe('Utils library', () => {
       section = {
         sequenceIds: [],
       };
-      unitId = mockId;
+      unitId = null;
     });
 
-    it('', () => {
-      unitId = null;
-
+    it('it should replace history with "/course/courseId/unitId" when there is no sequenceIds[0]', () => {
       checkSectionToSequenceRedirect(
         courseStatus,
         courseId,
@@ -127,8 +124,7 @@ describe('Utils library', () => {
       expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
     });
 
-    it('', () => {
-      unitId = null;
+    it('it should replace history with "/course/courseId/section.sequenceIds[0]" when there is sequenceIds[0]', () => {
       section.sequenceIds.push(1);
 
       checkSectionToSequenceRedirect(
@@ -159,18 +155,14 @@ describe('Utils library', () => {
       courseId = mockId;
       sequenceStatus = 'failed';
       sequenceId = mockId;
-      section = {
-        sequenceIds: [],
-      };
+      section = null;
       unitId = mockId;
       sequenceMightBeUnit = true;
-      routeUnitId = mockId;
+      routeUnitId = null;
       parentId = mockId;
     });
 
-    it('', () => {
-      section = null;
-      routeUnitId = null;
+    it('it should replace history with "/course/courseId" when sequenceMightBeUnit = "false"', () => {
       sequenceMightBeUnit = false;
 
       checkUnitToSequenceUnitRedirect(
@@ -186,9 +178,7 @@ describe('Utils library', () => {
       expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
     });
 
-    it('', () => {
-      section = null;
-      routeUnitId = null;
+    it('it should replace history with "/course/courseId/parentId/unitId" when getSequenceForUnitDeprecated return a valid parentId', () => {
       getSequenceForUnitDeprecated.mockResolvedValueOnce(parentId);
 
       checkUnitToSequenceUnitRedirect(
@@ -205,9 +195,7 @@ describe('Utils library', () => {
       });
     });
 
-    it('', () => {
-      section = null;
-      routeUnitId = null;
+    it('it should replace history with "/course/courseId" when getSequenceForUnitDeprecated does not return a parentId', () => {
       parentId = null;
       getSequenceForUnitDeprecated.mockResolvedValueOnce(parentId);
 
@@ -225,9 +213,7 @@ describe('Utils library', () => {
       });
     });
 
-    it('', () => {
-      section = null;
-      routeUnitId = null;
+    it('it should replace history with "/course/courseId" when getSequenceForUnitDeprecated call fails', () => {
       getSequenceForUnitDeprecated.mockRejectedValueOnce(new Error('Async error message'));
 
       checkUnitToSequenceUnitRedirect(
@@ -262,7 +248,7 @@ describe('Utils library', () => {
       unitId = null;
     });
 
-    it('', () => {
+    it('it should replace history with "/course/courseId/sequence.id/sequence.unitIds[0]" when there is a sequence activeUnit', () => {
       checkSequenceToSequenceUnitRedirect(
         courseId,
         sequenceStatus,
@@ -291,7 +277,7 @@ describe('Utils library', () => {
       unitId = mockId;
     });
 
-    it('', () => {
+    it('it should not replace history when sequenceStatus != loaded and sequence.id = null', () => {
       sequenceStatus = 'failed';
       sequence = null;
 
@@ -305,7 +291,7 @@ describe('Utils library', () => {
       expect(history.replace).not.toHaveBeenCalled();
     });
 
-    it('', () => {
+    it('it should not replace history when unitId is != to "first" or "last"', () => {
       unitId = 'second';
 
       checkSequenceUnitMarkerToSequenceUnitRedirect(
@@ -318,7 +304,7 @@ describe('Utils library', () => {
       expect(history.replace).not.toHaveBeenCalled();
     });
 
-    it('', () => {
+    it('it should replace history with "/course/courseId/sequence.id/sequence.unitIds[0]" when  unitId = "first" and there are unitIds', () => {
       unitId = 'first';
 
       checkSequenceUnitMarkerToSequenceUnitRedirect(
@@ -331,7 +317,7 @@ describe('Utils library', () => {
       expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}/${sequence.unitIds[0]}`);
     });
 
-    it('', () => {
+    it('it should replace history with "/course/courseId/sequence.id" when  unitId = "first" and there are not unitIds', () => {
       unitId = 'first';
       sequence.unitIds = [];
 
@@ -345,7 +331,7 @@ describe('Utils library', () => {
       expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}`);
     });
 
-    it('', () => {
+    it('it should replace history with "/course/courseId/sequence.id/sequence.unitIds[0]" when unitId = "last" there are unitIds', () => {
       unitId = 'last';
 
       checkSequenceUnitMarkerToSequenceUnitRedirect(
@@ -358,7 +344,7 @@ describe('Utils library', () => {
       expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}/${sequence.unitIds[1]}`);
     });
 
-    it('', () => {
+    it('it should replace history with "/course/courseId/sequence.id" when unitId = "last" and there are not unitIds', () => {
       unitId = 'last';
       sequence.unitIds = [];
 
