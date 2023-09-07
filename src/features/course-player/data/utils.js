@@ -9,7 +9,7 @@ import {
 export const checkResumeRedirect = memoize((courseStatus, courseId, sequenceId, firstSequenceId) => {
   if (courseStatus === 'loaded' && !sequenceId) {
     // Note that getResumeBlock is just an API call, not a redux thunk.
-    getResumeBlock(courseId).then((data) => {
+    return getResumeBlock(courseId).then((data) => {
       // This is a replace because we don't want this change saved in the browser's history.
       if (data.sectionId && data.unitId) {
         history.replace(`/course/${courseId}/${data.sectionId}/${data.unitId}`);
@@ -18,6 +18,7 @@ export const checkResumeRedirect = memoize((courseStatus, courseId, sequenceId, 
       }
     });
   }
+  return null;
 });
 
 // Look at where this is called in CoursePlayer for more info about its usage
@@ -55,7 +56,7 @@ export const checkUnitToSequenceUnitRedirect = memoize((
       // If the sequence failed to load as a sequence, but it is marked as a possible unit, then we need to look up the
       // correct parent sequence for it, and redirect there.
       const unitId = sequenceId; // just for clarity during the rest of this method
-      getSequenceForUnitDeprecated(courseId, unitId).then(
+      return getSequenceForUnitDeprecated(courseId, unitId).then(
         parentId => {
           if (parentId) {
             history.replace(`/course/${courseId}/${parentId}/${unitId}`);
@@ -67,11 +68,11 @@ export const checkUnitToSequenceUnitRedirect = memoize((
           history.replace(`/course/${courseId}`);
         },
       );
-    } else {
-      // Invalid sequence that isn't a unit either. Redirect up to main course.
-      history.replace(`/course/${courseId}`);
     }
+    // Invalid sequence that isn't a unit either. Redirect up to main course.
+    history.replace(`/course/${courseId}`);
   }
+  return null;
 });
 
 // Look at where this is called in CoursePlayer for more info about its usage
