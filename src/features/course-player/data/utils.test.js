@@ -7,8 +7,8 @@ import {
   checkResumeRedirect,
   checkSectionToSequenceRedirect,
   checkSectionUnitToUnitRedirect,
-  // checkSequenceToSequenceUnitRedirect,
-  // checkSequenceUnitMarkerToSequenceUnitRedirect,
+  checkSequenceToSequenceUnitRedirect,
+  checkSequenceUnitMarkerToSequenceUnitRedirect,
   checkUnitToSequenceUnitRedirect,
 } from './utils';
 
@@ -17,7 +17,7 @@ jest.mock('@edx/frontend-app-learning', () => ({
   getSequenceForUnitDeprecated: jest.fn(),
 }));
 
-fdescribe('Utils library', () => {
+describe('Utils library', () => {
   beforeEach(() => {
     history.replace = jest.fn();
   });
@@ -123,6 +123,21 @@ fdescribe('Utils library', () => {
 
       expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
     });
+
+    it('', () => {
+      unitId = null;
+      section.sequenceIds.push(1);
+
+      checkSectionToSequenceRedirect(
+        courseStatus,
+        courseId,
+        sequenceStatus,
+        section,
+        unitId,
+      );
+
+      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${section.sequenceIds[0]}`);
+    });
   });
 
   describe('checkUnitToSequenceUnitRedirect', () => {
@@ -186,54 +201,104 @@ fdescribe('Utils library', () => {
         expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${parentId}/${unitId}`);
       });
     });
+
+    it('', () => {
+      section = null;
+      routeUnitId = null;
+      parentId = null;
+      getSequenceForUnitDeprecated.mockResolvedValueOnce(parentId);
+
+      checkUnitToSequenceUnitRedirect(
+        courseStatus,
+        courseId,
+        sequenceStatus,
+        sequenceMightBeUnit,
+        sequenceId,
+        section,
+        routeUnitId,
+      ).then(() => {
+        expect(getSequenceForUnitDeprecated).toHaveBeenCalled();
+        expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
+      });
+    });
+
+    it('', () => {
+      section = null;
+      routeUnitId = null;
+      getSequenceForUnitDeprecated.mockRejectedValueOnce(new Error('Async error message'));
+
+      checkUnitToSequenceUnitRedirect(
+        courseStatus,
+        courseId,
+        sequenceStatus,
+        sequenceMightBeUnit,
+        sequenceId,
+        section,
+        routeUnitId,
+      ).then(() => {
+        expect(getSequenceForUnitDeprecated).toHaveBeenCalled();
+        expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
+      });
+    });
   });
 
-  // describe('checkSequenceToSequenceUnitRedirect', () => {
-  //   it('', () => {
-  //     checkSequenceToSequenceUnitRedirect(
-  //       courseStatus,
-  //       courseId,
-  //       sequenceStatus,
-  //       sequenceMightBeUnit,
-  //       sequenceId,
-  //       section,
-  //       unitId,
-  //       routeUnitId,
-  //     );
+  describe('checkSequenceToSequenceUnitRedirect', () => {
+    let courseId;
+    let sequenceStatus;
+    let sequence;
+    let unitId;
 
-  //     expect(history.replace).toHaveBeenCalledWith('/course/courseId/unitId');
-  //   });
-  // });
+    beforeEach(() => {
+      courseId = Date.now();
+      sequenceStatus = 'loaded';
+      sequence = {
+        id: Date.now(),
+        unitIds: [Date.now()],
+        activeUnitIndex: 0,
+      };
+      unitId = null;
+    });
 
-  // describe('checkSequenceUnitMarkerToSequenceUnitRedirect', () => {
-  //   it('', () => {
-  //     checkSequenceUnitMarkerToSequenceUnitRedirect(
-  //       courseStatus,
-  //       courseId,
-  //       sequenceStatus,
-  //       sequenceMightBeUnit,
-  //       sequenceId,
-  //       section,
-  //       unitId,
-  //       routeUnitId,
-  //     );
+    it('', () => {
+      checkSequenceToSequenceUnitRedirect(
+        courseId,
+        sequenceStatus,
+        sequence,
+        unitId,
+      );
 
-  //     expect(history.replace).toHaveBeenCalledWith('/course/courseId/unitId');
-  //   });
-  // });
-  // describe('checkSequenceToSequenceUnitRedirect', () => {
-  //   it('', () => {
-  //     unitId = null;
+      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}/${sequence.unitIds[0]}`);
+    });
+  });
 
-  //     checkSequenceToSequenceUnitRedirect(
-  //       courseStatus,
-  //       courseId,
-  //       sequenceStatus,
-  //       section,
-  //       unitId,
-  //     );
+  describe('checkSequenceUnitMarkerToSequenceUnitRedirect', () => {
+    let courseId;
+    let sequenceStatus;
+    let sequence;
+    let unitId;
 
-  //     expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
-  //   });
-  // });
+    beforeEach(() => {
+      courseId = Date.now();
+      sequenceStatus = 'loaded';
+      sequence = {
+        id: Date.now(),
+        unitIds: [Date.now()],
+        activeUnitIndex: 0,
+      };
+      unitId = Date.now();
+    });
+    it('', () => {
+      sequenceStatus = 'failed';
+      sequence = null;
+
+      checkSequenceUnitMarkerToSequenceUnitRedirect(
+        courseId,
+        sequenceStatus,
+        sequence,
+        unitId,
+      );
+
+      expect(history.replace).not.toHaveBeenCalled();
+    });
+  });
 });
