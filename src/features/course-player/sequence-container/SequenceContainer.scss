@@ -274,6 +274,7 @@
 
 .sequence-container {
   margin-bottom: 0px;
+  width: 100%;
 }
 
 .unit {
@@ -291,6 +292,7 @@
   // Disable bookmark button
   button.pgn__stateful-btn {
     display: none;
+    visibility: hidden;
   }
 }
 
@@ -318,7 +320,14 @@
   }
 }
 
-// Trying to target the copyright text...
-div.text-right.small.py-1 > div.text-gray-500 {
+// Targeting the Copyright text inside CourseLicense component in Sequence
+.course-player-sequence-container > div > div.text-right.small.py-1 > div.text-gray-500 {
   font-size: 10px;
+  padding-right: 0.5rem;
+}
+
+// Targeting the SidebarTriggers component inside Sequence on sm screens
+.sequence > div.d-flex.ml-auto {
+  display: none !important;
+  visibility: hidden !important;
 }
