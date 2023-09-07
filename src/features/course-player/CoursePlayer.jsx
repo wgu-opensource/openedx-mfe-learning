@@ -34,8 +34,6 @@ const CoursePlayer = (props) => {
     previousSequence,
     sequenceStatus,
     sequence,
-    fetchCourse,
-    fetchSequence,
     saveSequencePosition,
     courseStatus,
     firstSequenceId,
@@ -62,14 +60,14 @@ const CoursePlayer = (props) => {
   }, [courseId, routeUnitId, saveSequencePosition, saveUnitPosition, sequenceId, sequenceStatus, unitIds]);
 
   // checkFetchCourse
-  useEffect(() => {
-    fetchCourse(routeCourseId);
-  }, [fetchCourse, routeCourseId]);
+  // useEffect(() => {
+  //   fetchCourse(routeCourseId);
+  // }, [fetchCourse, routeCourseId]);
 
   // checkFetchSequence
-  useEffect(() => {
-    fetchSequence(routeSequenceId);
-  }, [fetchSequence, routeSequenceId]);
+  // useEffect(() => {
+  //   fetchSequence(routeSequenceId);
+  // }, [fetchSequence, routeSequenceId]);
 
   useEffect(() => {
     // Coerce the route ids into null here because they can be undefined, but the redux ids would be null instead.
@@ -168,7 +166,7 @@ const CoursePlayer = (props) => {
   return (
     <div className="course-player-main-content">
       {/* Avoud crashes with invalid course or sequence states */}
-      {!(courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null)) && (
+      {/* {!(courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null)) && ( */}
       <div className="course-player-sequence-container">
         <SequenceContainer
           courseId={routeCourseId}
@@ -179,7 +177,7 @@ const CoursePlayer = (props) => {
           previousSequenceHandler={handlePreviousSequenceClick}
         />
       </div>
-      )}
+      {/* )} */}
     </div>
   );
 };
@@ -223,8 +221,6 @@ CoursePlayer.propTypes = {
   sequence: sequenceShape,
   saveSequencePosition: PropTypes.func.isRequired,
   checkBlockCompletion: PropTypes.func.isRequired,
-  fetchCourse: PropTypes.func.isRequired,
-  fetchSequence: PropTypes.func.isRequired,
 };
 
 CoursePlayer.defaultProps = {
