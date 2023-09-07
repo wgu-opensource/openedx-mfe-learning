@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { history } from '@edx/frontend-platform';
+import { Helmet } from 'react-helmet';
+import { history, getConfig } from '@edx/frontend-platform';
 import {
   fetchCourse as fetchCourseAction,
   fetchSequence as fetchSequenceAction,
@@ -41,6 +42,7 @@ const CoursePlayer = (props) => {
     firstSequenceId,
     sectionViaSequenceId,
     sequenceMightBeUnit,
+    course,
     match: {
       params: {
         courseId: routeCourseId,
@@ -167,6 +169,9 @@ const CoursePlayer = (props) => {
 
   return (
     <div className="course-player-main-content">
+      <Helmet>
+        <title>{`${course?.title || 'Course'} | ${getConfig().SITE_NAME}`}</title>
+      </Helmet>
       {/* Avoud crashes with invalid course or sequence states */}
       {!(courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null)) && (
       <div className="course-player-sequence-container">
@@ -200,6 +205,7 @@ const courseShape = PropTypes.shape({
   celebrations: PropTypes.shape({
     firstSection: PropTypes.bool,
   }),
+  title: PropTypes.string,
 });
 
 CoursePlayer.propTypes = {
