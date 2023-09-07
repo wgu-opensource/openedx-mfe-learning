@@ -56,7 +56,7 @@ export const checkUnitToSequenceUnitRedirect = memoize((
       // If the sequence failed to load as a sequence, but it is marked as a possible unit, then we need to look up the
       // correct parent sequence for it, and redirect there.
       const unitId = sequenceId; // just for clarity during the rest of this method
-      getSequenceForUnitDeprecated(courseId, unitId).then(
+      return getSequenceForUnitDeprecated(courseId, unitId).then(
         parentId => {
           if (parentId) {
             history.replace(`/course/${courseId}/${parentId}/${unitId}`);
@@ -68,11 +68,11 @@ export const checkUnitToSequenceUnitRedirect = memoize((
           history.replace(`/course/${courseId}`);
         },
       );
-    } else {
-      // Invalid sequence that isn't a unit either. Redirect up to main course.
-      history.replace(`/course/${courseId}`);
     }
+    // Invalid sequence that isn't a unit either. Redirect up to main course.
+    history.replace(`/course/${courseId}`);
   }
+  return null;
 });
 
 // Look at where this is called in CoursePlayer for more info about its usage

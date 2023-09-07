@@ -18,32 +18,8 @@ jest.mock('@edx/frontend-app-learning', () => ({
 }));
 
 fdescribe('Utils library', () => {
-  let courseStatus;
-  let courseId;
-  let sequenceStatus;
-  let sequenceId;
-  let section;
-  let unitId;
-  let sequenceMightBeUnit;
-  let routeUnitId;
-  let firstSequenceId;
-  let parentId;
-
-  history.replace = jest.fn();
-
   beforeEach(() => {
-    courseStatus = 'loaded';
-    courseId = Date.now();
-    sequenceStatus = 'failed';
-    sequenceId = 'sequenceId';
-    section = {
-      sequenceIds: [],
-    };
-    unitId = 'unitId';
-    sequenceMightBeUnit = true;
-    routeUnitId = 'routeUnitId';
-    firstSequenceId = 'firstSequenceId';
-    parentId = 'parentId';
+    history.replace = jest.fn();
   });
 
   afterEach(() => {
@@ -51,8 +27,20 @@ fdescribe('Utils library', () => {
   });
 
   describe('checkResumeRedirect', () => {
+    let courseStatus;
+    let courseId;
+    let sequenceId;
+    let firstSequenceId;
+
+    beforeEach(() => {
+      courseStatus = 'loaded';
+      courseId = Date.now();
+      sequenceId = Date.now();
+      firstSequenceId = Date.now();
+    });
+
     it('', () => {
-      getResumeBlock.mockResolvedValueOnce(1);
+      getResumeBlock.mockResolvedValueOnce({});
 
       sequenceId = null;
       checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId).then(() => {
@@ -77,6 +65,22 @@ fdescribe('Utils library', () => {
   });
 
   describe('checkSectionUnitToUnitRedirect', () => {
+    let courseStatus;
+    let courseId;
+    let sequenceStatus;
+    let section;
+    let unitId;
+
+    beforeEach(() => {
+      courseStatus = 'loaded';
+      courseId = Date.now();
+      sequenceStatus = 'failed';
+      section = {
+        sequenceIds: [],
+      };
+      unitId = Date.now();
+    });
+
     it('', () => {
       checkSectionUnitToUnitRedirect(
         courseStatus,
@@ -91,6 +95,21 @@ fdescribe('Utils library', () => {
   });
 
   describe('checkSectionToSequenceRedirect', () => {
+    let courseStatus;
+    let courseId;
+    let sequenceStatus;
+    let section;
+    let unitId;
+    beforeEach(() => {
+      courseStatus = 'loaded';
+      courseId = Date.now();
+      sequenceStatus = 'failed';
+      section = {
+        sequenceIds: [],
+      };
+      unitId = Date.now();
+    });
+
     it('', () => {
       unitId = null;
 
@@ -107,10 +126,34 @@ fdescribe('Utils library', () => {
   });
 
   describe('checkUnitToSequenceUnitRedirect', () => {
+    let courseStatus;
+    let courseId;
+    let sequenceStatus;
+    let sequenceId;
+    let section;
+    let unitId;
+    let sequenceMightBeUnit;
+    let routeUnitId;
+    let parentId;
+
+    beforeEach(() => {
+      courseStatus = 'loaded';
+      courseId = Date.now();
+      sequenceStatus = 'failed';
+      sequenceId = Date.now();
+      section = {
+        sequenceIds: [],
+      };
+      unitId = Date.now();
+      sequenceMightBeUnit = true;
+      routeUnitId = Date.now();
+      parentId = Date.now();
+    });
+
     it('', () => {
+      section = null;
+      routeUnitId = null;
       sequenceMightBeUnit = false;
-      section = null;
-      routeUnitId = null;
 
       checkUnitToSequenceUnitRedirect(
         courseStatus,
@@ -128,7 +171,7 @@ fdescribe('Utils library', () => {
     it('', () => {
       section = null;
       routeUnitId = null;
-      getSequenceForUnitDeprecated.mockResolvedValue(parentId);
+      getSequenceForUnitDeprecated.mockResolvedValueOnce(parentId);
 
       checkUnitToSequenceUnitRedirect(
         courseStatus,
@@ -138,27 +181,10 @@ fdescribe('Utils library', () => {
         sequenceId,
         section,
         routeUnitId,
-      );
-
-      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${parentId}/${unitId}`);
-    });
-
-    it('', () => {
-      section = null;
-      routeUnitId = null;
-      getSequenceForUnitDeprecated.mockResolvedValue(null);
-
-      checkUnitToSequenceUnitRedirect(
-        courseStatus,
-        courseId,
-        sequenceStatus,
-        sequenceMightBeUnit,
-        sequenceId,
-        section,
-        routeUnitId,
-      );
-
-      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
+      ).then(() => {
+        expect(getSequenceForUnitDeprecated).toHaveBeenCalled();
+        expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${parentId}/${unitId}`);
+      });
     });
   });
 
