@@ -9,7 +9,7 @@ import {
 export const checkResumeRedirect = memoize((courseStatus, courseId, sequenceId, firstSequenceId) => {
   if (courseStatus === 'loaded' && !sequenceId) {
     // Note that getResumeBlock is just an API call, not a redux thunk.
-    getResumeBlock(courseId).then((data) => {
+    return getResumeBlock(courseId).then((data) => {
       // This is a replace because we don't want this change saved in the browser's history.
       if (data.sectionId && data.unitId) {
         history.replace(`/course/${courseId}/${data.sectionId}/${data.unitId}`);
@@ -18,6 +18,7 @@ export const checkResumeRedirect = memoize((courseStatus, courseId, sequenceId, 
       }
     });
   }
+  return null;
 });
 
 // Look at where this is called in CoursePlayer for more info about its usage
