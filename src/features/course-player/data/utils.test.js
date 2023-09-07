@@ -18,7 +18,10 @@ jest.mock('@edx/frontend-app-learning', () => ({
 }));
 
 describe('Utils library', () => {
+  let mockId = 0;
+
   beforeEach(() => {
+    mockId++;
     history.replace = jest.fn();
   });
 
@@ -34,9 +37,9 @@ describe('Utils library', () => {
 
     beforeEach(() => {
       courseStatus = 'loaded';
-      courseId = Date.now();
-      sequenceId = Date.now();
-      firstSequenceId = Date.now();
+      courseId = mockId;
+      sequenceId = mockId;
+      firstSequenceId = mockId;
     });
 
     it('', () => {
@@ -73,12 +76,12 @@ describe('Utils library', () => {
 
     beforeEach(() => {
       courseStatus = 'loaded';
-      courseId = Date.now();
+      courseId = mockId;
       sequenceStatus = 'failed';
       section = {
         sequenceIds: [],
       };
-      unitId = Date.now();
+      unitId = mockId;
     });
 
     it('', () => {
@@ -102,12 +105,12 @@ describe('Utils library', () => {
     let unitId;
     beforeEach(() => {
       courseStatus = 'loaded';
-      courseId = Date.now();
+      courseId = mockId;
       sequenceStatus = 'failed';
       section = {
         sequenceIds: [],
       };
-      unitId = Date.now();
+      unitId = mockId;
     });
 
     it('', () => {
@@ -153,16 +156,16 @@ describe('Utils library', () => {
 
     beforeEach(() => {
       courseStatus = 'loaded';
-      courseId = Date.now();
+      courseId = mockId;
       sequenceStatus = 'failed';
-      sequenceId = Date.now();
+      sequenceId = mockId;
       section = {
         sequenceIds: [],
       };
-      unitId = Date.now();
+      unitId = mockId;
       sequenceMightBeUnit = true;
-      routeUnitId = Date.now();
-      parentId = Date.now();
+      routeUnitId = mockId;
+      parentId = mockId;
     });
 
     it('', () => {
@@ -249,11 +252,11 @@ describe('Utils library', () => {
     let unitId;
 
     beforeEach(() => {
-      courseId = Date.now();
+      courseId = mockId;
       sequenceStatus = 'loaded';
       sequence = {
-        id: Date.now(),
-        unitIds: [Date.now()],
+        id: mockId,
+        unitIds: [mockId],
         activeUnitIndex: 0,
       };
       unitId = null;
@@ -278,15 +281,16 @@ describe('Utils library', () => {
     let unitId;
 
     beforeEach(() => {
-      courseId = Date.now();
+      courseId = mockId;
       sequenceStatus = 'loaded';
       sequence = {
-        id: Date.now(),
-        unitIds: [Date.now()],
+        id: mockId,
+        unitIds: [mockId, mockId],
         activeUnitIndex: 0,
       };
-      unitId = Date.now();
+      unitId = mockId;
     });
+
     it('', () => {
       sequenceStatus = 'failed';
       sequence = null;
@@ -299,6 +303,73 @@ describe('Utils library', () => {
       );
 
       expect(history.replace).not.toHaveBeenCalled();
+    });
+
+    it('', () => {
+      unitId = 'second';
+
+      checkSequenceUnitMarkerToSequenceUnitRedirect(
+        courseId,
+        sequenceStatus,
+        sequence,
+        unitId,
+      );
+
+      expect(history.replace).not.toHaveBeenCalled();
+    });
+
+    it('', () => {
+      unitId = 'first';
+
+      checkSequenceUnitMarkerToSequenceUnitRedirect(
+        courseId,
+        sequenceStatus,
+        sequence,
+        unitId,
+      );
+
+      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}/${sequence.unitIds[0]}`);
+    });
+
+    it('', () => {
+      unitId = 'first';
+      sequence.unitIds = [];
+
+      checkSequenceUnitMarkerToSequenceUnitRedirect(
+        courseId,
+        sequenceStatus,
+        sequence,
+        unitId,
+      );
+
+      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}`);
+    });
+
+    it('', () => {
+      unitId = 'last';
+
+      checkSequenceUnitMarkerToSequenceUnitRedirect(
+        courseId,
+        sequenceStatus,
+        sequence,
+        unitId,
+      );
+
+      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}/${sequence.unitIds[1]}`);
+    });
+
+    it('', () => {
+      unitId = 'last';
+      sequence.unitIds = [];
+
+      checkSequenceUnitMarkerToSequenceUnitRedirect(
+        courseId,
+        sequenceStatus,
+        sequence,
+        unitId,
+      );
+
+      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}`);
     });
   });
 });
