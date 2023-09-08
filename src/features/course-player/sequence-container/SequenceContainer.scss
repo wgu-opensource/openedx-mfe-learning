@@ -294,16 +294,11 @@
 
 // Customize bottom navigation buttons
 .unit-navigation {
-  display: flex;
-  justify-content: space-between;
-
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-
   // Previous button
   // Should match <Button variant="tertiary">
   .previous-button {
+    width: 144px;
+
     background-color: $white;
     border-color: $primary-500;
     color: $primary-500;
@@ -328,7 +323,7 @@
   // Next button
   // Should match <Button variant="primary">
   .next-button {
-    width: 100%;
+    width: 144px;
 
     background-color: $brand-500;
     border-color: $brand-500;
