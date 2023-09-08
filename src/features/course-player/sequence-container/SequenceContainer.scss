@@ -283,10 +283,6 @@
     font-weight: 600;
     font-size: 40px;
     color: #404048;
-
-    // Horizontal line below title
-    padding-bottom: 24px;
-    border-bottom: 3px solid #003057;
   }
 
   // Disable bookmark button
@@ -301,27 +297,66 @@
   display: flex;
   justify-content: space-between;
 
-  .previous-button,
-  .next-button {
-    white-space: nowrap;
-    border-radius: 24px;
-    text-transform: uppercase;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 4px, 16px, 4px, 16px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 
-    .svg-inline--fa {
-      display: none;
+  // Previous button
+  // Should match <Button variant="tertiary">
+  .previous-button {
+    background-color: $white;
+    border-color: $primary-500;
+    color: $primary-500;
+
+    &:not(:disabled):not(.disabled) {
+      &:hover,
+      &.hover {
+        background-color: $brand-200;
+        border-color: $primary-500;
+        color: $primary-500;
+      }
     }
 
-    &:focus:before {
-      border-radius: 24px;
+    &:disabled,
+    &.disabled {
+      background-color: $gray-100;
+      border-color: $gray-100;
+      color: $gray-500;
+    }
+  }
+
+  // Next button
+  // Should match <Button variant="primary">
+  .next-button {
+    width: 100%;
+
+    background-color: $brand-500;
+    border-color: $brand-500;
+    color: $primary-500;
+
+    &:not(:disabled):not(.disabled) {
+      &:hover,
+      &.hover {
+        background-color: $brand-600;
+        border-color: $brand-600;
+        color: $primary-500;
+      }
+    }
+
+    &:disabled,
+    &.disabled {
+      background-color: $gray-100;
+      border-color: $gray-100;
+      color: $gray-500;
     }
   }
 }
 
 // Targeting the Copyright text inside CourseLicense component in Sequence
-.course-player-sequence-container > div > div.text-right.small.py-1 > div.text-gray-500 {
+.course-player-sequence-container
+  > div
+  > div.text-right.small.py-1
+  > div.text-gray-500 {
   font-size: 10px;
   padding-right: 0.5rem;
 }
