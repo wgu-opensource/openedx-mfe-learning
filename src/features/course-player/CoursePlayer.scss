@@ -1,7 +1,7 @@
 .course-player-main-content {
   background-color: $body-background;
   padding: 1rem 2rem 3.25rem 2rem;
-  min-height: calc(100vh - $desktop-footer-height);
+  min-height: calc(100vh - $desktop-footer-height - $desktop-header-height);
   .course-player-sequence-container {
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
