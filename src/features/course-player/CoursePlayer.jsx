@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { history, getConfig } from '@edx/frontend-platform';
+import { history } from '@edx/frontend-platform';
+import { ensureConfig, getConfig } from '@edx/frontend-platform/config';
 import {
   fetchCourse as fetchCourseAction,
   fetchSequence as fetchSequenceAction,
@@ -9,6 +10,7 @@ import {
   saveSequencePosition as saveSequencePositionAction,
 } from '@edx/frontend-app-learning';
 import { useEffect } from 'react';
+import classNames from 'classnames';
 import SequenceContainer from './sequence-container/SequenceContainer';
 import {
   currentCourseSelector,
@@ -26,6 +28,10 @@ import {
   checkSequenceToSequenceUnitRedirect,
   checkSequenceUnitMarkerToSequenceUnitRedirect,
 } from './data/utils';
+
+ensureConfig([
+  'DISABLE_APP_HEADER',
+], 'CoursePlayer component');
 
 const CoursePlayer = (props) => {
   const {
@@ -51,6 +57,8 @@ const CoursePlayer = (props) => {
       },
     },
   } = props;
+
+  const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
 
   const saveUnitPosition = sequence?.saveUnitPosition;
   const unitIds = sequence?.unitIds;
@@ -168,7 +176,7 @@ const CoursePlayer = (props) => {
   };
 
   return (
-    <div className="course-player-main-content">
+    <div className={classNames('course-player-main-content', { 'disable-app-header': disableAppHeader })}>
       <Helmet>
         <title>{`${course?.title || 'Course'} | ${getConfig().SITE_NAME}`}</title>
       </Helmet>
