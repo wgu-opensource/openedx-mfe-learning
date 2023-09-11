@@ -67,6 +67,7 @@ initialize({
         TWITTER_HASHTAG: process.env.TWITTER_HASHTAG || null,
         TWITTER_URL: process.env.TWITTER_URL || null,
         LEGACY_THEME_NAME: process.env.LEGACY_THEME_NAME || null,
+        GOOGLE_ANALYTICS_4_ID: process.env.GOOGLE_ANALYTICS_4_ID,
       }, 'LearnerAppConfig');
     },
   },
