@@ -13,15 +13,15 @@ const statusIcons = {
 };
 
 const Section = ({
-  currentUnitId, sidebarItems = {}, id, title, status = 'pending', sequences = [], onOpenCollapse,
+  currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse,
 }) => (
   <div className="sidebar-item-container">
-    <button type="button" className="sidebar-item-header" onClick={() => onOpenCollapse(id, 'section')}>{sidebarItems[id] ? <CarrotIconDown className="carrot" /> : <CarrotIconRight className="carrot" />} {title} {statusIcons[status]}</button>
-    <div className={`sidebar-item-collapsable ${!sidebarItems[id] && 'collapsed'}`}>
+    <button type="button" className="sidebar-item-header" onClick={() => onOpenCollapse(id, 'section')}>{collapsibleMenuState[id] ? <CarrotIconDown className="carrot" /> : <CarrotIconRight className="carrot" />} {title} {statusIcons[status]}</button>
+    <div className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
       {sequences.map(sequence => (
         <Sequence
           key={sequence.id}
-          sidebarItems={sidebarItems}
+          collapsibleMenuState={collapsibleMenuState}
           status={sequence.status}
           currentUnitId={currentUnitId}
           id={sequence.id}
@@ -41,11 +41,11 @@ Section.propTypes = {
   sequences: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
-    sidebarItems: PropTypes.objectOf(PropTypes.bool),
+    collapsibleMenuState: PropTypes.objectOf(PropTypes.bool),
     title: PropTypes.string.isRequired,
   })).isRequired,
   onOpenCollapse: PropTypes.func.isRequired,
-  sidebarItems: PropTypes.objectOf(PropTypes.bool).isRequired,
+  collapsibleMenuState: PropTypes.objectOf(PropTypes.bool).isRequired,
   currentUnitId: PropTypes.string.isRequired,
 };
 

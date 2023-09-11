@@ -13,11 +13,11 @@ const statusIcons = {
 };
 
 const Sequence = ({
-  id, title, status = 'pending', units = [], onOpenCollapse, sidebarItems = {}, currentUnitId,
+  id, title, status = 'pending', units = [], onOpenCollapse, collapsibleMenuState = {}, currentUnitId,
 }) => (
   <div className="sidebar-item-container">
-    <button type="button" className="sidebar-item-header sequence" onClick={() => onOpenCollapse(id, 'sequence')}>{units.length > 0 && (sidebarItems[id] ? <CarrotIconDown className="carrot" /> : <CarrotIconRight className="carrot" />)} {title} {statusIcons[status]}</button>
-    <div className={`sidebar-item-collapsable ${!sidebarItems[id] && 'collapsed'}`}>
+    <button type="button" className="sidebar-item-header sequence" onClick={() => onOpenCollapse(id, 'sequence')}>{units.length > 0 && (collapsibleMenuState[id] ? <CarrotIconDown className="carrot" /> : <CarrotIconRight className="carrot" />)} {title} {statusIcons[status]}</button>
+    <div className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
       {units.map(unit => (
         <Unit
           key={unit.id}
@@ -38,7 +38,7 @@ Sequence.propTypes = {
   status: PropTypes.string.isRequired,
   units: PropTypes.string.isRequired,
   onOpenCollapse: PropTypes.func.isRequired,
-  sidebarItems: PropTypes.objectOf(PropTypes.bool).isRequired,
+  collapsibleMenuState: PropTypes.objectOf(PropTypes.bool).isRequired,
   currentUnitId: PropTypes.string.isRequired,
 };
 
