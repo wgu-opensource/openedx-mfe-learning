@@ -25,10 +25,13 @@ subscribe(APP_READY, () => {
         <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
       </Helmet>
       <Helmet>
+        { getConfig().PENDO_URL
+        && (
         <script
           src={getConfig().PENDO_URL}
           async
         />
+        )}
       </Helmet>
       <Layout>
         <Switch>
