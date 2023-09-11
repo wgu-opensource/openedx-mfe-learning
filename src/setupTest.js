@@ -119,12 +119,6 @@ export function logUnhandledRequests(axiosMock) {
 let globalStore;
 
 export async function initializeTestStore(options = {}, overrideStore = true) {
-  // Always fill courseHomeMetadata as an empty object in options
-  // As we are not using that slice, but is needed for some mocking
-  // functions imported from frontend-app-learning
-  // eslint-disable-next-line no-param-reassign
-  options.courseHomeMetadata = {};
-
   const store = configureStore({
     reducer: {
       models: modelsReducer,
@@ -140,7 +134,7 @@ export async function initializeTestStore(options = {}, overrideStore = true) {
   axiosMock.reset();
 
   const {
-    courseBlocks, sequenceBlocks, courseMetadata, sequenceMetadata,
+    courseBlocks, sequenceBlocks, courseMetadata, sequenceMetadata, courseHomeMetadata,
   } = buildSimpleCourseAndSequenceMetadata(options);
 
   let courseMetadataUrl = `${getConfig().LMS_BASE_URL}/api/courseware/course/${courseMetadata.id}`;
@@ -152,7 +146,7 @@ export async function initializeTestStore(options = {}, overrideStore = true) {
   courseHomeMetadataUrl = appendBrowserTimezoneToUrl(courseHomeMetadataUrl);
 
   axiosMock.onGet(courseMetadataUrl).reply(200, courseMetadata);
-  axiosMock.onGet(courseHomeMetadataUrl).reply(200, { }); // Empty response as we are not using this
+  axiosMock.onGet(courseHomeMetadataUrl).reply(200, courseHomeMetadata);
   axiosMock.onGet(learningSequencesUrlRegExp).reply(200, buildOutlineFromBlocks(courseBlocks));
   axiosMock.onGet(discussionConfigUrl).reply(200, { provider: 'legacy' });
   sequenceMetadata.forEach(metadata => {
