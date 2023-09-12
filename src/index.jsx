@@ -29,7 +29,7 @@ subscribe(APP_READY, () => {
       <Helmet>
         <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
         { enablePendo && (
-        <script src="" type="text/javascript" />
+        <script src={getConfig().PENDO_SNIPPET} type="text/javascript" />
         )}
       </Helmet>
       <Layout>
