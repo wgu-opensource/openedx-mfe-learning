@@ -9,6 +9,10 @@
     box-shadow: 0rem 0.25rem 0.5rem 0rem $shadow-color;
   }
 
+  &.disable-app-header {
+    min-height: calc(100vh - $desktop-footer-height);
+  }
+
   @media (max-width: map-get($grid-breakpoints, "md")) {
     padding: 0rem;
     // Makes sure footer is always at least at the bottom of the screen:
@@ -18,5 +22,11 @@
       border-radius: 0rem;
       box-shadow: none;
     }
+
+    &.disable-app-header {
+      min-height: calc(100vh - $mobile-footer-height);
+    }
   }
+
+  
 }

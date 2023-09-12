@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchCourse, fetchSequence } from '@edx/frontend-app-learning';
+import { ensureConfig, getConfig } from '@edx/frontend-platform';
 import CoursePlayer from '../course-player/CoursePlayer';
 import {
   isDesktopSidebarExtendedSelector, isMobileSidebarOpenSelector,
@@ -11,7 +12,13 @@ import {
 import { sequenceIdsSelector } from '../course-player/data/selectors';
 import Sidebar from '../../components/Sidebar/Sidebar';
 
+ensureConfig([
+  'DISABLE_APP_HEADER',
+], 'CourseView component');
+
 const CourseView = (props) => {
+  const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
+
   const isSidebarExtended = useSelector(isDesktopSidebarExtendedSelector);
   const isMobileSidebarClosed = !useSelector(isMobileSidebarOpenSelector);
   const sequenceIds = useSelector(sequenceIdsSelector);
@@ -49,6 +56,7 @@ const CourseView = (props) => {
         'cv-course-sidebar',
         { 'cv-course-sidebar-extended': isSidebarExtended },
         { 'cv-course-sidebar-mobile-closed': isMobileSidebarClosed },
+        { 'disable-app-header': disableAppHeader },
       )}
       >
         <Sidebar currentUnitId={routeUnitId} courseId={routeCourseId} />

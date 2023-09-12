@@ -2,11 +2,12 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {
   APP_INIT_ERROR, APP_READY, subscribe, initialize,
-  mergeConfig,
+  mergeConfig, getConfig,
 } from '@edx/frontend-platform';
 import { AppProvider, ErrorPage, PageRoute } from '@edx/frontend-platform/react';
 import ReactDOM from 'react-dom';
 import { Switch } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import messages from './i18n';
 import './index.scss';
 import initializeStore from './app/store';
@@ -15,8 +16,10 @@ import Layout from './features/layout/Layout';
 
 subscribe(APP_READY, () => {
   ReactDOM.render(
-
     <AppProvider store={initializeStore()}>
+      <Helmet>
+        <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
+      </Helmet>
       <Layout>
         <Switch>
           <PageRoute
@@ -64,6 +67,7 @@ initialize({
         TWITTER_HASHTAG: process.env.TWITTER_HASHTAG || null,
         TWITTER_URL: process.env.TWITTER_URL || null,
         LEGACY_THEME_NAME: process.env.LEGACY_THEME_NAME || null,
+        DISABLE_APP_HEADER: process.env.DISABLE_APP_HEADER === 'true' || null,
       }, 'LearnerAppConfig');
     },
   },

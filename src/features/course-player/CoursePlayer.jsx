@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { history } from '@edx/frontend-platform';
+import { ensureConfig, getConfig } from '@edx/frontend-platform/config';
 import {
   fetchCourse as fetchCourseAction,
   fetchSequence as fetchSequenceAction,
@@ -8,6 +10,7 @@ import {
   saveSequencePosition as saveSequencePositionAction,
 } from '@edx/frontend-app-learning';
 import { useEffect } from 'react';
+import classNames from 'classnames';
 import SequenceContainer from './sequence-container/SequenceContainer';
 import {
   currentCourseSelector,
@@ -26,6 +29,10 @@ import {
   checkSequenceUnitMarkerToSequenceUnitRedirect,
 } from './data/utils';
 
+ensureConfig([
+  'DISABLE_APP_HEADER',
+], 'CoursePlayer component');
+
 const CoursePlayer = (props) => {
   const {
     courseId,
@@ -39,6 +46,7 @@ const CoursePlayer = (props) => {
     firstSequenceId,
     sectionViaSequenceId,
     sequenceMightBeUnit,
+    course,
     match: {
       params: {
         courseId: routeCourseId,
@@ -47,6 +55,8 @@ const CoursePlayer = (props) => {
       },
     },
   } = props;
+
+  const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
 
   const saveUnitPosition = sequence?.saveUnitPosition;
   const unitIds = sequence?.unitIds;
@@ -164,7 +174,10 @@ const CoursePlayer = (props) => {
   };
 
   return (
-    <div className="course-player-main-content">
+    <div className={classNames('course-player-main-content', { 'disable-app-header': disableAppHeader })}>
+      <Helmet>
+        <title>{`${course?.title || 'Course'} | ${getConfig().SITE_NAME}`}</title>
+      </Helmet>
       {/* Avoud crashes with invalid course or sequence states */}
       {/* {!(courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null)) && ( */}
       <div className="course-player-sequence-container">
@@ -198,6 +211,7 @@ const courseShape = PropTypes.shape({
   celebrations: PropTypes.shape({
     firstSection: PropTypes.bool,
   }),
+  title: PropTypes.string,
 });
 
 CoursePlayer.propTypes = {
