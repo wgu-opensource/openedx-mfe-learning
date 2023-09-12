@@ -18,19 +18,18 @@ ensureConfig([
   'DISABLE_APP_HEADER',
 ], 'CoursePlayer component');
 
+ensureConfig([
+  'ENABLE_PENDO',
+], 'Pendo analytics');
+
 subscribe(APP_READY, () => {
+  const enablePendo = getConfig().ENABLE_PENDO === true;
   ReactDOM.render(
     <AppProvider store={initializeStore()}>
       <Helmet>
         <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
-      </Helmet>
-      <Helmet>
-        { getConfig().PENDO_URL
-        && (
-        <script
-          src={getConfig().PENDO_URL}
-          async
-        />
+        { enablePendo && (
+        <script src="" type="text/javascript" />
         )}
       </Helmet>
       <Layout>
@@ -68,7 +67,7 @@ initialize({
         ENTERPRISE_LEARNER_PORTAL_HOSTNAME: process.env.ENTERPRISE_LEARNER_PORTAL_HOSTNAME || null,
         ENABLE_JUMPNAV: process.env.ENABLE_JUMPNAV || null,
         ENABLE_NOTICES: process.env.ENABLE_NOTICES || null,
-        ENABLE_PENDO: process.env.ENABLE_PENDO || null,
+        ENABLE_PENDO: process.env.ENABLE_PENDO === 'true' || null,
         INSIGHTS_BASE_URL: process.env.INSIGHTS_BASE_URL || null,
         SEARCH_CATALOG_URL: process.env.SEARCH_CATALOG_URL || null,
         SOCIAL_UTM_MILESTONE_CAMPAIGN: process.env.SOCIAL_UTM_MILESTONE_CAMPAIGN || null,
