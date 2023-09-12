@@ -69,16 +69,6 @@ const CoursePlayer = (props) => {
     }
   }, [courseId, routeUnitId, saveSequencePosition, saveUnitPosition, sequenceId, sequenceStatus, unitIds]);
 
-  // checkFetchCourse
-  // useEffect(() => {
-  //   fetchCourse(routeCourseId);
-  // }, [fetchCourse, routeCourseId]);
-
-  // checkFetchSequence
-  // useEffect(() => {
-  //   fetchSequence(routeSequenceId);
-  // }, [fetchSequence, routeSequenceId]);
-
   useEffect(() => {
     // Coerce the route ids into null here because they can be undefined, but the redux ids would be null instead.
     if (courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null)) {

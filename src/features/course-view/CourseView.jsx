@@ -37,7 +37,6 @@ const CourseView = (props) => {
   }, [routeCourseId, dispatch]);
 
   useEffect(() => {
-    // Descomente una condicional en CoursePlayer que envolvia a Sequence
     if (sequenceIds.length > 0) {
       sequenceIds.forEach(sequenceId => dispatch(fetchSequence(sequenceId)));
     }
