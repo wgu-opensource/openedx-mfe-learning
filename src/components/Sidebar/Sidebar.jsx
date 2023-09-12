@@ -64,8 +64,8 @@ const Sidebar = ({ currentUnitId }) => {
     dispatch(initSectionSequenceUnitStates({ sidebarItemsDefault }));
   }, [sectionSequenceUnits]);
 
-  const handleOpenCollapse = (id, type) => {
-    dispatch(toggleOpenCollapseSidebarItem({ id, type }));
+  const handleOpenCollapse = (id) => {
+    dispatch(toggleOpenCollapseSidebarItem({ id }));
   };
 
   const handleCollapseAll = () => dispatch(collapseAllSidebarItems());
@@ -75,8 +75,8 @@ const Sidebar = ({ currentUnitId }) => {
   return (
     <div className="sidebar-container">
       <div className="sidebar-header">
-        <button type="button" onClick={handleCollapseAll}><CarrotIconRight /> ALL</button>
-        <button type="button" onClick={handleExpandAll}><CarrotIconDown /> ALL</button>
+        <button data-testid="collapse-all-button" type="button" onClick={handleCollapseAll}><CarrotIconRight /> ALL</button>
+        <button data-testid="expand-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown /> ALL</button>
         <CarrotIconLeft />
       </div>
       <div className="sidebar-content">

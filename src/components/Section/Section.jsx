@@ -16,8 +16,8 @@ const Section = ({
   currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse,
 }) => (
   <div className="sidebar-item-container">
-    <button type="button" className="sidebar-item-header" onClick={() => onOpenCollapse(id, 'section')}>{collapsibleMenuState[id] ? <CarrotIconDown className="carrot" /> : <CarrotIconRight className="carrot" />} {title} {statusIcons[status]}</button>
-    <div className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
+    <button data-testid={`section-button-${id}`} type="button" className="sidebar-item-header" onClick={() => onOpenCollapse(id)}>{collapsibleMenuState[id] ? <CarrotIconDown className="carrot" /> : <CarrotIconRight className="carrot" />} {title} {statusIcons[status]}</button>
+    <div data-testid={`section-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
       {sequences.map(sequence => (
         <Sequence
           key={sequence.id}

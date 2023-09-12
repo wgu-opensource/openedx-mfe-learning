@@ -16,8 +16,8 @@ const Sequence = ({
   id, title, status = 'pending', units = [], onOpenCollapse, collapsibleMenuState = {}, currentUnitId,
 }) => (
   <div className="sidebar-item-container">
-    <button type="button" className="sidebar-item-header sequence" onClick={() => onOpenCollapse(id, 'sequence')}>{units.length > 0 && (collapsibleMenuState[id] ? <CarrotIconDown className="carrot" /> : <CarrotIconRight className="carrot" />)} {title} {statusIcons[status]}</button>
-    <div className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
+    <button data-testid={`sequence-button-${id}`} type="button" className="sidebar-item-header sequence" onClick={() => onOpenCollapse(id, 'sequence')}>{units.length > 0 && (collapsibleMenuState[id] ? <CarrotIconDown className="carrot" /> : <CarrotIconRight className="carrot" />)} {title} {statusIcons[status]}</button>
+    <div data-testid={`sequence-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
       {units.map(unit => (
         <Unit
           key={unit.id}

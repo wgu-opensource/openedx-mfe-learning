@@ -24,7 +24,7 @@ import {
 import {
   sequenceMetadataFactory,
   learningSequencesOutlineFactory,
-// eslint-disable-next-line import/no-unresolved
+  // eslint-disable-next-line import/no-unresolved
 } from '@edx/frontend-app-learning/tests';
 
 import { readFileSync } from 'fs';
