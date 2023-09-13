@@ -67,7 +67,6 @@ initialize({
         ENABLE_JUMPNAV: process.env.ENABLE_JUMPNAV || null,
         ENABLE_NOTICES: process.env.ENABLE_NOTICES || null,
         ENABLE_PENDO: process.env.ENABLE_PENDO === 'true' || null,
-        GOOGLE_ANALYTICS_4_ID: process.env.GOOGLE_ANALYTICS_4_ID,
         INSIGHTS_BASE_URL: process.env.INSIGHTS_BASE_URL || null,
         PENDO_SNIPPET: process.env.PENDO_SNIPPET || null,
         PRIVACY_POLICY_URL: process.env.PRIVACY_POLICY_URL || null,
