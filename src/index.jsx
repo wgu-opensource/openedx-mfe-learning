@@ -2,7 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {
   APP_INIT_ERROR, APP_READY, subscribe, initialize,
-  mergeConfig, getConfig,
+  mergeConfig, getConfig, ensureConfig,
 } from '@edx/frontend-platform';
 import { AppProvider, ErrorPage, PageRoute } from '@edx/frontend-platform/react';
 import ReactDOM from 'react-dom';
@@ -14,11 +14,20 @@ import initializeStore from './app/store';
 import CourseView from './features/course-view/CourseView';
 import Layout from './features/layout/Layout';
 
+ensureConfig([
+  'DISABLE_APP_HEADER',
+  'ENABLE_PENDO',
+], 'CoursePlayer component');
+
 subscribe(APP_READY, () => {
+  const enablePendo = getConfig().ENABLE_PENDO === true;
   ReactDOM.render(
     <AppProvider store={initializeStore()}>
       <Helmet>
         <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
+        { enablePendo && (
+        <script src={getConfig().PENDO_SNIPPET} type="text/javascript" />
+        )}
       </Helmet>
       <Layout>
         <Switch>
@@ -55,6 +64,8 @@ initialize({
         ENTERPRISE_LEARNER_PORTAL_HOSTNAME: process.env.ENTERPRISE_LEARNER_PORTAL_HOSTNAME || null,
         ENABLE_JUMPNAV: process.env.ENABLE_JUMPNAV || null,
         ENABLE_NOTICES: process.env.ENABLE_NOTICES || null,
+        ENABLE_PENDO: process.env.ENABLE_PENDO === 'true' || null,
+        PENDO_SNIPPET: process.env.PENDO_SNIPPET || null,
         INSIGHTS_BASE_URL: process.env.INSIGHTS_BASE_URL || null,
         SEARCH_CATALOG_URL: process.env.SEARCH_CATALOG_URL || null,
         SOCIAL_UTM_MILESTONE_CAMPAIGN: process.env.SOCIAL_UTM_MILESTONE_CAMPAIGN || null,
