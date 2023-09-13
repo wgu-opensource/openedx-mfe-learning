@@ -36,9 +36,9 @@ const DesktopFooter = ({
       role="contentinfo"
       className="desktop-footer d-flex flex-column px-4"
     >
-      <div className="align-items-center container-fluid d-flex">
+      <div className="align-items-center container-fluid d-flex justify-content-between container-top">
         <img
-          style={{ maxHeight: 30 }}
+          style={{ maxHeight: 24 }}
           src={logo || config.LOGO_TRADEMARK_URL}
           alt={logoAltText}
         />
@@ -53,35 +53,39 @@ const DesktopFooter = ({
           ADA Accommodation
         </a>
       </div>
-      <div className="container-fluid d-flex">
-        <span className="copyright">
-          {COPY_SYMBOL}
-          {' '}
-          {copyRight}
-        </span>
-        <a
-          className="d-block info-link"
-          href={privacyPolicyUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Opens in new tab"
-          onClick={externalLinkClickHandler}
-        >
-          Privacy Policy
-        </a>
-        <span className="link-divider">
-          |
-        </span>
-        <a
-          className="d-block info-link"
-          href={tosUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Opens in new tab"
-          onClick={externalLinkClickHandler}
-        >
-          Terms of Service
-        </a>
+      <div className="d-flex justify-content-between container-bottom">
+        <div className="container-fluid d-flex">
+          <span>
+            {COPY_SYMBOL}
+            {' '}
+            {copyRight}
+          </span>
+        </div>
+        <div className="container-fluid d-flex flex-row-reverse">
+          <a
+            className="d-block info-link"
+            href={privacyPolicyUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Opens in new tab"
+            onClick={externalLinkClickHandler}
+          >
+            Privacy Policy
+          </a>
+          <span className="link-divider">
+            |
+          </span>
+          <a
+            className="d-block info-link"
+            href={tosUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Opens in new tab"
+            onClick={externalLinkClickHandler}
+          >
+            Terms of Service
+          </a>
+        </div>
       </div>
     </footer>
   );

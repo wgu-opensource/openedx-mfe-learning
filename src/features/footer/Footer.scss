@@ -2,15 +2,22 @@
   background-color: $primary-100;
   font-size: $h5-font-size;
   height: $desktop-footer-height;
-  padding-bottom: 5px;
-  padding-top: 5px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 
-  .branded-link {
-    margin-left: 120px;
+  .container-bottom{
+    padding-left: 24px;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  .container-top{
+    padding-left: 34px;
+    padding-right: 32px;
+    padding-bottom: 14px;
   }
 
   .d-flex {
-    padding-left: 64px;
     margin-top: 5px;
     margin-bottom: 5px;
   }
@@ -20,12 +27,16 @@
   background-color: $primary-100;
   font-size: $h6-mobile-font-size;
   height: $mobile-footer-height;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  .container-top{
+    padding-bottom: 30px;
+  }
 
   .d-flex {
-    margin-top: 4px;
-    margin-bottom: 4px;
+    margin-top: 1px;
+    margin-bottom: 1px;
   }
 
   .left-align {
