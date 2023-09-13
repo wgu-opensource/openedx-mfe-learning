@@ -19,7 +19,7 @@
 
 .desktop-header {
   .d-flex {
-    height: 104px;
+    height: $desktop-header-height;
   }
 
   .desktop-logo {
@@ -43,7 +43,7 @@
 
 .mobile-header {
   .d-flex {
-    height: 64px;
+    height: $mobile-header-height;
   }
 
   .mobile-logo {
@@ -101,7 +101,7 @@
   opacity: 0;
 }
 
-.menu-trigger{
+.menu-trigger {
   background-color: $primary-500;
   margin-right: 0.75rem;
   margin-left: 0.75rem;

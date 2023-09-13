@@ -3,12 +3,12 @@
 @import "@edx/paragon/scss/core/core.scss";
 @import "@edx/brand/paragon/overrides.scss";
 @import "variables.scss";
-@import "~@edx/frontend-component-footer/dist/footer";
 @import "features/layout/Layout.scss";
 @import "features/course-view/CourseView.scss";
 @import "features/course-player/CoursePlayer.scss";
 @import "features/course-player/sequence-container/SequenceContainer.scss";
 @import "features/header/Header.scss";
+@import "features/footer/Footer.scss";
 
 #root {
   display: flex;

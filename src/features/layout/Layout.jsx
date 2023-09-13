@@ -1,8 +1,8 @@
-import Footer from '@edx/frontend-component-footer';
 import classNames from 'classnames';
 import { ensureConfig, getConfig } from '@edx/frontend-platform/config';
 import PropTypes from 'prop-types';
 import Header from '../header/Header';
+import Footer from '../footer/Footer';
 
 ensureConfig([
   'DISABLE_APP_HEADER',
