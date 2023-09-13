@@ -13,7 +13,8 @@ ensureConfig([
   'LOGO_TRADEMARK_URL',
   'PRIVACY_POLICY_URL',
   'TERMS_OF_SERVICE_URL',
-  'COPY_RIGHT_STRING',
+  'COPYRIGHT_STRING',
+  'SITE_NAME',
 ], 'Footer component');
 
 const Footer = () => {
