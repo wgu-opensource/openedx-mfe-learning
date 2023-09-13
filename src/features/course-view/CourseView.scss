@@ -30,6 +30,10 @@ $minimized-sidebar-width: 36px;
   overflow-y: scroll;
   height: 100%;
   padding-right: 32px;
+
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    padding-right: 0px;
+  }
 }
 
 .white-background {
@@ -49,6 +53,15 @@ $minimized-sidebar-width: 36px;
   justify-content: center;
   align-items: center;
 
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+    &> :last-child {
+      display: none;
+    }
+  }
+
   button {
     background: #FFFFFF;
     border-radius: 16px;
@@ -61,8 +74,14 @@ $minimized-sidebar-width: 36px;
 
     &:last-of-type {
       margin-right: 40px;
+
+      @media (max-width: map-get($grid-breakpoints, "md")) {
+        margin-right: 0px;
+      }
     }
   }
+
+
 }
 
 .cv-course-sidebar-mobile-closed {
@@ -120,6 +139,7 @@ button.sidebar-item-container {
   background: none;
   border: 0;
   width: 100%;
+  text-align: left;
 }
 
 .sidebar-item-header.sequence {
@@ -138,6 +158,12 @@ button.sidebar-item-container {
   border-top-right-radius: 100px;
   border-bottom-right-radius: 100px;
   color: #FFFFFF;
+
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    width: 100%;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
 }
 
 .sidebar-item-header> :last-child {
