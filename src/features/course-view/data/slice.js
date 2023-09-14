@@ -6,7 +6,6 @@ const slice = createSlice({
   initialState: {
     isMobileSidebarOpen: false,
     isDesktopSidebarExtended: true,
-    sidebarItems: {},
   },
   reducers: {
     toggleMobileSidebar: (state) => {
@@ -27,26 +26,6 @@ const slice = createSlice({
     closeDesktopSidebar: (state) => {
       state.isDesktopSidebarExtended = false;
     },
-    initSectionSequenceUnitStates: (state, { payload }) => {
-      state.sidebarItems = payload.sidebarItemsDefault;
-    },
-    toggleOpenCollapseSidebarItem: (state, { payload: { id } }) => {
-      state.sidebarItems[id] = Boolean(!state.sidebarItems[id]);
-    },
-    collapseAllSidebarItems: (state => {
-      const sidebarItemKeys = Object.keys(state.sidebarItems);
-      for (let index = 0; index < sidebarItemKeys.length; index++) {
-        const key = sidebarItemKeys[index];
-        state.sidebarItems[key] = false;
-      }
-    }),
-    expandAllSidebarItems: state => {
-      const sidebarItemKeys = Object.keys(state.sidebarItems);
-      for (let index = 0; index < sidebarItemKeys.length; index++) {
-        const key = sidebarItemKeys[index];
-        state.sidebarItems[key] = true;
-      }
-    },
   },
 });
 
@@ -57,10 +36,6 @@ export const {
   toggleDesktopSidebar,
   openDesktopSidebarr,
   closeDesktopSidebar,
-  initSectionSequenceUnitStates,
-  toggleOpenCollapseSidebarItem,
-  collapseAllSidebarItems,
-  expandAllSidebarItems,
 } = slice.actions;
 
 export const {

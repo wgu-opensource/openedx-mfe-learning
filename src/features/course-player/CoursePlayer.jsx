@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet';
 import { history } from '@edx/frontend-platform';
 import { ensureConfig, getConfig } from '@edx/frontend-platform/config';
 import {
-  fetchCourse as fetchCourseAction,
   fetchSequence as fetchSequenceAction,
   checkBlockCompletion,
   saveSequencePosition as saveSequencePositionAction,
@@ -84,6 +83,7 @@ const CoursePlayer = (props) => {
     sectionViaSequenceId,
     sequenceMightBeUnit,
     course,
+    fetchSequence,
     match: {
       params: {
         courseId: routeCourseId,
@@ -108,6 +108,11 @@ const CoursePlayer = (props) => {
       saveSequencePosition(courseId, sequenceId, activeUnitIndex);
     }
   }, [courseId, routeUnitId, saveSequencePosition, saveUnitPosition, sequenceId, sequenceStatus, unitIds]);
+
+  // // checkFetchSequence
+  useEffect(() => {
+    fetchSequence(routeSequenceId);
+  }, [fetchSequence, routeSequenceId]);
 
   useEffect(() => {
     // Coerce the route ids into null here because they can be undefined, but the redux ids would be null instead.
@@ -209,7 +214,7 @@ const CoursePlayer = (props) => {
         <title>{`${course?.title || 'Course'} | ${getConfig().SITE_NAME}`}</title>
       </Helmet>
       {/* Avoud crashes with invalid course or sequence states */}
-      {/* {!(courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null)) && ( */}
+      {!(courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null)) && (
       <div className="course-player-sequence-container">
         <SequenceContainer
           courseId={routeCourseId}
@@ -220,7 +225,7 @@ const CoursePlayer = (props) => {
           previousSequenceHandler={handlePreviousSequenceClick}
         />
       </div>
-      {/* )} */}
+      )}
     </div>
   );
 };
@@ -265,6 +270,7 @@ CoursePlayer.propTypes = {
   sequence: sequenceShape,
   saveSequencePosition: PropTypes.func.isRequired,
   checkBlockCompletion: PropTypes.func.isRequired,
+  fetchSequence: PropTypes.func.isRequired,
 };
 
 CoursePlayer.defaultProps = {
@@ -305,6 +311,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   checkBlockCompletion,
   saveSequencePosition: saveSequencePositionAction,
-  fetchCourse: fetchCourseAction,
   fetchSequence: fetchSequenceAction,
 })(CoursePlayer);

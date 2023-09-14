@@ -28,6 +28,6 @@ export const sectionSequenceUnitsSelector = createSelector(
 );
 
 export const sidebarItemsSelector = createSelector(
-  state => state.courseView,
-  (courseView) => courseView.sidebarItems,
+  state => state.courseware,
+  (courseware) => courseware.collapsibleMenuState,
 );

@@ -1,11 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { sectionSequenceUnitsSelector, sidebarItemsSelector } from '../../features/course-view/data/selectors';
 import {
-  collapseAllSidebarItems, expandAllSidebarItems, initSectionSequenceUnitStates, toggleOpenCollapseSidebarItem,
-} from '../../features/course-view/data/slice';
+  collapseAllSidebarItems, expandAllSidebarItems, toggleOpenCollapseSidebarItem,
+} from '@edx/frontend-app-learning';
+import { sectionSequenceUnitsSelector, sidebarItemsSelector } from '../../features/course-view/data/selectors';
 import Section from '../Section/Section';
 import CarrotIconLeft from '../../assets/CarrotIconLeft';
 import CarrotIconRight from '../../assets/CarrotIconRight';
@@ -44,7 +43,6 @@ const Sidebar = ({ currentUnitId }) => {
   };
 
   useEffect(() => {
-    const sidebarItemsDefault = {};
     const updatedSectionSequenceUnits = sectionSequenceUnits.map(section => {
       const updatedSection = { ...section };
       updatedSection.status = getSectionStatus(section);
@@ -52,16 +50,13 @@ const Sidebar = ({ currentUnitId }) => {
       updatedSection.sequences = section.sequences.map(sequence => {
         const updatedSequence = { ...sequence };
         updatedSequence.status = getSequenceStatus(sequence);
-        sidebarItemsDefault[updatedSequence.id] = Boolean(collapsibleMenuState[updatedSequence.id]);
         return updatedSequence;
       });
 
-      sidebarItemsDefault[updatedSection.id] = Boolean(collapsibleMenuState[updatedSection.id]);
       return updatedSection;
     });
 
     setSectionSequenceUnitsWithCollapsible(updatedSectionSequenceUnits);
-    dispatch(initSectionSequenceUnitStates({ sidebarItemsDefault }));
   }, [sectionSequenceUnits]);
 
   const handleOpenCollapse = (id) => {

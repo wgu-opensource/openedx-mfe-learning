@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchCourse, fetchSequence } from '@edx/frontend-app-learning';
+import { fetchCourse, fetchUnits } from '@edx/frontend-app-learning';
 import { ensureConfig, getConfig } from '@edx/frontend-platform';
 import CoursePlayer from '../course-player/CoursePlayer';
 import {
@@ -38,7 +37,7 @@ const CourseView = (props) => {
 
   useEffect(() => {
     if (sequenceIds.length > 0) {
-      sequenceIds.forEach(sequenceId => dispatch(fetchSequence(sequenceId)));
+      dispatch(fetchUnits(sequenceIds));
     }
   }, [sequenceIds, dispatch]);
 
