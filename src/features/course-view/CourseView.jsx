@@ -24,6 +24,7 @@ const CourseView = (props) => {
   const isMobileSidebarClosed = !useSelector(isMobileSidebarOpenSelector);
   const sequenceIds = useSelector(sequenceIdsSelector);
   const sectionSequenceIds = useSelector(sectionSequenceIdsSelector);
+
   const dispatch = useDispatch();
   const {
     match: {

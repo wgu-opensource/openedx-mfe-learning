@@ -31,6 +31,7 @@ import { readFileSync } from 'fs';
 import appMessages from './i18n';
 
 import { reducer as courseViewReducer } from './features/course-view/data';
+import { reducer as sidebarReducer } from './features/sidebar/data/slice';
 
 const buildSimpleCourseAndSequenceMetadata = sequenceMetadataFactory.default;
 const { buildOutlineFromBlocks } = learningSequencesOutlineFactory;
@@ -124,6 +125,7 @@ export async function initializeTestStore(options = {}, overrideStore = true) {
       models: modelsReducer,
       courseware: coursewareReducer,
       courseView: courseViewReducer,
+      sidebar: sidebarReducer,
     },
   });
   if (overrideStore) {

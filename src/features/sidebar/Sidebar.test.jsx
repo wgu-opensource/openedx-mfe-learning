@@ -1,7 +1,7 @@
 import React from 'react';
 import { configureStore } from '@reduxjs/toolkit';
 import { coursewareReducer, modelsReducer } from '@edx/frontend-app-learning';
-
+import { reducer as sidebarReducer } from './data/slice';
 import { reducer as courseViewReducer } from '../course-view/data';
 import Sidebar from './Sidebar';
 import {
@@ -17,6 +17,7 @@ describe('<Sidebar />', () => {
         models: modelsReducer,
         courseware: coursewareReducer,
         courseView: courseViewReducer,
+        sidebar: sidebarReducer,
       },
       preloadedState: sidebarMockStore,
     });
