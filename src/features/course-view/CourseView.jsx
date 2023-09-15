@@ -1,36 +1,53 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
-import { ensureConfig, getConfig } from '@edx/frontend-platform/config';
+import { useEffect } from 'react';
+import { fetchCourse } from '@edx/frontend-app-learning';
+import { ensureConfig, getConfig } from '@edx/frontend-platform';
 import CoursePlayer from '../course-player/CoursePlayer';
-import { toggleDesktopSidebar } from './data/slice';
-import { isDesktopSidebarExtendedSelector, isMobileSidebarOpenSelector } from './data/selectors';
+import {
+  isDesktopSidebarExtendedSelector, isMobileSidebarOpenSelector, sectionSequenceIdsSelector,
+} from './data/selectors';
+import { sequenceIdsSelector } from '../course-player/data/selectors';
+import Sidebar from '../sidebar/Sidebar';
+import fetchUnits from '../sidebar/data/thunks';
+import { updateCollapsibleMenuState } from '../sidebar/data/slice';
 
 ensureConfig([
   'DISABLE_APP_HEADER',
 ], 'CourseView component');
-
-// TODO: Remove DummySidebar in favor of real Sidebar
-const DummySidebar = () => {
-  const dispatch = useDispatch();
-
-  const toggle = () => {
-    dispatch(toggleDesktopSidebar());
-  };
-
-  return (
-    <>
-      <span>Sidebar</span>
-      <button type="button" onClick={toggle}>Toggle</button>
-    </>
-  );
-};
 
 const CourseView = (props) => {
   const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
 
   const isSidebarExtended = useSelector(isDesktopSidebarExtendedSelector);
   const isMobileSidebarClosed = !useSelector(isMobileSidebarOpenSelector);
+  const sequenceIds = useSelector(sequenceIdsSelector);
+  const sectionSequenceIds = useSelector(sectionSequenceIdsSelector);
+
+  const dispatch = useDispatch();
+  const {
+    match: {
+      params: {
+        unitId: routeUnitId,
+        courseId: routeCourseId,
+      },
+    },
+  } = props;
+
+  useEffect(() => {
+    dispatch(fetchCourse(routeCourseId));
+  }, [routeCourseId, dispatch]);
+
+  useEffect(() => {
+    if (sequenceIds.length > 0) {
+      dispatch(fetchUnits(sequenceIds));
+    }
+  }, [sequenceIds, dispatch]);
+
+  useEffect(() => {
+    dispatch(updateCollapsibleMenuState(sectionSequenceIds));
+  }, [dispatch, sectionSequenceIds]);
 
   return (
     <>
@@ -48,7 +65,7 @@ const CourseView = (props) => {
         { 'disable-app-header': disableAppHeader },
       )}
       >
-        <DummySidebar />
+        <Sidebar currentUnitId={routeUnitId} courseId={routeCourseId} />
       </div>
     </>
   );

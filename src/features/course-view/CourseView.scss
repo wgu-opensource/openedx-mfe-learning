@@ -2,14 +2,11 @@ $extended-sidebar-width: 457px;
 $minimized-sidebar-width: 36px;
 
 .cv-course-sidebar {
-  background-color: $white;
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
   width: $minimized-sidebar-width;
-  overflow-y: scroll;
-
   padding-top: $desktop-header-height;
   padding-bottom: $desktop-footer-height;
 
@@ -25,6 +22,68 @@ $minimized-sidebar-width: 36px;
   }
 }
 
+.sidebar-container {
+  height: 100%;
+}
+
+.sidebar-content {
+  overflow-y: scroll;
+  height: 100%;
+  padding-right: 32px;
+
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    padding-right: 0px;
+  }
+}
+
+.white-background {
+  background: white;
+  height: 100%;
+}
+
+.sidebar-header {
+  background-color: #E9F2F7;
+  padding: 16px;
+  padding-right: 24px;
+  display: flex;
+  gap: 8px;
+  border-top-right-radius: 32px;
+  border-bottom-right-radius: 32px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+    &> :last-child {
+      display: none;
+    }
+  }
+
+  button {
+    background: #FFFFFF;
+    border-radius: 16px;
+    font-size: 10px;
+    flex-grow: 1;
+    border: 0;
+    cursor: pointer;
+    padding: 6px;
+    font-weight: 700;
+
+    &:last-of-type {
+      margin-right: 40px;
+
+      @media (max-width: map-get($grid-breakpoints, "md")) {
+        margin-right: 0px;
+      }
+    }
+  }
+
+
+}
+
 .cv-course-sidebar-mobile-closed {
   @media (max-width: map-get($grid-breakpoints, "md")) {
     display: none;
@@ -33,6 +92,7 @@ $minimized-sidebar-width: 36px;
 
 .cv-course-sidebar-extended {
   width: $extended-sidebar-width;
+
   @media (max-width: map-get($grid-breakpoints, "md")) {
     width: 100%;
   }
@@ -40,6 +100,7 @@ $minimized-sidebar-width: 36px;
 
 .cv-course-content {
   padding-left: $minimized-sidebar-width;
+
   @media (max-width: map-get($grid-breakpoints, "md")) {
     padding-left: 0px;
   }
@@ -47,7 +108,75 @@ $minimized-sidebar-width: 36px;
 
 .cv-course-content-sidebar-extended {
   padding-left: $extended-sidebar-width;
+
   @media (max-width: map-get($grid-breakpoints, "md")) {
     padding-left: 0px;
   }
+}
+
+.carrot {
+  margin-right: 14px;
+  width: 24px;
+}
+
+.sidebar-item-container {
+  position: relative;
+  background-color: #ffffff;
+}
+
+button.sidebar-item-container {
+  background: none;
+  border: 0;
+  width: 100%;
+  padding: 0px;
+}
+
+.sidebar-item-header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  width: 100%;
+  text-align: left;
+}
+
+.sidebar-item-header.sequence {
+  background: #E9F2F7;
+  padding-left: 32px;
+}
+
+.sidebar-item-header.unit {
+  background: #D3E4EF;
+  padding-left: 84px;
+}
+
+.sidebar-item-header.current {
+  background: #337DA9;
+  width: calc(100% + 32px);
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  color: #FFFFFF;
+
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    width: 100%;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+}
+
+.sidebar-item-header> :last-child {
+  margin-left: auto;
+}
+
+
+.sidebar-item-collapsable {
+  max-height: 1500px;
+  transition: max-height 0.6s ease;
+}
+
+.sidebar-item-collapsable.collapsed {
+  max-height: 0;
+  overflow: hidden;
 }

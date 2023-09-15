@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet';
 import { history } from '@edx/frontend-platform';
 import { ensureConfig, getConfig } from '@edx/frontend-platform/config';
 import {
-  fetchCourse as fetchCourseAction,
   fetchSequence as fetchSequenceAction,
   checkBlockCompletion,
   saveSequencePosition as saveSequencePositionAction,
@@ -78,14 +77,13 @@ const CoursePlayer = (props) => {
     previousSequence,
     sequenceStatus,
     sequence,
-    fetchCourse,
-    fetchSequence,
     saveSequencePosition,
     courseStatus,
     firstSequenceId,
     sectionViaSequenceId,
     sequenceMightBeUnit,
     course,
+    fetchSequence,
     match: {
       params: {
         courseId: routeCourseId,
@@ -111,12 +109,7 @@ const CoursePlayer = (props) => {
     }
   }, [courseId, routeUnitId, saveSequencePosition, saveUnitPosition, sequenceId, sequenceStatus, unitIds]);
 
-  // checkFetchCourse
-  useEffect(() => {
-    fetchCourse(routeCourseId);
-  }, [fetchCourse, routeCourseId]);
-
-  // checkFetchSequence
+  // // checkFetchSequence
   useEffect(() => {
     fetchSequence(routeSequenceId);
   }, [fetchSequence, routeSequenceId]);
@@ -277,7 +270,6 @@ CoursePlayer.propTypes = {
   sequence: sequenceShape,
   saveSequencePosition: PropTypes.func.isRequired,
   checkBlockCompletion: PropTypes.func.isRequired,
-  fetchCourse: PropTypes.func.isRequired,
   fetchSequence: PropTypes.func.isRequired,
 };
 
@@ -319,6 +311,5 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   checkBlockCompletion,
   saveSequencePosition: saveSequencePositionAction,
-  fetchCourse: fetchCourseAction,
   fetchSequence: fetchSequenceAction,
 })(CoursePlayer);
