@@ -23,8 +23,11 @@ const Footer = () => {
     logoAltText: getConfig().SITE_NAME,
     adaUrl: getConfig().ADA_URL,
     copyRight: getConfig().COPYRIGHT_STRING,
-    tosUrl: getConfig().TERMS_OF_SERVICE_URL,
-    privacyPolicyUrl: getConfig().PRIVACY_POLICY_URL,
+    links: [
+      { label: 'Honor Code', url: getConfig().HONOR_CODE_URL },
+      { label: 'Terms of Service', url: getConfig().TERMS_OF_SERVICE_URL },
+      { label: 'Privacy Policy', url: getConfig().PRIVACY_POLICY_URL },
+    ],
   };
 
   return (

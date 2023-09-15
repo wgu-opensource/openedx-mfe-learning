@@ -8,9 +8,8 @@ const DesktopFooter = ({
   logo,
   logoAltText,
   adaUrl,
-  privacyPolicyUrl,
-  tosUrl,
   copyRight,
+  links,
 }) => {
   const { config } = useContext(AppContext);
 
@@ -62,29 +61,25 @@ const DesktopFooter = ({
           </span>
         </div>
         <div className="container-fluid d-flex flex-row-reverse">
-          <a
-            className="d-block info-link"
-            href={privacyPolicyUrl}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Opens in new tab"
-            onClick={externalLinkClickHandler}
-          >
-            Privacy Policy
-          </a>
-          <span className="link-divider">
-            |
-          </span>
-          <a
-            className="d-block info-link"
-            href={tosUrl}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Opens in new tab"
-            onClick={externalLinkClickHandler}
-          >
-            Terms of Service
-          </a>
+          {links.map((link, index) => (
+            <>
+              <a
+                className="d-block info-link"
+                href={link.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Opens in new tab"
+                onClick={externalLinkClickHandler}
+              >
+                {link.label}
+              </a>
+              {links.length !== (index + 1) && (
+              <span className="link-divider">
+                |
+              </span>
+              )}
+            </>
+          ))}
         </div>
       </div>
     </footer>
@@ -96,8 +91,10 @@ DesktopFooter.propTypes = {
   logoAltText: PropTypes.string,
   adaUrl: PropTypes.string,
   copyRight: PropTypes.string,
-  privacyPolicyUrl: PropTypes.string,
-  tosUrl: PropTypes.string,
+  links: PropTypes.arrayOf(PropTypes.objectOf({
+    label: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+  })),
 };
 
 DesktopFooter.defaultProps = {
@@ -105,8 +102,7 @@ DesktopFooter.defaultProps = {
   logoAltText: '',
   adaUrl: '',
   copyRight: '',
-  privacyPolicyUrl: '',
-  tosUrl: '',
+  links: [],
 };
 
 export default DesktopFooter;
