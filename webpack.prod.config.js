@@ -1,7 +1,7 @@
 const { createConfig } = require('@edx/frontend-build');
 const path = require('path');
 
-module.exports = createConfig('webpack-dev-server', {
+module.exports = createConfig('webpack-prod', {
   resolve: {
     /*
       Make sure webpack picks only one version for each dependency that also exists in frontend-app-learning.
@@ -17,4 +17,5 @@ module.exports = createConfig('webpack-dev-server', {
       redux: path.resolve('./node_modules/redux'),
     },
   },
+  ignoreWarnings: [/Failed to parse source map/],
 });
