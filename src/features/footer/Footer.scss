@@ -1,60 +1,36 @@
-.desktop-footer {
+.footer {
   background-color: $primary-100;
   font-size: $h5-font-size;
-  height: $desktop-footer-height;
-  padding-bottom: 10px;
-  padding-top: 10px;
 
-  .container-bottom{
-    padding-left: 24px;
-    padding-right: 10px;
-    white-space: nowrap;
+  .footer-section-container {
+    display: flex;
+    padding: 15px 40px;
+    justify-content: space-between;
+    gap: 8px;
+
+    .footer-links-container {
+      display: flex;
+      column-gap: 12px;
+      flex-wrap: wrap;
+    }
   }
 
-  .container-top{
-    padding-left: 34px;
-    padding-right: 32px;
-    padding-bottom: 14px;
+  .footer-bottom-container {
+    @media (max-width: map-get($grid-breakpoints, "md")) {
+      flex-direction: column;
+    }
   }
 
-  .d-flex {
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-}
-
-.mobile-footer {
-  background-color: $primary-100;
-  font-size: $h6-mobile-font-size;
-  height: $mobile-footer-height;
-  padding-top: 10px;
-  padding-bottom: 10px;
-
-  .container-top{
-    padding-bottom: 30px;
+  .branded-link {
+    color: $primary-500;
+    font-weight: $font-weight-bold;
   }
 
-  .d-flex {
-    margin-top: 1px;
-    margin-bottom: 1px;
+  .info-link {
+    font-weight: $font-weight-bold;
   }
 
-  .left-align {
-    padding-left: 0px;
+  .link-divider {
+    color: $info-500;
   }
-}
-
-.branded-link {
-  color: $primary-500;
-  font-weight: $font-weight-bold;
-}
-
-.info-link {
-  font-weight: $font-weight-bold;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.link-divider {
-  color: $info-500;
 }
