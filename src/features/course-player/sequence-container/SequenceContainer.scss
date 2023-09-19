@@ -109,7 +109,7 @@
       justify-content: flex-start;
       border-right: 0;
 
-      & + .btn {
+      &+.btn {
         border-top: 0;
       }
 
@@ -227,7 +227,7 @@
   // I don't like this.  We need to set a height of 100% on a div created by react-focus-on, a
   // package we use in our Modal.  That div has no class name or ID, so instead we're uniquely
   // identifying it by based on a unique attribute it has which its siblings don't share.
-  > div[data-focus-lock-disabled="false"] {
+  >div[data-focus-lock-disabled="false"] {
     height: 100%;
   }
 
@@ -249,11 +249,13 @@
   &.grades {
     overflow: hidden;
     max-height: 852px;
+
     @media screen and (min-width: 992px) {
       max-height: 920px;
     }
   }
 }
+
 // End styles from frontend-app-learning
 
 // Start custom styles
@@ -278,11 +280,12 @@
 }
 
 .unit {
+
   // Unit title
   h1.mb-0 {
     font-weight: 600;
     font-size: 40px;
-    color: #404048;
+    color: $primary-500
   }
 
   // Disable bookmark button
@@ -294,6 +297,7 @@
 
 // Customize bottom navigation buttons
 .unit-navigation {
+
   // Previous button
   // Should match <Button variant="tertiary">
   .previous-button {
@@ -305,6 +309,7 @@
     color: $primary-500;
 
     &:not(:disabled):not(.disabled) {
+
       &:hover,
       &.hover {
         background-color: $brand-200;
@@ -332,6 +337,7 @@
     color: $primary-500;
 
     &:not(:disabled):not(.disabled) {
+
       &:hover,
       &.hover {
         background-color: $brand-600;
@@ -350,16 +356,13 @@
 }
 
 // Targeting the Copyright text inside CourseLicense component in Sequence
-.course-player-sequence-container
-  > div
-  > div.text-right.small.py-1
-  > div.text-gray-500 {
+.course-player-sequence-container>div>div.text-right.small.py-1>div.text-gray-500 {
   font-size: 10px;
   padding-right: 0.5rem;
 }
 
 // Targeting the SidebarTriggers component inside Sequence on sm screens
-.sequence > div.d-flex.ml-auto {
+.sequence>div.d-flex.ml-auto {
   display: none !important;
   visibility: hidden !important;
 }

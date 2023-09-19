@@ -1,12 +1,16 @@
 .footer {
   background-color: $primary-100;
-  font-size: $h5-font-size;
+  font-size: $h6-font-size;
 
   .footer-section-container {
     display: flex;
     padding: 15px 40px;
     justify-content: space-between;
     gap: 8px;
+
+    img {
+      width: 84px;
+    }
 
     .footer-links-container {
       display: flex;
@@ -27,7 +31,9 @@
   }
 
   .info-link {
+    color: $info-500;
     font-weight: $font-weight-bold;
+    font-family: $font-family-sans-serif;
   }
 
   .link-divider {
