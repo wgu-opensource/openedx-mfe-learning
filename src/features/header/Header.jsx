@@ -1,32 +1,40 @@
 import React from 'react';
-import Responsive from 'react-responsive';
 import { getConfig } from '@edx/frontend-platform';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleMobileSidebar } from '../course-view/data/slice';
 
-// Local Components
-import DesktopHeader from './DesktopHeader';
-import MobileHeader from './MobileHeader';
 import { currentCourseHomeMetaSelector } from './data/selectors';
+import Logo from '../../assets/Logo';
+import MenuIcon from '../../assets/MenuIcon';
 
 const Header = () => {
   const course = useSelector(currentCourseHomeMetaSelector);
 
-  const props = {
-    logo: getConfig().LOGO_WHITE_URL,
-    logoAltText: getConfig().SITE_NAME,
-    courseTitle: course?.title,
-    courseNumber: course?.number,
+  const logo = getConfig().LOGO_WHITE_URL;
+  const logoAltText = getConfig().SITE_NAME;
+  const courseTitle = course?.title;
+  const courseNumber = course?.number;
+
+  const dispatch = useDispatch();
+
+  const toggleMenu = () => {
+    dispatch(toggleMobileSidebar());
   };
 
   return (
-    <>
-      <Responsive maxWidth={768}>
-        <MobileHeader {...props} />
-      </Responsive>
-      <Responsive minWidth={769}>
-        <DesktopHeader {...props} />
-      </Responsive>
-    </>
+    <header className="header">
+      <Logo
+        className="logo"
+        src={logo}
+        alt={logoAltText}
+      />
+      <span className="course-title">
+        {`${courseNumber} ${courseTitle}`}
+      </span>
+      <button className="menu-trigger" type="button" onClick={toggleMenu}>
+        <MenuIcon role="img" aria-hidden focusable="false" style={{ width: '1.5rem', height: '1.5rem' }} />
+      </button>
+    </header>
   );
 };
 

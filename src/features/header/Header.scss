@@ -1,59 +1,39 @@
-.desktop-header,
-.mobile-header {
+.header {
   background-color: $primary-500;
   color: $white;
   position: relative;
   z-index: 1000;
+  padding: 16px 110px;
+  display: flex;
+  align-items: center;
 
-  .course-title-lockup {
-    min-width: 0;
-
-    span {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      padding-bottom: 0.1rem;
-    }
-  }
-}
-
-.desktop-header {
-  .d-flex {
-    height: $desktop-header-height;
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 16px;
   }
 
-  .desktop-logo {
-    display: block;
-    box-sizing: content-box;
-    top: -0.05em;
-    height: 3rem;
-    padding: 1rem 0;
-    margin-right: 2rem;
-    margin-left: 2rem;
-    img {
-      height: 100%;
+  .menu-trigger {
+    display: none;
+
+    @media (max-width: map-get($grid-breakpoints, "md")) {
+      display: block;
     }
   }
 
   .course-title {
-    font-size: larger;
-    font-weight: 600;
-  }
-}
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 20px;
+    font-weight: 700;
+    color: #CCD4DB;
+    margin-left: 70px;
 
-.mobile-header {
-  .d-flex {
-    height: $mobile-header-height;
-  }
-
-  .mobile-logo {
-    height: 1.5rem;
-    margin-right: 0.75rem;
-    margin-left: 0.75rem;
-  }
-
-  .course-title {
-    font-weight: 600;
+    @media (max-width: map-get($grid-breakpoints, "md")) {
+      padding: 0px 24px;
+      margin-left: 0px;
+    }
   }
 }
 
@@ -67,9 +47,11 @@
   z-index: 10;
   background: $white;
   min-width: 10rem;
+
   &.pin-left {
     left: 0;
   }
+
   &.pin-right {
     right: 0;
   }
