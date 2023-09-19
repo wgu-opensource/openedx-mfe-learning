@@ -21,9 +21,10 @@ const Footer = () => {
   const adaUrl = getConfig().ADA_URL;
   const copyRight = getConfig().COPYRIGHT_STRING;
   const links = [
-    { label: 'Honor Code', url: getConfig().HONOR_CODE_URL },
     { label: 'Privacy Policy', url: getConfig().PRIVACY_POLICY_URL },
     { label: 'Terms of Service', url: getConfig().TERMS_OF_SERVICE_URL },
+    { label: 'Honor Code', url: getConfig().HONOR_CODE_URL },
+
   ];
   const logo = getConfig().LOGO_TRADEMARK_URL;
   const logoAltText = getConfig().SITE_NAME;
@@ -52,7 +53,6 @@ const Footer = () => {
     >
       <div className="footer-section-container">
         <img
-          style={{ maxHeight: 24 }}
           src={logo || config.LOGO_TRADEMARK_URL}
           alt={logoAltText}
         />
