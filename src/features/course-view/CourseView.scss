@@ -24,6 +24,8 @@ $minimized-sidebar-width: 36px;
 
 .sidebar-container {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar-content {
