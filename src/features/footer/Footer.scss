@@ -1,15 +1,17 @@
 .footer {
   background-color: $primary-100;
-  font-size: $h6-font-size;
+  font-size: 14px;
+  height: $desktop-footer-height;
 
   .footer-section-container {
     display: flex;
-    padding: 15px 40px;
+    padding: 8px 40px;
     justify-content: space-between;
+    align-items: center;
     gap: 8px;
 
     img {
-      width: 84px;
+      max-height: 24px;
     }
 
     .footer-links-container {
@@ -20,6 +22,8 @@
   }
 
   .footer-bottom-container {
+    padding-top: 0px;
+
     @media (max-width: map-get($grid-breakpoints, "md")) {
       flex-direction: column;
     }

@@ -6,6 +6,7 @@
   padding: 16px 110px;
   display: flex;
   align-items: center;
+  height: $desktop-header-height;
 
   @media (max-width: map-get($grid-breakpoints, "md")) {
     flex-direction: row-reverse;
@@ -22,7 +23,7 @@
   }
 
   .logo {
-    width: 82px;
+    max-height: 24px;
   }
 
   .course-title {
@@ -31,7 +32,7 @@
     text-overflow: ellipsis;
     font-size: 20px;
     font-weight: 700;
-    color: #CCD4DB;
+    color: $white;
     margin-left: 70px;
 
     @media (max-width: map-get($grid-breakpoints, "md")) {
