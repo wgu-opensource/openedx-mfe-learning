@@ -6,6 +6,7 @@
   padding: 16px 110px;
   display: flex;
   align-items: center;
+  height: $desktop-header-height;
 
   @media (max-width: map-get($grid-breakpoints, "md")) {
     flex-direction: row-reverse;

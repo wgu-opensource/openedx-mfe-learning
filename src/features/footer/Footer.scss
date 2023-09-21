@@ -1,6 +1,7 @@
 .footer {
   background-color: $primary-100;
   font-size: 14px;
+  height: $desktop-footer-height;
 
   .footer-section-container {
     display: flex;
