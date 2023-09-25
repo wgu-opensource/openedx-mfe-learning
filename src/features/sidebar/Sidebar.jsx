@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { sectionSequenceUnitsSelector } from '../course-view/data/selectors';
 import Section from '../../components/Section/Section';
 import CarrotIconLeft from '../../assets/CarrotIconLeft';
-import CarrotIconRight from '../../assets/CarrotIconRight';
 import CarrotIconDown from '../../assets/CarrotIcon';
 import { collapseAllSidebarItems, expandAllSidebarItems, toggleOpenCollapseSidebarItem } from './data/slice';
 import collapsibleMenuStateSelector from './data/selectors';
+import CarrotIconTop from '../../assets/CarrotIconTop';
 
-const Sidebar = ({ currentUnitId }) => {
+const Sidebar = ({ currentUnitId, sequenceId }) => {
   const dispatch = useDispatch();
   const sectionSequenceUnits = useSelector(sectionSequenceUnitsSelector);
   const collapsibleMenuState = useSelector(collapsibleMenuStateSelector);
@@ -28,8 +28,8 @@ const Sidebar = ({ currentUnitId }) => {
   return (
     <div className="sidebar-container">
       <div className="sidebar-header">
-        <button data-testid="collapse-all-button" type="button" onClick={handleCollapseAll}><CarrotIconRight /> ALL</button>
-        <button data-testid="expand-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown /> ALL</button>
+        <button data-testid="collapse-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown />Expand All</button>
+        <button data-testid="expand-all-button" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
         <CarrotIconLeft />
       </div>
       <div className="sidebar-content">
@@ -44,6 +44,7 @@ const Sidebar = ({ currentUnitId }) => {
               status={section.status}
               sequences={section.sequences}
               onOpenCollapse={handleOpenCollapse}
+              isActiveSection={section.sequences.some(sequence => sequence.id === sequenceId)}
             />
           ))}
         </div>
@@ -55,6 +56,7 @@ const Sidebar = ({ currentUnitId }) => {
 
 Sidebar.propTypes = {
   currentUnitId: PropTypes.string.isRequired,
+  sequenceId: PropTypes.string.isRequired,
 };
 
 export default Sidebar;

@@ -32,12 +32,25 @@ $minimized-sidebar-width: 36px;
 .sidebar-content {
   overflow-y: scroll;
   height: 100%;
-  padding-right: 32px;
+  padding-right: 42px;
   margin-top: 24px;
 
   @media (max-width: map-get($grid-breakpoints, "md")) {
     padding-right: 0px;
   }
+}
+
+.sidebar-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar-content:hover::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.sidebar-content:hover::-webkit-scrollbar-thumb {
+  background-color: #335974;
+  border-radius: 8px;
 }
 
 .white-background {
@@ -47,7 +60,7 @@ $minimized-sidebar-width: 36px;
 }
 
 .sidebar-header {
-  background-color: #E9F2F7;
+  background-color: #F0F0F0;
   padding: 16px;
   padding-right: 24px;
   display: flex;
@@ -59,6 +72,7 @@ $minimized-sidebar-width: 36px;
   align-items: center;
   position: absolute;
   z-index: 10;
+  width: calc($extended-sidebar-width - 16px);
 
   @media (max-width: map-get($grid-breakpoints, "md")) {
     border-top-right-radius: 0px;
@@ -70,14 +84,19 @@ $minimized-sidebar-width: 36px;
   }
 
   button {
-    background: #FFFFFF;
-    border-radius: 16px;
-    font-size: 10px;
+    background: #F0F0F0;
+    border: 1px solid #002F51;
+    border-radius: 5px;
+    font-size: 12px;
     flex-grow: 1;
-    border: 0;
+    color: #002F51;
     cursor: pointer;
     padding: 6px;
-    font-weight: 700;
+    font-weight: 400;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 
     &:last-of-type {
       margin-right: 40px;
@@ -122,8 +141,17 @@ $minimized-sidebar-width: 36px;
 }
 
 .carrot {
-  margin-right: 14px;
+  padding: 4px;
+  height: 24px;
   width: 24px;
+  margin-right: 6px;
+}
+
+.carrot-down {
+  padding: 3px;
+  height: 24px;
+  width: 24px;
+  margin-right: 6px;
 }
 
 .sidebar-item-container {
@@ -143,24 +171,94 @@ button.sidebar-item-container {
   align-items: center;
   padding: 16px;
   cursor: pointer;
-  background: none;
+  background: #FFFFFF;
   border: 0;
-  width: 100%;
   text-align: left;
+  justify-content: space-between;
+  width: 100%;
+
+  .sidebar-item-title {
+    flex-grow: 0;
+  }
+}
+
+.sidebar-item-header.section {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21.6px;
 }
 
 .sidebar-item-header.sequence {
-  background: #E9F2F7;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 19.2px;
   padding-left: 32px;
 }
 
 .sidebar-item-header.unit {
-  background: #D3E4EF;
-  padding-left: 84px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.2px;
+  padding-left: 72px;
 }
 
+.sidebar-item-header svg:last-of-type {
+  flex-shrink: 0;
+}
+
+.sidebar-item-header.active {
+  background-color: #E5EAEE;
+}
+
+.sidebar-item-header.sequence svg:last-of-type {
+  height: 16px;
+  width: 16px;
+}
+
+.sidebar-item-header.unit svg:last-of-type {
+  height: 16px;
+  width: 16px;
+}
+
+.sidebar-item-header.current.active.completed svg {
+  color: #599D61;
+}
+
+.sidebar-item-header.active.completed svg {
+  color: #2F8439;
+}
+
+.sidebar-item-header.completed svg {
+  color: #2F8439;
+}
+
+.sidebar-item-header.current.active.pending svg {
+  color: #FFFFFF;
+}
+
+.sidebar-item-header.active.pending svg {
+  color: #A3A3A3;
+}
+
+.sidebar-item-header.pending svg {
+  color: #C2C2C2;
+}
+
+.sidebar-item-header.current.active.in-progress svg {
+  color: #FFFFFF;
+}
+
+.sidebar-item-header.active.in-progress svg {
+  color: #002F51;
+}
+
+.sidebar-item-header.in-progress svg {
+  color: #858585;
+}
+
+
 .sidebar-item-header.current {
-  background: #337DA9;
+  background-color: #002F51;
   width: calc(100% + 32px);
   border-top-right-radius: 100px;
   border-bottom-right-radius: 100px;

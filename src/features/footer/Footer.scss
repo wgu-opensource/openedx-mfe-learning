@@ -3,6 +3,10 @@
   font-size: 14px;
   height: $desktop-footer-height;
 
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    height: $mobile-footer-height;
+  }
+
   .footer-section-container {
     display: flex;
     padding: 8px 40px;
@@ -37,7 +41,6 @@
   .info-link {
     color: $info-500;
     font-weight: $font-weight-bold;
-    font-family: $font-family-sans-serif;
   }
 
   .link-divider {

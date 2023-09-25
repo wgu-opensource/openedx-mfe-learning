@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { history } from '@edx/frontend-platform';
+import classNames from 'classnames';
 import CompletedIcon from '../../assets/CompletedIcon';
 import InProgressIcon from '../../assets/InProgressIcon';
 import PendingIcon from '../../assets/PendingIcon';
@@ -11,7 +12,7 @@ const statusIcons = {
 };
 
 const Unit = ({
-  id, sequenceId, title, complete, isCurrentUnit,
+  id, sequenceId, title, complete, isCurrentUnit, isActiveUnit,
 }) => {
   const getStatus = () => {
     if (complete) {
@@ -26,7 +27,12 @@ const Unit = ({
 
   return (
     <button type="button" className="sidebar-item-container" onClick={() => history.push(`/course/course-v1:edX+DemoX+Demo_Course/${sequenceId}/${id}`)}>
-      <div className={`sidebar-item-header unit ${isCurrentUnit && 'current'}`}> {title} {statusIcons[getStatus()]}</div>
+      <div className={classNames('sidebar-item-header', {
+        current: isCurrentUnit,
+        active: isActiveUnit,
+      }, getStatus(), 'unit')}
+      > <span className="sidebar-item-title">{title}</span> {statusIcons[getStatus()]}
+      </div>
     </button>
   );
 };
@@ -37,6 +43,7 @@ Unit.propTypes = {
   title: PropTypes.string.isRequired,
   complete: PropTypes.bool.isRequired,
   isCurrentUnit: PropTypes.bool.isRequired,
+  isActiveUnit: PropTypes.bool.isRequired,
 };
 
 export default Unit;
