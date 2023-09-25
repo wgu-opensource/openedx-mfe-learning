@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { useSelector } from 'react-redux';
 
 export const isMobileSidebarOpenSelector = createSelector(
   (state) => state.courseView,
@@ -76,3 +77,15 @@ export const sectionSequenceIdsSelector = createSelector(
   state => state.models.sequences,
   (sections = {}, sequences = {}) => ([...Object.keys(sections), ...Object.keys(sequences)]),
 );
+
+export const sequencesSelector = state => state.models.sequences;
+
+export const useUnitSectionId = (unitId) => {
+  const sequences = useSelector(sequencesSelector);
+
+  if (!unitId || !sequences) { return null; }
+
+  const currentSequence = Object.values(sequences)
+    .filter(sequence => sequence.unitIds && sequence.unitIds.find(id => id === unitId));
+  return currentSequence.length !== 0 ? currentSequence[0].sectionId : null;
+};
