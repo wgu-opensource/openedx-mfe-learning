@@ -147,6 +147,7 @@ button.sidebar-item-container {
   border: 0;
   width: 100%;
   text-align: left;
+  border-bottom: #337DA9 10px;
 }
 
 .sidebar-item-header.sequence {
@@ -186,4 +187,8 @@ button.sidebar-item-container {
 .sidebar-item-collapsable.collapsed {
   max-height: 0;
   overflow: hidden;
+}
+
+.sidebar-item-collapsable.selected {
+  border-bottom: blue 2px solid;
 }

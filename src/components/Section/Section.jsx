@@ -13,11 +13,11 @@ const statusIcons = {
 };
 
 const Section = ({
-  currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse,
+  currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse, isCurrentUnitSection,
 }) => (
   <div className="sidebar-item-container">
     <button data-testid={`section-button-${id}`} type="button" className="sidebar-item-header" onClick={() => onOpenCollapse(id)}>{collapsibleMenuState[id] ? <CarrotIconDown className="carrot" /> : <CarrotIconRight className="carrot" />} {title} {statusIcons[status]}</button>
-    <div data-testid={`section-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
+    <div data-testid={`section-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'} ${(isCurrentUnitSection && !collapsibleMenuState[id]) && 'selected'}`}>
       {sequences.map(sequence => (
         <Sequence
           key={sequence.id}
@@ -47,6 +47,7 @@ Section.propTypes = {
   onOpenCollapse: PropTypes.func.isRequired,
   collapsibleMenuState: PropTypes.objectOf(PropTypes.bool).isRequired,
   currentUnitId: PropTypes.string.isRequired,
+  isCurrentUnitSection: PropTypes.bool.isRequired,
 };
 
 export default Section;
