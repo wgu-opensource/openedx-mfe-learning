@@ -302,7 +302,6 @@
   // Should match <Button variant="tertiary">
   .previous-button {
     width: 144px;
-    font-family: $font-family-sans-serif;
     font-weight: $font-weight-semi-bold;
     background-color: $white;
     border-color: $primary-500;
@@ -330,7 +329,6 @@
   // Should match <Button variant="primary">
   .next-button {
     width: 144px;
-    font-family: $font-family-sans-serif;
     font-weight: $font-weight-semi-bold;
     background-color: $brand-500;
     border-color: $brand-500;

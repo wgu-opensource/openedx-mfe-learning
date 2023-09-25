@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import CarrotIconDown from '../../assets/CarrotIcon';
 import CarrotIconRight from '../../assets/CarrotIconRight';
 import CompletedIcon from '../../assets/CompletedIcon';
@@ -13,10 +14,10 @@ const statusIcons = {
 };
 
 const Section = ({
-  currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse,
+  currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse, isActiveSection,
 }) => (
   <div className="sidebar-item-container">
-    <button data-testid={`section-button-${id}`} type="button" className="sidebar-item-header" onClick={() => onOpenCollapse(id)}>{collapsibleMenuState[id] ? <CarrotIconDown className="carrot" /> : <CarrotIconRight className="carrot" />} {title} {statusIcons[status]}</button>
+    <button data-testid={`section-button-${id}`} type="button" className={classNames('sidebar-item-header', { active: isActiveSection }, status, 'section')} onClick={() => onOpenCollapse(id)}>{collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />} <span className="sidebar-item-title">{title}</span> {statusIcons[status]}</button>
     <div data-testid={`section-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
       {sequences.map(sequence => (
         <Sequence
@@ -24,6 +25,7 @@ const Section = ({
           collapsibleMenuState={collapsibleMenuState}
           status={sequence.status}
           currentUnitId={currentUnitId}
+          isActiveSequence={isActiveSection}
           id={sequence.id}
           title={sequence.title}
           units={sequence.units}
@@ -47,6 +49,7 @@ Section.propTypes = {
   onOpenCollapse: PropTypes.func.isRequired,
   collapsibleMenuState: PropTypes.objectOf(PropTypes.bool).isRequired,
   currentUnitId: PropTypes.string.isRequired,
+  isActiveSection: PropTypes.bool.isRequired,
 };
 
 export default Section;
