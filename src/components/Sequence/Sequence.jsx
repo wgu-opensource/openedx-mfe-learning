@@ -14,7 +14,7 @@ const statusIcons = {
 };
 
 const Sequence = ({
-  id, title, status = 'pending', units = [], onOpenCollapse, collapsibleMenuState = {}, currentUnitId, isActiveSequence,
+  id, title, status = 'pending', units = [], onOpenCollapse, collapsibleMenuState = {}, courseId, currentUnitId, isActiveSequence,
 }) => (
   <div className="sidebar-item-container">
     <button data-testid={`sequence-button-${id}`} type="button" className={classNames('sidebar-item-header', { active: isActiveSequence }, status, 'sequence')} onClick={() => onOpenCollapse(id, 'sequence')}>{units.length > 0 && (collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />)} <span className="sidebar-item-title">{title}</span> {statusIcons[status]}</button>
@@ -22,6 +22,7 @@ const Sequence = ({
       {units.map(unit => (
         <Unit
           key={unit.id}
+          courseId={courseId}
           complete={unit.complete}
           id={unit.id}
           sequenceId={id}
@@ -41,6 +42,7 @@ Sequence.propTypes = {
   units: PropTypes.string.isRequired,
   onOpenCollapse: PropTypes.func.isRequired,
   collapsibleMenuState: PropTypes.objectOf(PropTypes.bool).isRequired,
+  courseId: PropTypes.string.isRequired,
   currentUnitId: PropTypes.string.isRequired,
   isActiveSequence: PropTypes.bool.isRequired,
 };
