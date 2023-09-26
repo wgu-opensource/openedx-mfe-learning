@@ -4,11 +4,12 @@ $minimized-sidebar-width: 36px;
 .cv-course-sidebar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: -362px;
   height: 100vh;
-  width: $minimized-sidebar-width;
+  width: $extended-sidebar-width;
   padding-top: $desktop-header-height;
   padding-bottom: $desktop-footer-height;
+  transition: left 0.5s ease-in-out;
 
   @media (max-width: map-get($grid-breakpoints, "md")) {
     padding-top: $mobile-header-height;
@@ -118,6 +119,7 @@ $minimized-sidebar-width: 36px;
 
 .cv-course-sidebar-extended {
   width: $extended-sidebar-width;
+  left: 0;
 
   @media (max-width: map-get($grid-breakpoints, "md")) {
     width: 100%;
@@ -177,8 +179,13 @@ button.sidebar-item-container {
   justify-content: space-between;
   width: 100%;
 
+  &>svg {
+    flex-shrink: 0;
+  }
+
   .sidebar-item-title {
     flex-grow: 0;
+    margin: 0px 8px;
   }
 }
 
@@ -200,10 +207,6 @@ button.sidebar-item-container {
   font-weight: 400;
   line-height: 19.2px;
   padding-left: 72px;
-}
-
-.sidebar-item-header svg:last-of-type {
-  flex-shrink: 0;
 }
 
 .sidebar-item-header.active {
