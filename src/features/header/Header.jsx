@@ -12,8 +12,8 @@ const Header = () => {
 
   const logo = getConfig().LOGO_WHITE_URL;
   const logoAltText = getConfig().SITE_NAME;
-  const courseTitle = course?.title;
-  const courseNumber = course?.number;
+  const courseTitle = course?.title || '';
+  const courseNumber = course?.number || '';
 
   const dispatch = useDispatch();
 

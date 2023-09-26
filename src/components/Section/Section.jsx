@@ -14,7 +14,7 @@ const statusIcons = {
 };
 
 const Section = ({
-  currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse, isActiveSection,
+  courseId, currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse, isActiveSection,
 }) => (
   <div className="sidebar-item-container">
     <button data-testid={`section-button-${id}`} type="button" className={classNames('sidebar-item-header', { active: isActiveSection }, status, 'section')} onClick={() => onOpenCollapse(id)}>{collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />} <span className="sidebar-item-title">{title}</span> {statusIcons[status]}</button>
@@ -22,6 +22,7 @@ const Section = ({
       {sequences.map(sequence => (
         <Sequence
           key={sequence.id}
+          courseId={courseId}
           collapsibleMenuState={collapsibleMenuState}
           status={sequence.status}
           currentUnitId={currentUnitId}
@@ -48,6 +49,7 @@ Section.propTypes = {
   })).isRequired,
   onOpenCollapse: PropTypes.func.isRequired,
   collapsibleMenuState: PropTypes.objectOf(PropTypes.bool).isRequired,
+  courseId: PropTypes.string.isRequired,
   currentUnitId: PropTypes.string.isRequired,
   isActiveSection: PropTypes.bool.isRequired,
 };

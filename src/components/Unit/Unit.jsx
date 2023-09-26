@@ -12,7 +12,7 @@ const statusIcons = {
 };
 
 const Unit = ({
-  id, sequenceId, title, complete, isCurrentUnit, isActiveUnit,
+  id, courseId, sequenceId, title, complete, isCurrentUnit, isActiveUnit,
 }) => {
   const getStatus = () => {
     if (complete) {
@@ -26,7 +26,7 @@ const Unit = ({
   };
 
   return (
-    <button type="button" className="sidebar-item-container" onClick={() => history.push(`/course/course-v1:edX+DemoX+Demo_Course/${sequenceId}/${id}`)}>
+    <button type="button" className="sidebar-item-container" onClick={() => history.push(`/course/${courseId}/${sequenceId}/${id}`)}>
       <div className={classNames('sidebar-item-header', {
         current: isCurrentUnit,
         active: isActiveUnit,
@@ -39,6 +39,7 @@ const Unit = ({
 
 Unit.propTypes = {
   id: PropTypes.string.isRequired,
+  courseId: PropTypes.string.isRequired,
   sequenceId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   complete: PropTypes.bool.isRequired,
