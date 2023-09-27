@@ -66,7 +66,12 @@ const CourseView = (props) => {
         { 'disable-app-header': disableAppHeader },
       )}
       >
-        <Sidebar currentUnitId={routeUnitId} courseId={routeCourseId} sequenceId={routeSequenceId} />
+        <Sidebar
+          currentUnitId={routeUnitId}
+          courseId={routeCourseId}
+          sequenceId={routeSequenceId}
+          isSidebarExtended={isSidebarExtended}
+        />
       </div>
     </>
   );

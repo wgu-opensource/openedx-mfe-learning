@@ -14,27 +14,39 @@ const statusIcons = {
 };
 
 const Section = ({
-  currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse, isActiveSection,
-}) => (
-  <div className="sidebar-item-container">
-    <button data-testid={`section-button-${id}`} type="button" className={classNames('sidebar-item-header', { active: isActiveSection }, status, 'section')} onClick={() => onOpenCollapse(id)}>{collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />} <span className="sidebar-item-title">{title}</span> {statusIcons[status]}</button>
-    <div data-testid={`section-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
-      {sequences.map(sequence => (
-        <Sequence
-          key={sequence.id}
-          collapsibleMenuState={collapsibleMenuState}
-          status={sequence.status}
-          currentUnitId={currentUnitId}
-          isActiveSequence={isActiveSection}
-          id={sequence.id}
-          title={sequence.title}
-          units={sequence.units}
-          onOpenCollapse={onOpenCollapse}
-        />
-      ))}
+  currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse, isActiveSection, currentSequenceId,
+}) => {
+  const hasCurrentUnit = sequences.some(sequence => sequence.units.some(unit => unit.id === currentUnitId));
+  return (
+    <div className="sidebar-item-container">
+      <div className={classNames('current-unit-flag', { visible: hasCurrentUnit && !collapsibleMenuState[id] })} />
+      <button
+        data-testid={`section-button-${id}`}
+        type="button"
+        className={classNames('sidebar-item-header', { active: isActiveSection, 'has-current-unit': hasCurrentUnit && !collapsibleMenuState[id] }, status, 'section')}
+        onClick={() => onOpenCollapse(id)}
+      >{collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />} <span className="sidebar-item-title">{title}</span> {statusIcons[status]}
+      </button>
+      <div data-testid={`section-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
+        {sequences.map(sequence => (
+          <Sequence
+            key={sequence.id}
+            collapsibleMenuState={collapsibleMenuState}
+            status={sequence.status}
+            currentUnitId={currentUnitId}
+            isActiveSequence={isActiveSection}
+            id={sequence.id}
+            title={sequence.title}
+            units={sequence.units}
+            onOpenCollapse={onOpenCollapse}
+            hasCurrentUnit={currentSequenceId === sequence.id}
+            sectionId={id}
+          />
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Section.propTypes = {
   id: PropTypes.string.isRequired,
@@ -50,6 +62,7 @@ Section.propTypes = {
   collapsibleMenuState: PropTypes.objectOf(PropTypes.bool).isRequired,
   currentUnitId: PropTypes.string.isRequired,
   isActiveSection: PropTypes.bool.isRequired,
+  currentSequenceId: PropTypes.string.isRequired,
 };
 
 export default Section;

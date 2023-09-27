@@ -7,15 +7,17 @@ import CarrotIconDown from '../../assets/CarrotIcon';
 import { collapseAllSidebarItems, expandAllSidebarItems, toggleOpenCollapseSidebarItem } from './data/slice';
 import collapsibleMenuStateSelector from './data/selectors';
 import CarrotIconTop from '../../assets/CarrotIconTop';
+import { toggleDesktopSidebar } from '../course-view/data/slice';
+import CarrotIconRight from '../../assets/CarrotIconRight';
 
-const Sidebar = ({ currentUnitId, sequenceId }) => {
+const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
   const dispatch = useDispatch();
   const sectionSequenceUnits = useSelector(sectionSequenceUnitsSelector);
   const collapsibleMenuState = useSelector(collapsibleMenuStateSelector);
 
-  // const toggle = () => {
-  //   dispatch(toggleDesktopSidebar());
-  // };
+  const toggle = () => {
+    dispatch(toggleDesktopSidebar());
+  };
 
   const handleOpenCollapse = (id) => {
     dispatch(toggleOpenCollapseSidebarItem({ id }));
@@ -25,14 +27,21 @@ const Sidebar = ({ currentUnitId, sequenceId }) => {
 
   const handleExpandAll = () => dispatch(expandAllSidebarItems());
 
+  const handleSidebarContentClick = () => {
+    if (isSidebarExtended) {
+      return;
+    }
+    toggle();
+  };
+
   return (
     <div className="sidebar-container">
       <div className="sidebar-header">
         <button data-testid="collapse-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown />Expand All</button>
         <button data-testid="expand-all-button" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
-        <CarrotIconLeft />
+        {isSidebarExtended ? <CarrotIconLeft onClick={toggle} /> : <CarrotIconRight onClick={toggle} />}
       </div>
-      <div className="sidebar-content">
+      <button type="button" className="sidebar-content" onClick={handleSidebarContentClick}>
         <div className="white-background">
           {sectionSequenceUnits?.map(section => (
             <Section
@@ -45,10 +54,11 @@ const Sidebar = ({ currentUnitId, sequenceId }) => {
               sequences={section.sequences}
               onOpenCollapse={handleOpenCollapse}
               isActiveSection={section.sequences.some(sequence => sequence.id === sequenceId)}
+              currentSequenceId={sequenceId}
             />
           ))}
         </div>
-      </div>
+      </button>
       {/* <button type="button" onClick={toggle}>Toggle</button> */}
     </div>
   );
@@ -57,6 +67,7 @@ const Sidebar = ({ currentUnitId, sequenceId }) => {
 Sidebar.propTypes = {
   currentUnitId: PropTypes.string.isRequired,
   sequenceId: PropTypes.string.isRequired,
+  isSidebarExtended: PropTypes.bool.isRequired,
 };
 
 export default Sidebar;
