@@ -3,7 +3,7 @@
   font-size: 14px;
   height: $desktop-footer-height;
 
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     height: $mobile-footer-height;
   }
 
@@ -28,7 +28,7 @@
   .footer-bottom-container {
     padding-top: 0px;
 
-    @media (max-width: map-get($grid-breakpoints, "md")) {
+    @media (max-width: map-get($grid-breakpoints, "xl")) {
       flex-direction: column;
     }
   }
