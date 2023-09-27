@@ -295,64 +295,6 @@
   }
 }
 
-// Customize bottom navigation buttons
-.unit-navigation {
-
-  // Previous button
-  // Should match <Button variant="tertiary">
-  .previous-button {
-    width: 144px;
-    font-weight: $font-weight-semi-bold;
-    background-color: $white;
-    border-color: $primary-500;
-    color: $primary-500;
-
-    &:not(:disabled):not(.disabled) {
-
-      &:hover,
-      &.hover {
-        background-color: $brand-200;
-        border-color: $primary-500;
-        color: $primary-500;
-      }
-    }
-
-    &:disabled,
-    &.disabled {
-      background-color: $gray-100;
-      border-color: $gray-100;
-      color: $gray-500;
-    }
-  }
-
-  // Next button
-  // Should match <Button variant="primary">
-  .next-button {
-    width: 144px;
-    font-weight: $font-weight-semi-bold;
-    background-color: $brand-500;
-    border-color: $brand-500;
-    color: $primary-500;
-
-    &:not(:disabled):not(.disabled) {
-
-      &:hover,
-      &.hover {
-        background-color: $brand-600;
-        border-color: $brand-600;
-        color: $primary-500;
-      }
-    }
-
-    &:disabled,
-    &.disabled {
-      background-color: $gray-100;
-      border-color: $gray-100;
-      color: $gray-500;
-    }
-  }
-}
-
 // Targeting the Copyright text inside CourseLicense component in Sequence
 .course-player-sequence-container>div>div.text-right.small.py-1>div.text-gray-500 {
   font-size: 10px;

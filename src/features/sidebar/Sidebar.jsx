@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { sectionSequenceUnitsSelector } from '../course-view/data/selectors';
+import { sectionSequenceUnitsSelector, currentCourseIdSelector } from '../course-view/data/selectors';
 import Section from '../../components/Section/Section';
 import CarrotIconLeft from '../../assets/CarrotIconLeft';
 import CarrotIconDown from '../../assets/CarrotIcon';
@@ -12,6 +12,7 @@ import CarrotIconRight from '../../assets/CarrotIconRight';
 
 const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
   const dispatch = useDispatch();
+  const courseId = useSelector(currentCourseIdSelector);
   const sectionSequenceUnits = useSelector(sectionSequenceUnitsSelector);
   const collapsibleMenuState = useSelector(collapsibleMenuStateSelector);
 
@@ -47,6 +48,7 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
             <Section
               key={section.id}
               collapsibleMenuState={collapsibleMenuState}
+              courseId={courseId}
               currentUnitId={currentUnitId}
               id={section.id}
               title={section.title}

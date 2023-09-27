@@ -14,7 +14,7 @@ const statusIcons = {
 };
 
 const Sequence = ({
-  id, title, status = 'pending', units = [], onOpenCollapse, collapsibleMenuState = {}, currentUnitId, isActiveSequence, hasCurrentUnit, sectionId,
+  id, title, status = 'pending', units = [], onOpenCollapse, collapsibleMenuState = {}, currentUnitId, isActiveSequence, hasCurrentUnit, sectionId, courseId,
 }) => (
   <div className="sidebar-item-container">
     <div className={classNames('current-unit-flag', { visible: hasCurrentUnit && collapsibleMenuState[sectionId] && !collapsibleMenuState[id] })} />
@@ -23,6 +23,7 @@ const Sequence = ({
       {units.map(unit => (
         <Unit
           key={unit.id}
+          courseId={courseId}
           complete={unit.complete}
           id={unit.id}
           sequenceId={id}
@@ -42,6 +43,7 @@ Sequence.propTypes = {
   units: PropTypes.string.isRequired,
   onOpenCollapse: PropTypes.func.isRequired,
   collapsibleMenuState: PropTypes.objectOf(PropTypes.bool).isRequired,
+  courseId: PropTypes.string.isRequired,
   currentUnitId: PropTypes.string.isRequired,
   isActiveSequence: PropTypes.bool.isRequired,
   hasCurrentUnit: PropTypes.bool.isRequired,

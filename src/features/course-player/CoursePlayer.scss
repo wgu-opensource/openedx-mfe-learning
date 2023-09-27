@@ -13,7 +13,7 @@
     min-height: calc(100vh - $desktop-footer-height);
   }
 
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     padding: 0rem;
     // Makes sure footer is always at least at the bottom of the screen:
     min-height: calc(100vh - $mobile-footer-height - $mobile-header-height);

@@ -11,7 +11,7 @@ $minimized-sidebar-width: 36px;
   padding-bottom: $desktop-footer-height;
   transition: left 0.5s ease-in-out;
 
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     padding-top: $mobile-header-height;
     padding-bottom: 0px;
     width: 100%;
@@ -40,7 +40,7 @@ $minimized-sidebar-width: 36px;
   border: 0;
   cursor: default !important;
 
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     padding-right: 0px;
   }
 }
@@ -79,7 +79,7 @@ $minimized-sidebar-width: 36px;
   z-index: 10;
   width: calc($extended-sidebar-width - 16px);
 
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     width: 100%;
@@ -107,7 +107,7 @@ $minimized-sidebar-width: 36px;
     &:last-of-type {
       margin-right: 40px;
 
-      @media (max-width: map-get($grid-breakpoints, "md")) {
+      @media (max-width: map-get($grid-breakpoints, "xl")) {
         margin-right: 0px;
       }
     }
@@ -117,7 +117,7 @@ $minimized-sidebar-width: 36px;
 }
 
 .cv-course-sidebar-mobile-closed {
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     display: none;
   }
 }
@@ -126,7 +126,7 @@ $minimized-sidebar-width: 36px;
   width: $extended-sidebar-width;
   left: 0;
 
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     width: 100%;
   }
 }
@@ -136,7 +136,7 @@ $minimized-sidebar-width: 36px;
 .cv-course-content {
   padding-left: $minimized-sidebar-width;
 
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     padding-left: 0px;
   }
 }
@@ -144,7 +144,7 @@ $minimized-sidebar-width: 36px;
 .cv-course-content-sidebar-extended {
   padding-left: $extended-sidebar-width;
 
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     padding-left: 0px;
   }
 }
@@ -313,7 +313,7 @@ button.sidebar-item-container {
     display: none;
   }
 
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     width: 100%;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;

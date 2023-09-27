@@ -14,7 +14,7 @@ const statusIcons = {
 };
 
 const Section = ({
-  currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse, isActiveSection, currentSequenceId,
+  currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse, isActiveSection, currentSequenceId, courseId,
 }) => {
   const hasCurrentUnit = sequences.some(sequence => sequence.units.some(unit => unit.id === currentUnitId));
   return (
@@ -31,6 +31,7 @@ const Section = ({
         {sequences.map(sequence => (
           <Sequence
             key={sequence.id}
+            courseId={courseId}
             collapsibleMenuState={collapsibleMenuState}
             status={sequence.status}
             currentUnitId={currentUnitId}
@@ -60,6 +61,7 @@ Section.propTypes = {
   })).isRequired,
   onOpenCollapse: PropTypes.func.isRequired,
   collapsibleMenuState: PropTypes.objectOf(PropTypes.bool).isRequired,
+  courseId: PropTypes.string.isRequired,
   currentUnitId: PropTypes.string.isRequired,
   isActiveSection: PropTypes.bool.isRequired,
   currentSequenceId: PropTypes.string.isRequired,

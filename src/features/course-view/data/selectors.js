@@ -76,3 +76,8 @@ export const sectionSequenceIdsSelector = createSelector(
   state => state.models.sequences,
   (sections = {}, sequences = {}) => ([...Object.keys(sections), ...Object.keys(sequences)]),
 );
+
+export const currentCourseIdSelector = createSelector(
+  (state) => state.courseware,
+  (courseware) => courseware?.courseId,
+);
