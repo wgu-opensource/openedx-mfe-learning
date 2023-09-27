@@ -5,22 +5,19 @@
 }
 
 #root > footer {
-  position: fixed;
-  bottom: 0;
   width: 100%;
+  padding-left: $extended-sidebar-width - 42px; // 42px is the internal padding on the sidebar transparent part
   @media (max-width: map-get($grid-breakpoints, "xl")) {
-    position: relative;
-    bottom: unset;
+    padding-left: 0px; 
   }
 }
 
 #root > .layout-body {
   padding-top: $desktop-header-height;
-  padding-bottom: $desktop-footer-height;
+  padding-bottom: 0px;
 
   @media (max-width: map-get($grid-breakpoints, "xl")) {
     padding-top: $mobile-header-height;
-    padding-bottom: 0px;
   }
 
   &.disable-app-header {

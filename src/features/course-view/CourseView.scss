@@ -1,6 +1,3 @@
-$extended-sidebar-width: 457px;
-$minimized-sidebar-width: 36px;
-
 .cv-course-sidebar {
   position: fixed;
   top: 0;
@@ -8,11 +5,10 @@ $minimized-sidebar-width: 36px;
   height: 100vh;
   width: $minimized-sidebar-width;
   padding-top: $desktop-header-height;
-  padding-bottom: $desktop-footer-height;
+  padding-bottom: 0px;
 
   @media (max-width: map-get($grid-breakpoints, "xl")) {
     padding-top: $mobile-header-height;
-    padding-bottom: 0px;
     width: 100%;
     z-index: 1;
   }

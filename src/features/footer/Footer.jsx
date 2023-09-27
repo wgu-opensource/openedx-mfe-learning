@@ -68,7 +68,7 @@ const Footer = () => {
         </a>
       </div>
       <div className="footer-section-container footer-bottom-container">
-        <div className="">
+        <div className="footer-copy">
           <span>
             {COPY_SYMBOL}
             {' '}

@@ -3,7 +3,7 @@
   font-size: 14px;
   height: $desktop-footer-height;
 
-  @media (max-width: map-get($grid-breakpoints, "xl")) {
+  @media (max-width: map-get($grid-breakpoints, "lg")) {
     height: $mobile-footer-height;
   }
 
@@ -23,12 +23,20 @@
       column-gap: 12px;
       flex-wrap: wrap;
     }
+
+    @media (min-width: map-get($grid-breakpoints, "xl")) and (max-width: map-get($grid-breakpoints, "xxl")) {
+      padding: 8px 8px;
+
+      .footer-copy {
+        font-size: 0.8em;;
+      }
+    }
   }
 
   .footer-bottom-container {
     padding-top: 0px;
 
-    @media (max-width: map-get($grid-breakpoints, "xl")) {
+    @media (max-width: map-get($grid-breakpoints, "lg")) {
       flex-direction: column;
     }
   }
