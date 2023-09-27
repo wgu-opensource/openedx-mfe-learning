@@ -22,7 +22,7 @@
 
   h1 {
     @media (max-width: map-get($grid-breakpoints, "sm")) {
-      size: 24px;
+      font-size: 24px;
     }
   }
 }
