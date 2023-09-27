@@ -8,7 +8,7 @@
   align-items: center;
   height: $desktop-header-height;
 
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     flex-direction: row-reverse;
     justify-content: space-between;
     padding: 16px;
@@ -17,7 +17,7 @@
   .menu-trigger {
     display: none;
 
-    @media (max-width: map-get($grid-breakpoints, "md")) {
+    @media (max-width: map-get($grid-breakpoints, "xl")) {
       display: block;
     }
   }
@@ -35,7 +35,7 @@
     color: $white;
     margin-left: 70px;
 
-    @media (max-width: map-get($grid-breakpoints, "md")) {
+    @media (max-width: map-get($grid-breakpoints, "xl")) {
       padding: 0px 24px;
       margin-left: 0px;
     }
