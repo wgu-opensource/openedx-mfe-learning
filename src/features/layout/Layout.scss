@@ -8,7 +8,7 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     position: relative;
     bottom: unset;
   }
@@ -18,7 +18,7 @@
   padding-top: $desktop-header-height;
   padding-bottom: $desktop-footer-height;
 
-  @media (max-width: map-get($grid-breakpoints, "md")) {
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
     padding-top: $mobile-header-height;
     padding-bottom: 0px;
   }
