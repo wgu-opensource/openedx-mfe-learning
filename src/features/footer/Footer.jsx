@@ -83,7 +83,7 @@ const Footer = () => {
                 href={link.url}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Opens in new tab"
+                aria-label={`${link.label} (opens in a new tab)`}
                 onClick={externalLinkClickHandler}
               >
                 {link.label}
