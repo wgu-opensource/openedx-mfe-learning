@@ -6,9 +6,13 @@
 
 #root > footer {
   width: 100%;
-  padding-left: $extended-sidebar-width - 42px; // 42px is the internal padding on the sidebar transparent part
+  padding-left: $minimized-sidebar-width + 8px;
   @media (max-width: map-get($grid-breakpoints, "xl")) {
     padding-left: 0px; 
+  }
+
+  &.footer-sidebar-extended {
+    padding-left: $extended-sidebar-width - 42px; // 42px is the internal padding on the sidebar transparent part
   }
 }
 

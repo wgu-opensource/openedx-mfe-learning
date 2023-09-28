@@ -3,6 +3,8 @@ import { ensureConfig } from '@edx/frontend-platform/config';
 import { getConfig } from '@edx/frontend-platform';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { EVENT_NAMES, COPY_SYMBOL } from './constants';
 
 ensureConfig([
@@ -15,7 +17,7 @@ ensureConfig([
   'SITE_NAME',
 ], 'Footer component');
 
-const Footer = () => {
+const Footer = ({ className }) => {
   const { config } = useContext(AppContext);
 
   const adaUrl = getConfig().ADA_URL;
@@ -49,7 +51,7 @@ const Footer = () => {
   return (
     <footer
       role="contentinfo"
-      className="footer"
+      className={classNames('footer', className)}
     >
       <div className="footer-section-container">
         <img
@@ -99,6 +101,14 @@ const Footer = () => {
       </div>
     </footer>
   );
+};
+
+Footer.propTypes = {
+  className: PropTypes.string,
+};
+
+Footer.defaultProps = {
+  className: '',
 };
 
 export default Footer;
