@@ -59,14 +59,15 @@ const Footer = ({ className }) => {
           alt={logoAltText}
         />
         <a
-          className="d-block branded-link"
+          className="d-block branded-link aria-tooltip-link"
           href={adaUrl}
           target="_blank"
           rel="noreferrer"
-          aria-label="Opens in new tab"
+          aria-label="ADA Accommodation (opens in a new tab)"
           onClick={externalLinkClickHandler}
         >
           ADA Accommodation
+          <span className="aria-tooltip">Opens in a new tab</span>
         </a>
       </div>
       <div className="footer-section-container footer-bottom-container">
@@ -81,7 +82,7 @@ const Footer = ({ className }) => {
           {links.map((link, index) => (
             <>
               <a
-                className="info-link"
+                className="info-link aria-tooltip-link"
                 href={link.url}
                 target="_blank"
                 rel="noreferrer"
@@ -89,6 +90,7 @@ const Footer = ({ className }) => {
                 onClick={externalLinkClickHandler}
               >
                 {link.label}
+                <span className="aria-tooltip">Opens in a new tab</span>
               </a>
               {links.length !== (index + 1) && (
               <span className="link-divider">
