@@ -12,7 +12,7 @@
   }
 
   &.footer-sidebar-extended {
-    padding-left: $extended-sidebar-width - 42px; // 42px is the internal padding on the sidebar transparent part
+    padding-left: $extended-sidebar-width;
     @media (max-width: map-get($grid-breakpoints, "xl")) {
       padding-left: 0px;
     }
