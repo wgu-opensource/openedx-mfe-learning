@@ -63,11 +63,11 @@ const Footer = ({ className }) => {
           href={adaUrl}
           target="_blank"
           rel="noreferrer"
-          aria-label="ADA Accommodation (opens in a new tab)"
+          aria-label="ADA Accommodation (opens in new tab)"
           onClick={externalLinkClickHandler}
         >
           ADA Accommodation
-          <span className="aria-tooltip">Opens in a new tab</span>
+          <span className="aria-tooltip">Opens in new tab</span>
         </a>
       </div>
       <div className="footer-section-container footer-bottom-container">
@@ -86,11 +86,11 @@ const Footer = ({ className }) => {
                 href={link.url}
                 target="_blank"
                 rel="noreferrer"
-                aria-label={`${link.label} (opens in a new tab)`}
+                aria-label={`${link.label} (opens in new tab)`}
                 onClick={externalLinkClickHandler}
               >
                 {link.label}
-                <span className="aria-tooltip">Opens in a new tab</span>
+                <span className="aria-tooltip">Opens in new tab</span>
               </a>
               {links.length !== (index + 1) && (
               <span className="link-divider">
