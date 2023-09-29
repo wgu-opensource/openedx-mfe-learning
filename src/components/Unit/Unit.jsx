@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import { history } from '@edx/frontend-platform';
+import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import CompletedIcon from '../../assets/CompletedIcon';
 import PendingIcon from '../../assets/PendingIcon';
+import { closeMobileSidebar } from '../../features/course-view/data/slice';
 
 const statusIcons = {
   pending: <PendingIcon />,
@@ -14,8 +16,17 @@ const Unit = ({
 }) => {
   const status = complete ? 'completed' : 'pending';
 
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    // Navigate
+    history.push(`/course/${courseId}/${sequenceId}/${id}`);
+    // Close sidebar
+    dispatch(closeMobileSidebar());
+  };
+
   return (
-    <button type="button" className="sidebar-item-container" onClick={() => history.push(`/course/${courseId}/${sequenceId}/${id}`)}>
+    <button type="button" className="sidebar-item-container" onClick={handleClick}>
       <div className={classNames('sidebar-item-header', {
         current: isCurrentUnit,
         active: isActiveUnit,
