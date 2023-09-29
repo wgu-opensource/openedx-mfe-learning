@@ -15,8 +15,7 @@
 
   @media (max-width: map-get($grid-breakpoints, "xl")) {
     padding: 0rem;
-    // Makes sure footer is always at least at the bottom of the screen:
-    min-height: calc(100vh - $mobile-footer-height - $mobile-header-height);
+    
     .course-player-sequence-container {
       padding: 0rem;
       border-radius: 0rem;
@@ -26,6 +25,11 @@
     &.disable-app-header {
       min-height: calc(100vh - $mobile-footer-height);
     }
+  }
+
+  @media (max-width: map-get($grid-breakpoints, "lg")) {
+    // Makes sure footer is always at least at the bottom of the screen:
+    min-height: calc(100vh - $mobile-footer-height - $mobile-header-height);
   }
 
   

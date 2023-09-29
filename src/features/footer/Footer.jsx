@@ -3,6 +3,8 @@ import { ensureConfig } from '@edx/frontend-platform/config';
 import { getConfig } from '@edx/frontend-platform';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { EVENT_NAMES, COPY_SYMBOL } from './constants';
 
 ensureConfig([
@@ -15,7 +17,7 @@ ensureConfig([
   'SITE_NAME',
 ], 'Footer component');
 
-const Footer = () => {
+const Footer = ({ className }) => {
   const { config } = useContext(AppContext);
 
   const adaUrl = getConfig().ADA_URL;
@@ -49,7 +51,7 @@ const Footer = () => {
   return (
     <footer
       role="contentinfo"
-      className="footer"
+      className={classNames('footer', className)}
     >
       <div className="footer-section-container">
         <img
@@ -57,18 +59,19 @@ const Footer = () => {
           alt={logoAltText}
         />
         <a
-          className="d-block branded-link"
+          className="d-block branded-link aria-tooltip-link"
           href={adaUrl}
           target="_blank"
           rel="noreferrer"
-          aria-label="Opens in new tab"
+          aria-label="ADA Accommodation (opens in new tab)"
           onClick={externalLinkClickHandler}
         >
           ADA Accommodation
+          <span className="aria-tooltip">Opens in new tab</span>
         </a>
       </div>
       <div className="footer-section-container footer-bottom-container">
-        <div className="">
+        <div className="footer-copy">
           <span>
             {COPY_SYMBOL}
             {' '}
@@ -79,14 +82,15 @@ const Footer = () => {
           {links.map((link, index) => (
             <>
               <a
-                className="info-link"
+                className="info-link aria-tooltip-link"
                 href={link.url}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Opens in new tab"
+                aria-label={`${link.label} (opens in new tab)`}
                 onClick={externalLinkClickHandler}
               >
                 {link.label}
+                <span className="aria-tooltip">Opens in new tab</span>
               </a>
               {links.length !== (index + 1) && (
               <span className="link-divider">
@@ -99,6 +103,14 @@ const Footer = () => {
       </div>
     </footer>
   );
+};
+
+Footer.propTypes = {
+  className: PropTypes.string,
+};
+
+Footer.defaultProps = {
+  className: '',
 };
 
 export default Footer;

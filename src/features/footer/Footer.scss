@@ -3,7 +3,7 @@
   font-size: 14px;
   height: $desktop-footer-height;
 
-  @media (max-width: map-get($grid-breakpoints, "xl")) {
+  @media (max-width: map-get($grid-breakpoints, "lg")) {
     height: $mobile-footer-height;
   }
 
@@ -23,12 +23,20 @@
       column-gap: 12px;
       flex-wrap: wrap;
     }
+
+    @media (min-width: map-get($grid-breakpoints, "xl")) and (max-width: map-get($grid-breakpoints, "xxl")) {
+      padding: 8px 8px;
+
+      .footer-copy {
+        font-size: 0.8em;
+      }
+    }
   }
 
   .footer-bottom-container {
     padding-top: 0px;
 
-    @media (max-width: map-get($grid-breakpoints, "xl")) {
+    @media (max-width: map-get($grid-breakpoints, "lg")) {
       flex-direction: column;
     }
   }
@@ -45,5 +53,31 @@
 
   .link-divider {
     color: $info-500;
+  }
+
+  .aria-tooltip-link {
+    position: relative;
+    .aria-tooltip {
+      visibility: hidden;
+      width: 130px;
+      background-color: $primary-500;;
+      color: $gray-100;
+      text-align: center;
+      padding: 2px;
+      border-radius: 8px;
+
+      font-size: 12px;
+
+      position: absolute;
+      bottom: 22px;
+      right: 0;
+      z-index: 1;
+    }
+
+    &:hover {
+      .aria-tooltip {
+        visibility: visible;
+      }
+    }
   }
 }
