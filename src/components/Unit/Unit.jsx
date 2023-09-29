@@ -26,7 +26,7 @@ const Unit = ({
   };
 
   return (
-    <button type="button" className="sidebar-item-container" onClick={handleClick}>
+    <button type="button" className="sidebar-item-container" data-testid={`unit-button-${id}`} onClick={handleClick}>
       <div className={classNames('sidebar-item-header', {
         current: isCurrentUnit,
         active: isActiveUnit,

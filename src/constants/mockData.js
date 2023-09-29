@@ -885,7 +885,7 @@ export const sidebarMockStore = {
     sequenceMightBeUnit: false,
   },
   courseView: {
-    isMobileSidebarOpen: false,
+    isMobileSidebarOpen: true,
     isDesktopSidebarExtended: true,
   },
   sidebar: {
