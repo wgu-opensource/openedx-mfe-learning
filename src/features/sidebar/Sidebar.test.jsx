@@ -78,4 +78,20 @@ describe('<Sidebar />', () => {
     const expandAllButton = getByTestId('expand-all-button');
     fireEvent.click(expandAllButton);
   });
+
+  it('closes sidebar on unit selection in mobile', async () => {
+    const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
+    const { getByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store });
+
+    // Sidebar is already open according to mock data in sidebarMockStore
+    const { courseView: { isMobileSidebarOpen: isMobileSidebarOpenInitial } } = store.getState();
+    expect(isMobileSidebarOpenInitial).toBeTruthy();
+
+    const unitButton = getByTestId('unit-button-block-v1:edX+DemoX+Demo_Course+type@vertical+block@vertical_0270f6de40fc');
+    fireEvent.click(unitButton);
+
+    // It should be closed after clicking a unit
+    const { courseView: { isMobileSidebarOpen: isMobileSidebarOpenFinal } } = store.getState();
+    expect(isMobileSidebarOpenFinal).toBeFalsy();
+  });
 });
