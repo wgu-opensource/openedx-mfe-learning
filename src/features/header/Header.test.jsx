@@ -21,7 +21,6 @@ describe('Header', () => {
         <Header />
       </ResponsiveContext.Provider>,
     );
-    expect(screen.getByText(courseHomeMetadata.number, { exact: false }));
     expect(screen.getByText(courseHomeMetadata.title, { exact: false }));
   });
 });

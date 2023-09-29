@@ -13,7 +13,6 @@ const Header = () => {
   const logo = getConfig().LOGO_WHITE_URL;
   const logoAltText = getConfig().SITE_NAME;
   const courseTitle = course?.title || '';
-  const courseNumber = course?.number || '';
 
   const dispatch = useDispatch();
 
@@ -29,7 +28,7 @@ const Header = () => {
         alt={logoAltText}
       />
       <span className="course-title">
-        {`${courseNumber} ${courseTitle}`}
+        {`${courseTitle}`}
       </span>
       <button className="menu-trigger" type="button" onClick={toggleMenu}>
         <MenuIcon role="img" aria-hidden focusable="false" style={{ width: '1.5rem', height: '1.5rem' }} />
