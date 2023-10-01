@@ -204,11 +204,12 @@ button.sidebar-item-container {
   align-items: center;
   padding: 16px;
   cursor: pointer;
-  background: #FFFFFF;
+  background: $white;
   border: 0;
   text-align: left;
   justify-content: space-between;
   width: 100%;
+  color: $primary-500;
 
   &>svg {
     flex-shrink: 0;
@@ -242,8 +243,12 @@ button.sidebar-item-container {
 
 .sidebar-item-header.section {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 21.6px;
+}
+
+.sidebar-item-header.active.section {
+  font-weight: 700;
 }
 
 .sidebar-item-header.sequence {
@@ -261,7 +266,8 @@ button.sidebar-item-container {
 }
 
 .sidebar-item-header.active {
-  background-color: #E5EAEE;
+  background-color: $primary-100;
+  color: $primary-500;
 }
 
 .sidebar-item-header.sequence svg:last-of-type {
@@ -300,11 +306,11 @@ button.sidebar-item-container {
 
 
 .sidebar-item-header.current {
-  background-color: #002F51;
+  background-color: $primary-500;
   width: calc(100% + 32px);
   border-top-right-radius: 100px;
   border-bottom-right-radius: 100px;
-  color: #FFFFFF;
+  color: $white;
 
   & svg {
     display: none;
