@@ -8,6 +8,7 @@ import CoursePlayer from './CoursePlayer';
 
 describe('CoursePlayer', () => {
   let mockData;
+  let store;
   const courseMetadata = Factory.build('courseMetadata');
   const unitBlocks = Array.from({ length: 3 }).map(() => Factory.build(
     'block',
@@ -16,7 +17,7 @@ describe('CoursePlayer', () => {
   ));
 
   beforeAll(async () => {
-    const store = await initializeTestStore({ courseMetadata, unitBlocks });
+    store = await initializeTestStore({ courseMetadata, unitBlocks });
     const { courseware } = store.getState();
     mockData = {
       match: {
@@ -38,5 +39,67 @@ describe('CoursePlayer', () => {
     await waitFor(() => expect(screen.queryByText('Loading learning sequence...')).toBeInTheDocument());
     loadUnit();
     await waitFor(() => expect(screen.queryByText('Loading learning sequence...')).not.toBeInTheDocument());
+  });
+
+  describe('when the content is not ready to show', () => {
+    it('shows loading spinner when sequenceId and unitId are not set in the url', async () => {
+      const { courseware } = store.getState();
+      const incompleteMockData = {
+        match: {
+          params: {
+            courseId: courseware.courseId,
+            sequenceId: null,
+            unitId: null,
+          },
+        },
+      };
+      render(<CoursePlayer {...incompleteMockData} />);
+      await waitFor(() => expect(screen.queryByTestId('simple-loader')).toBeInTheDocument());
+    });
+
+    it('shows loading spinner when courseId is not set in the url', async () => {
+      const { courseware } = store.getState();
+      const incompleteMockData = {
+        match: {
+          params: {
+            courseId: null,
+            sequenceId: courseware.sequenceId,
+            unitId: unitBlocks[0].id,
+          },
+        },
+      };
+      render(<CoursePlayer {...incompleteMockData} />);
+      await waitFor(() => expect(screen.queryByTestId('simple-loader')).toBeInTheDocument());
+    });
+
+    it('shows loading spinner when sequenceId is not set in the url', async () => {
+      const { courseware } = store.getState();
+      const incompleteMockData = {
+        match: {
+          params: {
+            courseId: courseware.courseId,
+            sequenceId: null,
+            unitId: unitBlocks[0].id,
+          },
+        },
+      };
+      render(<CoursePlayer {...incompleteMockData} />);
+      await waitFor(() => expect(screen.queryByTestId('simple-loader')).toBeInTheDocument());
+    });
+
+    it('shows loading spinner when unitId is not set in the url', async () => {
+      const { courseware } = store.getState();
+      const incompleteMockData = {
+        match: {
+          params: {
+            courseId: courseware.courseId,
+            sequenceId: courseware.sequenceId,
+            unitId: null,
+          },
+        },
+      };
+      render(<CoursePlayer {...incompleteMockData} />);
+      await waitFor(() => expect(screen.queryByTestId('simple-loader')).toBeInTheDocument());
+    });
   });
 });

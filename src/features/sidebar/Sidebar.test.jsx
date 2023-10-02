@@ -94,4 +94,39 @@ describe('<Sidebar />', () => {
     const { courseView: { isMobileSidebarOpen: isMobileSidebarOpenFinal } } = store.getState();
     expect(isMobileSidebarOpenFinal).toBeFalsy();
   });
+
+  it('shows loading spinner while the sectionSequenceUnits store variable is empty', async () => {
+    const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
+
+    const emptyStore = configureStore({
+      reducer: {
+        models: modelsReducer,
+        courseware: coursewareReducer,
+        courseView: courseViewReducer,
+        sidebar: sidebarReducer,
+      },
+      preloadedState: {
+        ...sidebarMockStore,
+        models: {
+          ...sidebarMockStore.models,
+          sections: {},
+          sequences: {},
+          units: {},
+        },
+      },
+    });
+
+    const { queryByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store: emptyStore });
+
+    const loader = queryByTestId('simple-loader');
+    expect(loader).toBeInTheDocument();
+  });
+
+  it('doesnt show loading spinner when sectionSequenceUnits is not empty', async () => {
+    const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
+    const { queryByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store });
+
+    const loader = queryByTestId('simple-loader');
+    expect(loader).not.toBeInTheDocument();
+  });
 });
