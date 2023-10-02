@@ -10,7 +10,7 @@ https://github.com/openedx/brand-openedx
 # Footer implementation
 * $info-100 is used for the background
 * $info-500 is used for terms of service, privacy policy, and honor code links
-* $primary-500 is used for the ADA accomidation link
+* $primary-500 is used for the ADA accommodation link
 
 # Courseware
 * $primary-300 is used for the course wrapper
