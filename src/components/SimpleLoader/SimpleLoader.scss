@@ -1,0 +1,13 @@
+.simple-loader {
+  .simple-loader-container {
+    background-color: $white;
+    padding: 16px;
+    border-radius: 32px;
+    width: 64px;
+    height: 64px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    @include pgn-box-shadow(2, "down");
+  }
+}
