@@ -27,6 +27,7 @@ import {
   checkSequenceToSequenceUnitRedirect,
   checkSequenceUnitMarkerToSequenceUnitRedirect,
 } from './data/utils';
+import SimpleLoader from '../../components/SimpleLoader/SimpleLoader';
 
 ensureConfig([
   'DISABLE_APP_HEADER',
@@ -208,24 +209,31 @@ const CoursePlayer = (props) => {
     }
   };
 
+  const isReadyToShow = () => {
+    // Avoid crashes with invalid course or sequence states
+    const isInvalidState = (courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null));
+    // Only consider we are ready to render SequenceContainer once we get all required route params
+    const isReady = routeCourseId != null && routeSequenceId != null && routeUnitId != null;
+    return !isInvalidState && isReady;
+  };
+
   return (
     <div className={classNames('course-player-main-content', { 'disable-app-header': disableAppHeader })}>
       <Helmet>
         <title>{`${course?.title || 'Course'} | ${getConfig().SITE_NAME}`}</title>
       </Helmet>
-      {/* Avoud crashes with invalid course or sequence states */}
-      {!(courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null)) && (
-      <div className="course-player-sequence-container">
-        <SequenceContainer
-          courseId={routeCourseId}
-          sequenceId={routeSequenceId}
-          unitId={routeUnitId}
-          unitNavigationHandler={handleUnitNavigationClick}
-          nextSequenceHandler={handleNextSequenceClick}
-          previousSequenceHandler={handlePreviousSequenceClick}
-        />
-      </div>
-      )}
+      {isReadyToShow() ? (
+        <div className="course-player-sequence-container">
+          <SequenceContainer
+            courseId={routeCourseId}
+            sequenceId={routeSequenceId}
+            unitId={routeUnitId}
+            unitNavigationHandler={handleUnitNavigationClick}
+            nextSequenceHandler={handleNextSequenceClick}
+            previousSequenceHandler={handlePreviousSequenceClick}
+          />
+        </div>
+      ) : <SimpleLoader />}
     </div>
   );
 };
