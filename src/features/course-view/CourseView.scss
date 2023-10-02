@@ -62,7 +62,7 @@
 }
 
 .sidebar-header {
-  background-color: #F0F0F0;
+  background-color: $gray-100;
   padding: 16px;
   padding-right: 24px;
   display: flex;
@@ -87,12 +87,12 @@
   }
 
   button {
-    background: #F0F0F0;
-    border: 1px solid #002F51;
+    background: $gray-100;
+    border: 1px solid $primary-500;
     border-radius: 5px;
     font-size: 12px;
     flex-grow: 1;
-    color: #002F51;
+    color: $primary-500;
     cursor: pointer;
     padding: 6px;
     font-weight: 400;
