@@ -19,10 +19,4 @@
   main {
     flex-grow: 1;
   }
-
-  h1 {
-    @media (max-width: map-get($grid-breakpoints, "sm")) {
-      font-size: 24px;
-    }
-  }
 }
