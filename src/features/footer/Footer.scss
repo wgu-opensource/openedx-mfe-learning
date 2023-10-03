@@ -5,6 +5,9 @@
 
   @media (max-width: map-get($grid-breakpoints, "lg")) {
     height: $mobile-footer-height;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
   }
 
   .footer-section-container {
@@ -12,10 +15,11 @@
     padding: 8px 40px;
     justify-content: space-between;
     align-items: center;
-    gap: 8px;
+    gap: 0px;
 
     img {
       max-height: 24px;
+      height: 24px;
     }
 
     .footer-links-container {
@@ -31,6 +35,10 @@
         font-size: 0.8em;
       }
     }
+
+    @media (max-width: map-get($grid-breakpoints, "sm")) {
+      padding: 8px 24px
+    }
   }
 
   .footer-bottom-container {
@@ -38,6 +46,7 @@
 
     @media (max-width: map-get($grid-breakpoints, "lg")) {
       flex-direction: column;
+      align-items: flex-start;
     }
   }
 
