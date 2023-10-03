@@ -342,11 +342,9 @@ button.sidebar-item-container {
 
 
 .sidebar-item-collapsable {
-  max-height: 1500px;
-  transition: max-height 0.6s ease;
+  display: block;
 }
 
 .sidebar-item-collapsable.collapsed {
-  max-height: 0;
-  overflow: hidden;
+  display: none;
 }
