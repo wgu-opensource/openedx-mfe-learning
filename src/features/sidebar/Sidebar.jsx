@@ -9,6 +9,7 @@ import collapsibleMenuStateSelector from './data/selectors';
 import CarrotIconTop from '../../assets/CarrotIconTop';
 import { toggleDesktopSidebar } from '../course-view/data/slice';
 import CarrotIconRight from '../../assets/CarrotIconRight';
+import SimpleLoader from '../../components/SimpleLoader/SimpleLoader';
 
 const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
       </div>
       <button type="button" className="sidebar-content" onClick={handleSidebarContentClick}>
         <div className="white-background">
+          {!sectionSequenceUnits?.length && <SimpleLoader />}
           {sectionSequenceUnits?.map(section => (
             <Section
               key={section.id}

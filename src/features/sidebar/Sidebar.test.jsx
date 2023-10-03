@@ -78,4 +78,55 @@ describe('<Sidebar />', () => {
     const expandAllButton = getByTestId('expand-all-button');
     fireEvent.click(expandAllButton);
   });
+
+  it('closes sidebar on unit selection in mobile', async () => {
+    const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
+    const { getByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store });
+
+    // Sidebar is already open according to mock data in sidebarMockStore
+    const { courseView: { isMobileSidebarOpen: isMobileSidebarOpenInitial } } = store.getState();
+    expect(isMobileSidebarOpenInitial).toBeTruthy();
+
+    const unitButton = getByTestId('unit-button-block-v1:edX+DemoX+Demo_Course+type@vertical+block@vertical_0270f6de40fc');
+    fireEvent.click(unitButton);
+
+    // It should be closed after clicking a unit
+    const { courseView: { isMobileSidebarOpen: isMobileSidebarOpenFinal } } = store.getState();
+    expect(isMobileSidebarOpenFinal).toBeFalsy();
+  });
+
+  it('shows loading spinner while the sectionSequenceUnits store variable is empty', async () => {
+    const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
+
+    const emptyStore = configureStore({
+      reducer: {
+        models: modelsReducer,
+        courseware: coursewareReducer,
+        courseView: courseViewReducer,
+        sidebar: sidebarReducer,
+      },
+      preloadedState: {
+        ...sidebarMockStore,
+        models: {
+          ...sidebarMockStore.models,
+          sections: {},
+          sequences: {},
+          units: {},
+        },
+      },
+    });
+
+    const { queryByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store: emptyStore });
+
+    const loader = queryByTestId('simple-loader');
+    expect(loader).toBeInTheDocument();
+  });
+
+  it('doesnt show loading spinner when sectionSequenceUnits is not empty', async () => {
+    const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
+    const { queryByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store });
+
+    const loader = queryByTestId('simple-loader');
+    expect(loader).not.toBeInTheDocument();
+  });
 });

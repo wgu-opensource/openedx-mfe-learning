@@ -9,12 +9,13 @@
 @import "features/course-player/sequence-container/SequenceContainer.scss";
 @import "features/header/Header.scss";
 @import "features/footer/Footer.scss";
+@import "components/SimpleLoader/SimpleLoader.scss";
 
 #root {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: $body-background;
+  background-color: $primary-300;
 
   main {
     flex-grow: 1;
