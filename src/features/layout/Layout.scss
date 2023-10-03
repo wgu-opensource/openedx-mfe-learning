@@ -6,15 +6,19 @@
 
 #root > footer {
   width: 100%;
-  padding-left: $minimized-sidebar-width + 8px;
+  padding-left: $minimized-sidebar-width + 32px;
+  padding-right: 32px;
   @media (max-width: map-get($grid-breakpoints, "xl")) {
-    padding-left: 0px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
 
   &.footer-sidebar-extended {
-    padding-left: $extended-sidebar-width;
+    padding-left: $extended-sidebar-width + 32px;
+    padding-right: 32px;
     @media (max-width: map-get($grid-breakpoints, "xl")) {
-      padding-left: 0px;
+      padding-left: 0px !important;
+      padding-right: 0px !important;
     }
   }
 }
@@ -24,7 +28,7 @@
   padding-bottom: 0px;
 
   @media (max-width: map-get($grid-breakpoints, "xl")) {
-    padding-top: $mobile-header-height;
+    padding-top: $mobile-header-height !important;
   }
 
   &.disable-app-header {
