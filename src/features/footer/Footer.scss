@@ -37,7 +37,7 @@
     }
 
     @media (max-width: map-get($grid-breakpoints, "sm")) {
-      padding: 8px 24px
+      padding: 8px 24px;
     }
   }
 
@@ -69,7 +69,7 @@
     .aria-tooltip {
       visibility: hidden;
       width: 130px;
-      background-color: $primary-500;;
+      background-color: $primary-500;
       color: $gray-100;
       text-align: center;
       padding: 2px;
