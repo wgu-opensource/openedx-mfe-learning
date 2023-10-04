@@ -109,7 +109,7 @@
       justify-content: flex-start;
       border-right: 0;
 
-      &+.btn {
+      & + .btn {
         border-top: 0;
       }
 
@@ -204,7 +204,7 @@
 }
 
 .unit-iframe-wrapper {
-  margin: 0 -20px 2rem;
+  margin: 0 0 2rem;
 
   @media (min-width: 830px) {
     margin: 0 -40px 2rem;
@@ -227,7 +227,7 @@
   // I don't like this.  We need to set a height of 100% on a div created by react-focus-on, a
   // package we use in our Modal.  That div has no class name or ID, so instead we're uniquely
   // identifying it by based on a unique attribute it has which its siblings don't share.
-  >div[data-focus-lock-disabled="false"] {
+  > div[data-focus-lock-disabled="false"] {
     height: 100%;
   }
 
@@ -280,12 +280,11 @@
 }
 
 .unit {
-
   // Unit title
   h1.mb-0 {
     font-weight: 600;
     font-size: 40px;
-    color: $primary-500
+    color: $primary-500;
   }
 
   // Disable bookmark button
@@ -296,13 +295,16 @@
 }
 
 // Targeting the Copyright text inside CourseLicense component in Sequence
-.course-player-sequence-container>div>div.text-right.small.py-1>div.text-gray-500 {
+.course-player-sequence-container
+  > div
+  > div.text-right.small.py-1
+  > div.text-gray-500 {
   font-size: 10px;
   padding-right: 0.5rem;
 }
 
 // Targeting the SidebarTriggers component inside Sequence on sm screens
-.sequence>div.d-flex.ml-auto {
+.sequence > div.d-flex.ml-auto {
   display: none !important;
   visibility: hidden !important;
 }
