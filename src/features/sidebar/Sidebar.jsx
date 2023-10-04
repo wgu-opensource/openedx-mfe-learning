@@ -25,9 +25,17 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
     dispatch(toggleOpenCollapseSidebarItem({ id }));
   };
 
+  const scrollToCurrentUnit = () => {
+    const currentUnit = document.querySelector('.sidebar-item-header.current');
+    setTimeout(() => currentUnit.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'center' }), 0);
+  };
+
   const handleCollapseAll = () => dispatch(collapseAllSidebarItems());
 
-  const handleExpandAll = () => dispatch(expandAllSidebarItems());
+  const handleExpandAll = () => {
+    dispatch(expandAllSidebarItems());
+    scrollToCurrentUnit();
+  };
 
   const handleSidebarContentClick = () => {
     if (isSidebarExtended) {

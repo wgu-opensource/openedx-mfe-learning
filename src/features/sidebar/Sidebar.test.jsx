@@ -72,6 +72,8 @@ describe('<Sidebar />', () => {
   });
 
   it('expand all sidebar items', () => {
+    const scrollIntoViewMock = jest.fn();
+    HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
     const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
     const { getByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store });
 
