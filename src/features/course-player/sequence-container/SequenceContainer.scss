@@ -284,6 +284,10 @@
   h1.mb-0 {
     font-weight: 600;
     color: $primary-500;
+    font-size: $h1-font-size;
+    @media screen and (max-width: 768px) {
+        font-size: $h1-mobile-font-size;
+    }
   }
 
   // Disable bookmark button
