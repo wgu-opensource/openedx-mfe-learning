@@ -1,7 +1,8 @@
 .course-player-main-content {
   background-color: $primary-300;
-  padding: 1rem 2rem 3.25rem 2rem;
   min-height: calc(100vh - $desktop-footer-height - $desktop-header-height);
+  padding: 1rem 2rem 3.25rem 4rem;
+
   .course-player-sequence-container {
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
@@ -14,8 +15,8 @@
   }
 
   @media (max-width: map-get($grid-breakpoints, "xl")) {
-    padding: 0rem;
-    
+    padding: 0px !important;
+
     .course-player-sequence-container {
       padding: 0rem;
       border-radius: 0rem;
@@ -27,10 +28,12 @@
     }
   }
 
+
+
   @media (max-width: map-get($grid-breakpoints, "lg")) {
     // Makes sure footer is always at least at the bottom of the screen:
     min-height: calc(100vh - $mobile-footer-height - $mobile-header-height);
   }
 
-  
+
 }
