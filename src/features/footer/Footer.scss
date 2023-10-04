@@ -83,7 +83,8 @@
       z-index: 1;
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
       .aria-tooltip {
         visibility: visible;
       }
