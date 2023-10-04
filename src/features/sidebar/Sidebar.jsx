@@ -25,9 +25,17 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
     dispatch(toggleOpenCollapseSidebarItem({ id }));
   };
 
+  const scrollToCurrentUnit = () => {
+    const currentUnit = document.querySelector('.sidebar-item-header.current');
+    setTimeout(() => currentUnit.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'center' }), 0);
+  };
+
   const handleCollapseAll = () => dispatch(collapseAllSidebarItems());
 
-  const handleExpandAll = () => dispatch(expandAllSidebarItems());
+  const handleExpandAll = () => {
+    dispatch(expandAllSidebarItems());
+    scrollToCurrentUnit();
+  };
 
   const handleSidebarContentClick = () => {
     if (isSidebarExtended) {
@@ -39,8 +47,8 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
   return (
     <div className="sidebar-container">
       <div className="sidebar-header">
-        <button data-testid="collapse-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown />Expand All</button>
-        <button data-testid="expand-all-button" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
+        <button data-testid="expand-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown />Expand All</button>
+        <button data-testid="collapse-all-button" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
         {isSidebarExtended ? <CarrotIconLeft onClick={toggle} /> : <CarrotIconRight onClick={toggle} />}
       </div>
       <button type="button" className="sidebar-content" onClick={handleSidebarContentClick}>
