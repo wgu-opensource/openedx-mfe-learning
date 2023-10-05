@@ -10,6 +10,11 @@ export const isDesktopSidebarExtendedSelector = createSelector(
   (courseView) => courseView.isDesktopSidebarExtended,
 );
 
+export const layoutHasSidebarSelector = createSelector(
+  (state) => state.courseView,
+  (courseView) => courseView.layoutHasSidebar,
+);
+
 const getSequenceStatus = (units) => {
   if (units.length === 0) {
     return 'pending';
@@ -80,4 +85,9 @@ export const sectionSequenceIdsSelector = createSelector(
 export const currentCourseIdSelector = createSelector(
   (state) => state.courseware,
   (courseware) => courseware?.courseId,
+);
+
+export const currentCourseStatusSelector = createSelector(
+  (state) => state.courseware,
+  (courseware) => courseware?.courseStatus,
 );

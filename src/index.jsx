@@ -13,6 +13,7 @@ import './index.scss';
 import initializeStore from './app/store';
 import CourseView from './features/course-view/CourseView';
 import Layout from './features/layout/Layout';
+import CourseAccessErrorPage from './features/course-access-error-page/CourseAccessErrorPage';
 
 ensureConfig([
   'DISABLE_APP_HEADER',
@@ -31,6 +32,7 @@ subscribe(APP_READY, () => {
       </Helmet>
       <Layout>
         <Switch>
+          <PageRoute path="/course/:courseId/access-denied" component={CourseAccessErrorPage} />
           <PageRoute
             path={[
               '/course/:courseId/:sequenceId/:unitId',

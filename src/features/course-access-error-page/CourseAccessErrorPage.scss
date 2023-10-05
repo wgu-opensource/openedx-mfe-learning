@@ -1,0 +1,23 @@
+.course-access-error-page {
+  color: $gray-500;
+  text-align: center;
+  padding: 64px 16px;
+  background-color: $white;
+  min-height: calc(100vh - $desktop-footer-height - $desktop-header-height);
+
+  &.disable-app-header {
+    min-height: calc(100vh - $desktop-footer-height);
+  }
+
+  @media (max-width: map-get($grid-breakpoints, "lg")) {
+    // Makes sure footer is always at least at the bottom of the screen:
+    min-height: calc(100vh - $mobile-footer-height - $mobile-header-height);
+  }
+
+  p {
+    margin-bottom: 4px;
+    a[href]:not(.btn) {
+      text-decoration: none;
+    }
+  }
+}
