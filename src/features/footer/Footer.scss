@@ -2,38 +2,31 @@
   background-color: $info-100;
   font-size: 14px;
   height: $desktop-footer-height;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 
   @media (max-width: map-get($grid-breakpoints, "lg")) {
-    height: $mobile-footer-height;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    height: unset;
+    min-height: $mobile-footer-height;
   }
 
   .footer-section-container {
     display: flex;
-    padding: 8px 40px;
+    padding: 0px 40px;
     justify-content: space-between;
     align-items: center;
     gap: 0px;
 
     img {
-      max-height: 24px;
-      height: 24px;
+      max-height: 32px;
+      height: 32px;
     }
 
     .footer-links-container {
       display: flex;
       column-gap: 12px;
       flex-wrap: wrap;
-    }
-
-    @media (min-width: map-get($grid-breakpoints, "xl")) and (max-width: map-get($grid-breakpoints, "xxl")) {
-      padding: 8px 8px;
-
-      .footer-copy {
-        font-size: 0.8em;
-      }
     }
 
     @media (max-width: map-get($grid-breakpoints, "sm")) {
@@ -43,6 +36,10 @@
 
   .footer-bottom-container {
     padding-top: 0px;
+
+    .footer-copy {
+      flex: 0.8;
+    }
 
     @media (max-width: map-get($grid-breakpoints, "lg")) {
       flex-direction: column;
