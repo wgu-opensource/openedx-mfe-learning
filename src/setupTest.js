@@ -33,7 +33,7 @@ import appMessages from './i18n';
 import { reducer as courseViewReducer } from './features/course-view/data';
 import { reducer as sidebarReducer } from './features/sidebar/data/slice';
 
-const buildSimpleCourseAndSequenceMetadata = sequenceMetadataFactory.default;
+export const buildSimpleCourseAndSequenceMetadata = sequenceMetadataFactory.default;
 const { buildOutlineFromBlocks } = learningSequencesOutlineFactory;
 
 jest.mock('@edx/frontend-platform/analytics');
