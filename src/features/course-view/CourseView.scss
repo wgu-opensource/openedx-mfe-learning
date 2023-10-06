@@ -1,7 +1,7 @@
 .cv-course-sidebar {
   position: fixed;
   top: 0;
-  left: -362px;
+  left: -355px;
   height: 100vh;
   width: $extended-sidebar-width;
   padding-top: $desktop-header-height;
@@ -64,7 +64,6 @@
 .sidebar-header {
   background-color: $gray-100;
   padding: 16px;
-  padding-right: 24px;
   display: flex;
   gap: 8px;
   border-top-right-radius: 32px;
@@ -102,7 +101,13 @@
     align-items: center;
 
     &:last-of-type {
-      margin-right: 40px;
+      background: none;
+      border: 0;
+      padding: 0;
+      flex-grow: 0;
+      gap: 0px;
+      padding: 12px 12px 12px 12px;
+      margin-left: 30px;
 
       @media (max-width: map-get($grid-breakpoints, "xl")) {
         margin-right: 0px;
@@ -131,6 +136,7 @@
 
 
 .cv-course-content {
+  transition: padding-left 0.5s ease-in-out;
   padding-left: $minimized-sidebar-width;
 
   @media (max-width: map-get($grid-breakpoints, "xl")) {
@@ -139,7 +145,7 @@
 }
 
 .cv-course-content-sidebar-extended {
-  padding-left: $extended-sidebar-width;
+  padding-left: calc($extended-sidebar-width - 4rem);
 
   @media (max-width: map-get($grid-breakpoints, "xl")) {
     padding-left: 0px;
@@ -286,11 +292,13 @@ button.sidebar-item-container {
 .sidebar-item-header.sequence svg:last-of-type {
   height: 16px;
   width: 16px;
+  margin-right: 3.6px;
 }
 
 .sidebar-item-header.unit svg:last-of-type {
   height: 16px;
   width: 16px;
+  margin-right: 3.6px;
 }
 
 .sidebar-item-header.active.completed svg {
@@ -316,6 +324,8 @@ button.sidebar-item-container {
 .sidebar-item-header.in-progress svg {
   color: #858585;
 }
+
+
 
 
 .sidebar-item-header.current {
