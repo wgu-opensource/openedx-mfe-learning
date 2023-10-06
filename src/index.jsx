@@ -84,6 +84,9 @@ initialize({
         TWITTER_URL: process.env.TWITTER_URL || null,
         LEGACY_THEME_NAME: process.env.LEGACY_THEME_NAME || null,
         DISABLE_APP_HEADER: process.env.DISABLE_APP_HEADER === 'true' || null,
+        ACCESS_DENIED_PAGE_INSTRUCTIONS_LINK: process.env.ACCESS_DENIED_PAGE_INSTRUCTIONS_LINK || '',
+        ACCESS_DENIED_PAGE_STUDENT_PORTAL_LINK: process.env.ACCESS_DENIED_PAGE_STUDENT_PORTAL_LINK || '',
+        ACCESS_DENIED_PAGE_STUDENT_PORTAL_LINK_TEXT: process.env.ACCESS_DENIED_PAGE_STUDENT_PORTAL_LINK_TEXT || 'Student Portal',
       }, 'LearnerAppConfig');
     },
   },
