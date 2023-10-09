@@ -303,6 +303,15 @@ button.sidebar-item-container {
   color: $primary-500;
 }
 
+// Focus states for units
+.sidebar-item-container:focus {
+  background: $gray-100;
+}
+
+.sidebar-item-container.active:focus {
+  background: $primary-200;
+}
+
 .sidebar-item-header.sequence svg:last-of-type {
   height: 16px;
   width: 16px;
