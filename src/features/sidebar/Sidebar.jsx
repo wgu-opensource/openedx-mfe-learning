@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { sectionSequenceUnitsSelector, currentCourseIdSelector } from '../course-view/data/selectors';
 import Section from '../../components/Section/Section';
 import CarrotIconLeft from '../../assets/CarrotIconLeft';
@@ -44,14 +45,50 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
     toggle();
   };
 
+  useEffect(() => {
+    const sidebar = document.getElementsByClassName('sidebar-container')[0];
+    const focusableElements = sidebar.querySelectorAll('button:not(.collapsed button):not(button[tabindex="-1"])');
+    function focusNextElement(currentElement) {
+      const currentIndex = Array.from(focusableElements).indexOf(currentElement);
+      if (currentIndex === -1) {
+        focusableElements[0].focus();
+      }
+      if (currentIndex >= 0 && currentIndex < focusableElements.length - 1) {
+        focusableElements[currentIndex + 1].focus();
+      }
+    }
+
+    function focusPreviousElement(currentElement) {
+      const currentIndex = Array.from(focusableElements).indexOf(currentElement);
+      if (currentIndex === -1) {
+        focusableElements[0].focus();
+      }
+      if (currentIndex > 0) {
+        focusableElements[currentIndex - 1].focus();
+      }
+    }
+
+    function handleKeydownEvent(event) {
+      if (event.key === 'ArrowDown') {
+        focusNextElement(document.activeElement);
+        event.preventDefault();
+      } else if (event.key === 'ArrowUp') {
+        focusPreviousElement(document.activeElement);
+        event.preventDefault();
+      }
+    }
+    sidebar.addEventListener('keydown', handleKeydownEvent);
+    return () => sidebar.removeEventListener('keydown', handleKeydownEvent);
+  }, [sectionSequenceUnits.length, collapsibleMenuState, isSidebarExtended]);
+
   return (
     <div className="sidebar-container">
       <div className="sidebar-header">
-        <button data-testid="expand-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown />Expand All</button>
-        <button data-testid="collapse-all-button" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
+        <button tabIndex={isSidebarExtended ? 0 : -1} data-testid="expand-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown />Expand All</button>
+        <button tabIndex={isSidebarExtended ? 0 : -1} data-testid="collapse-all-button" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
         <button type="button" onClick={toggle}>{isSidebarExtended ? <CarrotIconLeft /> : <CarrotIconRight />}</button>
       </div>
-      <button type="button" className="sidebar-content" onClick={handleSidebarContentClick}>
+      <div role="button" tabIndex={-1} className="sidebar-content" onClick={handleSidebarContentClick} onKeyDown={() => {}}>
         <div className="white-background">
           {!sectionSequenceUnits?.length && <SimpleLoader />}
           {sectionSequenceUnits?.map(section => (
@@ -70,7 +107,7 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
             />
           ))}
         </div>
-      </button>
+      </div>
       {/* <button type="button" onClick={toggle}>Toggle</button> */}
     </div>
   );
