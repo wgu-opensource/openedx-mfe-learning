@@ -28,12 +28,8 @@
     }
   }
 
-
-
   @media (max-width: map-get($grid-breakpoints, "lg")) {
     // Makes sure footer is always at least at the bottom of the screen:
     min-height: calc(100vh - $mobile-footer-height - $mobile-header-height);
   }
-
-
 }
