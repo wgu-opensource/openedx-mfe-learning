@@ -6,6 +6,7 @@ const slice = createSlice({
   initialState: {
     isMobileSidebarOpen: false,
     isDesktopSidebarExtended: true,
+    layoutHasSidebar: true,
   },
   reducers: {
     toggleMobileSidebar: (state) => {
@@ -26,6 +27,9 @@ const slice = createSlice({
     closeDesktopSidebar: (state) => {
       state.isDesktopSidebarExtended = false;
     },
+    setLayoutHasSidebar: (state, { payload }) => {
+      state.layoutHasSidebar = payload;
+    },
   },
 });
 
@@ -36,6 +40,7 @@ export const {
   toggleDesktopSidebar,
   openDesktopSidebarr,
   closeDesktopSidebar,
+  setLayoutHasSidebar,
 } = slice.actions;
 
 export const {
