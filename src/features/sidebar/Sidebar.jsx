@@ -84,8 +84,8 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
   return (
     <div className="sidebar-container">
       <div className="sidebar-header">
-        <button tabIndex={isSidebarExtended ? 0 : -1} data-testid="expand-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown />Expand All</button>
-        <button tabIndex={isSidebarExtended ? 0 : -1} data-testid="collapse-all-button" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
+        <button tabIndex={isSidebarExtended ? 0 : -1} data-testid="expand-all-button" className="btn-outline-secondary" type="button" onClick={handleExpandAll}><CarrotIconDown />Expand All</button>
+        <button tabIndex={isSidebarExtended ? 0 : -1} data-testid="collapse-all-button" className="btn-outline-secondary" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
         <button type="button" onClick={toggle}>{isSidebarExtended ? <CarrotIconLeft /> : <CarrotIconRight />}</button>
       </div>
       <div role="button" tabIndex={-1} className="sidebar-content" onClick={handleSidebarContentClick} onKeyDown={() => {}}>

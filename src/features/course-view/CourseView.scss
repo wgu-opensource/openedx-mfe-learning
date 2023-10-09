@@ -51,7 +51,7 @@
 }
 
 .sidebar-content:hover::-webkit-scrollbar-thumb {
-  background-color: #335974;
+  background-color: $primary-400;;
   border-radius: 8px;
 }
 
@@ -132,8 +132,6 @@
     width: 100%;
   }
 }
-
-
 
 .cv-course-content {
   transition: padding-left 0.5s ease-in-out;
@@ -251,10 +249,27 @@ button.sidebar-item-container {
   font-size: 18px;
   font-weight: 400;
   line-height: 21.6px;
+
+  &:hover {
+    background: $gray-100;  
+  }
+
+  &:focus {
+    background: $gray-100;
+  }
 }
 
 .sidebar-item-header.active.section {
   font-weight: 700;
+
+  &:hover {
+    background: $primary-200;  
+  }
+
+  &:focus {
+    background: $primary-200;
+  }
+
 }
 
 .sidebar-item-header.sequence {
@@ -286,7 +301,6 @@ button.sidebar-item-container {
 .sidebar-item-header.active {
   background-color: $primary-100;
   color: $primary-500;
-
 }
 
 .sidebar-item-header.sequence svg:last-of-type {
@@ -302,31 +316,28 @@ button.sidebar-item-container {
 }
 
 .sidebar-item-header.active.completed svg {
-  color: #2F8439;
+  color: $success;
 }
 
 .sidebar-item-header.completed svg {
-  color: #2F8439;
+  color: $success;
 }
 
 .sidebar-item-header.active.pending svg {
-  color: #A3A3A3;
+  color: $gray-300;
 }
 
 .sidebar-item-header.pending svg {
-  color: #C2C2C2;
+  color: $gray-200;
 }
 
 .sidebar-item-header.active.in-progress svg {
-  color: #002F51;
+  color: $primary-500;
 }
 
 .sidebar-item-header.in-progress svg {
-  color: #858585;
+  color: $gray-400;
 }
-
-
-
 
 .sidebar-item-header.current {
   background-color: $primary-500;

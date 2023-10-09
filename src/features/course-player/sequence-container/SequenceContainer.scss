@@ -259,7 +259,6 @@
 // End styles from frontend-app-learning
 
 // Start custom styles
-// TODO: change colors to variables once the theme is added
 
 // Hide top navigation
 #courseware-sequenceNavigation {
@@ -294,6 +293,15 @@
   button.pgn__stateful-btn {
     display: none;
     visibility: hidden;
+  }
+}
+
+// Customize bottom navigation buttons
+.unit-navigation {
+
+  .btn-outline-secondary,
+  .btn-outline-primary {
+    width: 144px;
   }
 }
 
