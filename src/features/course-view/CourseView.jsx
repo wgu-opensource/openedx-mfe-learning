@@ -2,16 +2,21 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { Redirect } from 'react-router';
 import { fetchCourse } from '@edx/frontend-app-learning';
 import { ensureConfig, getConfig } from '@edx/frontend-platform';
 import CoursePlayer from '../course-player/CoursePlayer';
 import {
-  isDesktopSidebarExtendedSelector, isMobileSidebarOpenSelector, sectionSequenceIdsSelector,
+  isDesktopSidebarExtendedSelector,
+  isMobileSidebarOpenSelector,
+  sectionSequenceIdsSelector,
+  currentCourseStatusSelector,
 } from './data/selectors';
 import { sequenceIdsSelector } from '../course-player/data/selectors';
 import Sidebar from '../sidebar/Sidebar';
 import fetchUnits from '../sidebar/data/thunks';
 import { updateCollapsibleMenuState } from '../sidebar/data/slice';
+import { setLayoutHasSidebar } from './data/slice';
 
 ensureConfig([
   'DISABLE_APP_HEADER',
@@ -19,6 +24,8 @@ ensureConfig([
 
 const CourseView = (props) => {
   const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
+
+  const courseStatus = useSelector(currentCourseStatusSelector);
 
   const isSidebarExtended = useSelector(isDesktopSidebarExtendedSelector);
   const isMobileSidebarClosed = !useSelector(isMobileSidebarOpenSelector);
@@ -37,6 +44,10 @@ const CourseView = (props) => {
   } = props;
 
   useEffect(() => {
+    dispatch(setLayoutHasSidebar(true));
+  });
+
+  useEffect(() => {
     dispatch(fetchCourse(routeCourseId));
   }, [routeCourseId, dispatch]);
 
@@ -49,6 +60,12 @@ const CourseView = (props) => {
   useEffect(() => {
     dispatch(updateCollapsibleMenuState(sectionSequenceIds));
   }, [dispatch, sectionSequenceIds]);
+
+  // Handle access denied errors
+  if (courseStatus === 'denied') {
+    const redirectUrl = `/course/${routeCourseId}/access-denied`;
+    return (<Redirect to={redirectUrl} />);
+  }
 
   return (
     <>

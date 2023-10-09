@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import {
-  isDesktopSidebarExtendedSelector,
+  isDesktopSidebarExtendedSelector, layoutHasSidebarSelector,
 } from '../course-view/data/selectors';
 
 ensureConfig([
@@ -14,6 +14,7 @@ ensureConfig([
 
 const Layout = ({ children }) => {
   const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
+  const layoutHasSidebar = useSelector(layoutHasSidebarSelector);
   const isSidebarExtended = useSelector(isDesktopSidebarExtendedSelector);
 
   return (
@@ -22,7 +23,11 @@ const Layout = ({ children }) => {
       <div className={classNames('layout-body', { 'disable-app-header': disableAppHeader })}>
         {children}
       </div>
-      <Footer className={classNames({ 'footer-sidebar-extended': isSidebarExtended })} />
+      <Footer className={classNames({
+        'footer-no-sidebar': !layoutHasSidebar,
+        'footer-sidebar-extended': layoutHasSidebar && isSidebarExtended,
+      })}
+      />
     </>
   );
 };
