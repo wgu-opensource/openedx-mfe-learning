@@ -131,6 +131,11 @@
   @media (max-width: map-get($grid-breakpoints, "xl")) {
     width: 100%;
   }
+
+  @media (min-width: map-get($grid-breakpoints, "xl")) {
+    // Avoid overlapping scrollbar with content on wide screens when the sidebar is extended
+    padding-right: 4px;
+  }
 }
 
 
