@@ -47,7 +47,7 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
 
   useEffect(() => {
     const sidebar = document.getElementsByClassName('sidebar-container')[0];
-    const focusableElements = sidebar.querySelectorAll('button:not(.collapsed button):not(button[tabindex="-1"]');
+    const focusableElements = sidebar.querySelectorAll('button:not(.collapsed button):not(button[tabindex="-1"])');
     function focusNextElement(currentElement) {
       const currentIndex = Array.from(focusableElements).indexOf(currentElement);
       if (currentIndex === -1) {
