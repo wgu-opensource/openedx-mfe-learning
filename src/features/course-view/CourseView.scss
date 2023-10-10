@@ -51,7 +51,7 @@
 }
 
 .sidebar-content:hover::-webkit-scrollbar-thumb {
-  background-color: #335974;
+  background-color: $primary-400;
   border-radius: 8px;
 }
 
@@ -245,14 +245,92 @@ button.sidebar-item-container {
   }
 }
 
+// Subsection hover & focus states
+.sidebar-item-header.active {
+
+  &:hover {
+    background: $primary-200;
+  }
+
+  &:focus {
+    background: $primary-200;
+  }
+}
+
+.sidebar-item-header {
+
+  &:hover {
+    background: $gray-100;
+  }
+
+  &:focus {
+    background: $gray-100;
+  } 
+}
+
+// Section hover & focus states
 .sidebar-item-header.section {
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 21.6px;
+
+
+  &:hover {
+    background: $gray-100;  
+  }
+
+  &:focus {
+    background: $gray-100;
+  }
 }
 
 .sidebar-item-header.active.section {
   font-weight: 700;
+
+    font-weight: 700;
+
+  &:hover {
+    background: $primary-200;  
+  }
+
+  &:focus {
+    background: $primary-200;
+  }
+}
+
+// Unit hover & focus states
+button.sidebar-item-container:focus {
+  background-color: $gray-100 !important;
+
+  .sidebar-item-header {
+    background: none !important;
+  }
+}
+
+button.sidebar-item-container.active:focus {
+  background-color: $primary-200 !important;
+
+  .sidebar-item-header {
+    background: none !important;
+  }
+}
+
+.sidebar-item-header.unit:hover {
+  background: $gray-100;
+}
+
+.sidebar-item-header.unit.active:hover {
+  background: $primary-200;
+}
+
+// Bookmark focus state
+button.sidebar-item-container.active.current:focus {
+  background-color: $primary-500 !important;
+}
+
+// Bookmark hover state
+.sidebar-item-header.unit.active.current:hover {
+  background: $primary-500;
 }
 
 .sidebar-item-header.sequence {
@@ -299,27 +377,27 @@ button.sidebar-item-container {
 }
 
 .sidebar-item-header.active.completed svg {
-  color: #2f8439;
+  color: $success;
 }
 
 .sidebar-item-header.completed svg {
-  color: #2f8439;
+  color: $success;
 }
 
 .sidebar-item-header.active.pending svg {
-  color: #a3a3a3;
+  color: $gray-300;
 }
 
 .sidebar-item-header.pending svg {
-  color: #c2c2c2;
+  color: $gray-200;
 }
 
 .sidebar-item-header.active.in-progress svg {
-  color: #002f51;
+  color: $primary-500;
 }
 
 .sidebar-item-header.in-progress svg {
-  color: #858585;
+  color: $gray-400;
 }
 
 .sidebar-item-header.current {
