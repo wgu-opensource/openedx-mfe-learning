@@ -283,18 +283,18 @@ button.sidebar-item-container {
 
 // Unit hover & focus states
 button.sidebar-item-container:focus {
-  background-color: $gray-100;
+  background-color: $gray-100 !important;
 
-  div.sidebar-item-header {
-    background: none;
+  .sidebar-item-header {
+    background: none !important;
   }
 }
 
 button.sidebar-item-container.active:focus {
-  background-color: $primary-200;
+  background-color: $primary-200 !important;
 
-  div.sidebar-item-header {
-    background: none;
+  .sidebar-item-header {
+    background: none !important;
   }
 }
 
