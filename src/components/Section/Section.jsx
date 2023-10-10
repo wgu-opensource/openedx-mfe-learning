@@ -17,14 +17,26 @@ const Section = ({
   currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse, isActiveSection, currentSequenceId, courseId,
 }) => {
   const hasCurrentUnit = sequences.some(sequence => sequence.units.some(unit => unit.id === currentUnitId));
+
+  const handleOpenCollapse = () => onOpenCollapse(id);
+  const handleOpenCollapseCurrentSequence = () => {
+    onOpenCollapse(id, true);
+    onOpenCollapse(currentSequenceId, true);
+  };
+
   return (
     <div className="sidebar-item-container">
-      <div className={classNames('current-unit-flag', { visible: hasCurrentUnit && !collapsibleMenuState[id] })} />
+      <button
+        type="button"
+        className={classNames('current-unit-flag', { visible: hasCurrentUnit && !collapsibleMenuState[id] })}
+        onClick={handleOpenCollapseCurrentSequence}
+        aria-label="Bookmark"
+      />
       <button
         data-testid={`section-button-${id}`}
         type="button"
         className={classNames('sidebar-item-header', { active: isActiveSection, 'has-current-unit': hasCurrentUnit && !collapsibleMenuState[id] }, status, 'section')}
-        onClick={() => onOpenCollapse(id)}
+        onClick={handleOpenCollapse}
       >{collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />} <span className="sidebar-item-title">{title}</span> {statusIcons[status]}
       </button>
       <div data-testid={`section-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>

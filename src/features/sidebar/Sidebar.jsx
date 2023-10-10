@@ -5,7 +5,9 @@ import { sectionSequenceUnitsSelector, currentCourseIdSelector } from '../course
 import Section from '../../components/Section/Section';
 import CarrotIconLeft from '../../assets/CarrotIconLeft';
 import CarrotIconDown from '../../assets/CarrotIcon';
-import { collapseAllSidebarItems, expandAllSidebarItems, toggleOpenCollapseSidebarItem } from './data/slice';
+import {
+  collapseAllSidebarItems, expandAllSidebarItems, setOpenCollapseSidebarItem, toggleOpenCollapseSidebarItem,
+} from './data/slice';
 import collapsibleMenuStateSelector from './data/selectors';
 import CarrotIconTop from '../../assets/CarrotIconTop';
 import { toggleDesktopSidebar } from '../course-view/data/slice';
@@ -22,7 +24,12 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
     dispatch(toggleDesktopSidebar());
   };
 
-  const handleOpenCollapse = (id) => {
+  // isOpen is optional, toggles if not set
+  const handleOpenCollapse = (id, isOpen) => {
+    if (isOpen != null) {
+      dispatch(setOpenCollapseSidebarItem({ id, isOpen }));
+      return;
+    }
     dispatch(toggleOpenCollapseSidebarItem({ id }));
   };
 

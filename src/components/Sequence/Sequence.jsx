@@ -15,43 +15,52 @@ const statusIcons = {
 
 const Sequence = ({
   id, title, status = 'pending', units = [], onOpenCollapse, collapsibleMenuState = {}, currentUnitId, isActiveSequence, hasCurrentUnit, sectionId, courseId,
-}) => (
-  <div className="sidebar-item-container">
-    <div className={classNames('current-unit-flag', { visible: hasCurrentUnit && collapsibleMenuState[sectionId] && !collapsibleMenuState[id] })} />
-    <button
-      data-testid={`sequence-button-${id}`}
-      type="button"
-      className={classNames(
-        'sidebar-item-header',
-        {
-          active: isActiveSequence,
-          'has-current-unit': hasCurrentUnit && collapsibleMenuState[sectionId] && !collapsibleMenuState[id],
-        },
-        status,
-        'sequence',
-      )}
-      onClick={() => onOpenCollapse(id, 'sequence')}
-    >
-      {units.length > 0 && (collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />)}
-      <span className="sidebar-item-title">{title}</span>
-      {statusIcons[status]}
-    </button>
-    <div data-testid={`sequence-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
-      {units.map(unit => (
-        <Unit
-          key={unit.id}
-          courseId={courseId}
-          complete={unit.complete}
-          id={unit.id}
-          sequenceId={id}
-          title={unit.title}
-          isActiveUnit={isActiveSequence}
-          isCurrentUnit={currentUnitId === unit.id}
-        />
-      ))}
+}) => {
+  const handleOpenCollapse = () => onOpenCollapse(id);
+
+  return (
+    <div className="sidebar-item-container">
+      <button
+        type="button"
+        className={classNames('current-unit-flag', { visible: hasCurrentUnit && collapsibleMenuState[sectionId] && !collapsibleMenuState[id] })}
+        onClick={handleOpenCollapse}
+        aria-label="Bookmark"
+      />
+      <button
+        data-testid={`sequence-button-${id}`}
+        type="button"
+        className={classNames(
+          'sidebar-item-header',
+          {
+            active: isActiveSequence,
+            'has-current-unit': hasCurrentUnit && collapsibleMenuState[sectionId] && !collapsibleMenuState[id],
+          },
+          status,
+          'sequence',
+        )}
+        onClick={handleOpenCollapse}
+      >
+        {units.length > 0 && (collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />)}
+        <span className="sidebar-item-title">{title}</span>
+        {statusIcons[status]}
+      </button>
+      <div data-testid={`sequence-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
+        {units.map(unit => (
+          <Unit
+            key={unit.id}
+            courseId={courseId}
+            complete={unit.complete}
+            id={unit.id}
+            sequenceId={id}
+            title={unit.title}
+            isActiveUnit={isActiveSequence}
+            isCurrentUnit={currentUnitId === unit.id}
+          />
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Sequence.propTypes = {
   id: PropTypes.string.isRequired,
