@@ -296,6 +296,10 @@ button.sidebar-item-container.active:focus {
   .sidebar-item-header {
     background: none !important;
   }
+
+  .sidebar-item-header.unit.active.current{
+    background: $primary-500 !important;
+  }
 }
 
 .sidebar-item-header.unit:hover {
