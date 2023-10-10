@@ -297,6 +297,15 @@
   }
 }
 
+// Customize bottom navigation buttons
+.unit-navigation {
+
+  .btn-outline-secondary,
+  .btn-outline-primary {
+    width: 144px;
+  }
+}
+
 // Targeting the Copyright text inside CourseLicense component in Sequence
 .course-player-sequence-container
   > div
