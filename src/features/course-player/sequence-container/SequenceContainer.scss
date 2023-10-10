@@ -290,6 +290,11 @@
     }
   }
 
+  h2 {
+    @media screen and (max-width: 768px) {
+      font-size: $h2-mobile-font-size;
+  }
+  
   // Disable bookmark button
   button.pgn__stateful-btn {
     display: none;
