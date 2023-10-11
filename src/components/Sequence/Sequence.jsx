@@ -21,12 +21,6 @@ const Sequence = ({
   return (
     <div className="sidebar-item-container">
       <button
-        type="button"
-        className={classNames('current-unit-flag', { visible: hasCurrentUnit && collapsibleMenuState[sectionId] && !collapsibleMenuState[id] })}
-        onClick={handleOpenCollapse}
-        aria-label="Bookmark"
-      />
-      <button
         data-testid={`sequence-button-${id}`}
         type="button"
         className={classNames(
@@ -44,6 +38,13 @@ const Sequence = ({
         <span className="sidebar-item-title">{title}</span>
         {statusIcons[status]}
       </button>
+      <button
+        type="button"
+        className={classNames('current-unit-flag', { visible: hasCurrentUnit && collapsibleMenuState[sectionId] && !collapsibleMenuState[id] })}
+        onClick={handleOpenCollapse}
+        aria-label="Bookmark"
+        tabIndex={hasCurrentUnit && collapsibleMenuState[sectionId] && !collapsibleMenuState[id] ? 0 : -1}
+      />
       <div data-testid={`sequence-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
         {units.map(unit => (
           <Unit

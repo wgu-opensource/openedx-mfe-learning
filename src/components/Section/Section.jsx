@@ -27,18 +27,19 @@ const Section = ({
   return (
     <div className="sidebar-item-container">
       <button
-        type="button"
-        className={classNames('current-unit-flag', { visible: hasCurrentUnit && !collapsibleMenuState[id] })}
-        onClick={handleOpenCollapseCurrentSequence}
-        aria-label="Bookmark"
-      />
-      <button
         data-testid={`section-button-${id}`}
         type="button"
         className={classNames('sidebar-item-header', { active: isActiveSection, 'has-current-unit': hasCurrentUnit && !collapsibleMenuState[id] }, status, 'section')}
         onClick={handleOpenCollapse}
       >{collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />} <span className="sidebar-item-title">{title}</span> {statusIcons[status]}
       </button>
+      <button
+        type="button"
+        className={classNames('current-unit-flag', { visible: hasCurrentUnit && !collapsibleMenuState[id] })}
+        onClick={handleOpenCollapseCurrentSequence}
+        aria-label="Bookmark"
+        tabIndex={hasCurrentUnit && !collapsibleMenuState[id] ? 0 : -1}
+      />
       <div data-testid={`section-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
         {sequences.map(sequence => (
           <Sequence
