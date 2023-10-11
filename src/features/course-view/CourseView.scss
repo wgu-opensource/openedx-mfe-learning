@@ -300,18 +300,17 @@ button.sidebar-item-container {
 
 // Unit hover & focus states
 button.sidebar-item-container:focus {
-  background-color: $gray-100 !important;
 
   .sidebar-item-header {
-    background: none !important;
+    background: $gray-100 !important;
   }
-}
 
-button.sidebar-item-container.active:focus {
-  background-color: $primary-200 !important;
+  .sidebar-item-header.active {
+    background: $primary-200 !important;
+  }
 
-  .sidebar-item-header {
-    background: none !important;
+  .sidebar-item-header.active.current {
+    background: $primary-500 !important;
   }
 }
 
@@ -321,11 +320,6 @@ button.sidebar-item-container.active:focus {
 
 .sidebar-item-header.unit.active:hover {
   background: $primary-200;
-}
-
-// Bookmark focus state
-button.sidebar-item-container.active.current:focus {
-  background-color: $primary-500 !important;
 }
 
 // Bookmark hover state

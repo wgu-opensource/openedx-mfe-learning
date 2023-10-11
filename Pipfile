@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-tutor = {version = "==15.3.8", extras = ["full"]}
+tutor = {version = "==15.3.9", extras = ["full"]}
 
 [dev-packages]
 
