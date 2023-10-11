@@ -252,7 +252,6 @@ button.sidebar-item-container {
 
 // Subsection hover & focus states
 .sidebar-item-header.active {
-
   &:hover {
     background: $primary-200;
   }
@@ -263,14 +262,13 @@ button.sidebar-item-container {
 }
 
 .sidebar-item-header {
-
   &:hover {
     background: $gray-100;
   }
 
   &:focus {
     background: $gray-100;
-  } 
+  }
 }
 
 // Section hover & focus states
@@ -279,9 +277,8 @@ button.sidebar-item-container {
   font-weight: 700;
   line-height: 21.6px;
 
-
   &:hover {
-    background: $gray-100;  
+    background: $gray-100;
   }
 
   &:focus {
@@ -292,10 +289,10 @@ button.sidebar-item-container {
 .sidebar-item-header.active.section {
   font-weight: 700;
 
-    font-weight: 700;
+  font-weight: 700;
 
   &:hover {
-    background: $primary-200;  
+    background: $primary-200;
   }
 
   &:focus {
@@ -305,7 +302,6 @@ button.sidebar-item-container {
 
 // Unit hover & focus states
 button.sidebar-item-container:focus {
-
   .sidebar-item-header {
     background: $gray-100 !important;
   }
