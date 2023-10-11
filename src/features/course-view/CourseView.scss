@@ -174,6 +174,7 @@
   & .current-unit-flag {
     height: 48px;
     width: 24px;
+    border: none;
     border-top-right-radius: 100px;
     border-bottom-right-radius: 100px;
     background-color: $primary-500;
@@ -193,6 +194,10 @@
       transform: scaleX(1);
       transition-delay: 0.3s;
       transition: transform 0.4s cubic-bezier(0.47, 1.64, 0.41, 0.8);
+    }
+
+    &:hover {
+      background-color: $primary-600;
     }
   }
 }
@@ -247,7 +252,6 @@ button.sidebar-item-container {
 
 // Subsection hover & focus states
 .sidebar-item-header.active {
-
   &:hover {
     background: $primary-200;
   }
@@ -258,14 +262,13 @@ button.sidebar-item-container {
 }
 
 .sidebar-item-header {
-
   &:hover {
     background: $gray-100;
   }
 
   &:focus {
     background: $gray-100;
-  } 
+  }
 }
 
 // Section hover & focus states
@@ -274,9 +277,8 @@ button.sidebar-item-container {
   font-weight: 700;
   line-height: 21.6px;
 
-
   &:hover {
-    background: $gray-100;  
+    background: $gray-100;
   }
 
   &:focus {
@@ -287,10 +289,10 @@ button.sidebar-item-container {
 .sidebar-item-header.active.section {
   font-weight: 700;
 
-    font-weight: 700;
+  font-weight: 700;
 
   &:hover {
-    background: $primary-200;  
+    background: $primary-200;
   }
 
   &:focus {
@@ -300,7 +302,6 @@ button.sidebar-item-container {
 
 // Unit hover & focus states
 button.sidebar-item-container:focus {
-
   .sidebar-item-header {
     background: $gray-100 !important;
   }
