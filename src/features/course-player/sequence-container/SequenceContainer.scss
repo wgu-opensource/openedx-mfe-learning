@@ -158,7 +158,7 @@
     justify-content: center;
     align-items: center;
 
-    @media (max-width: -1 + map-get($grid-breakpoints, "sm")) {
+    @media (max-width: map-get($grid-breakpoints, "sm")) {
       padding-top: 1rem;
       padding-bottom: 1rem;
     }
@@ -286,15 +286,16 @@
     color: $primary-500;
     font-size: $h1-font-size;
     @media screen and (max-width: 768px) {
-        font-size: $h1-mobile-font-size;
+      font-size: $h1-mobile-font-size;
     }
   }
 
   h2 {
     @media screen and (max-width: 768px) {
       font-size: $h2-mobile-font-size;
+    }
   }
-  
+
   // Disable bookmark button
   button.pgn__stateful-btn {
     display: none;
@@ -304,7 +305,6 @@
 
 // Customize bottom navigation buttons
 .unit-navigation {
-
   .btn-outline-secondary,
   .btn-outline-primary {
     width: 144px;
