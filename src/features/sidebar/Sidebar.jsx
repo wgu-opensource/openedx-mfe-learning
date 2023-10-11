@@ -5,7 +5,9 @@ import { sectionSequenceUnitsSelector, currentCourseIdSelector } from '../course
 import Section from '../../components/Section/Section';
 import CarrotIconLeft from '../../assets/CarrotIconLeft';
 import CarrotIconDown from '../../assets/CarrotIcon';
-import { collapseAllSidebarItems, expandAllSidebarItems, toggleOpenCollapseSidebarItem } from './data/slice';
+import {
+  collapseAllSidebarItems, expandAllSidebarItems, setOpenCollapseSidebarItem, toggleOpenCollapseSidebarItem,
+} from './data/slice';
 import collapsibleMenuStateSelector from './data/selectors';
 import CarrotIconTop from '../../assets/CarrotIconTop';
 import { toggleDesktopSidebar } from '../course-view/data/slice';
@@ -22,7 +24,12 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
     dispatch(toggleDesktopSidebar());
   };
 
-  const handleOpenCollapse = (id) => {
+  // isOpen is optional, toggles if not set
+  const handleOpenCollapse = (id, isOpen) => {
+    if (isOpen != null) {
+      dispatch(setOpenCollapseSidebarItem({ id, isOpen }));
+      return;
+    }
     dispatch(toggleOpenCollapseSidebarItem({ id }));
   };
 
@@ -84,8 +91,8 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
   return (
     <div className="sidebar-container">
       <div className="sidebar-header">
-        <button tabIndex={isSidebarExtended ? 0 : -1} data-testid="expand-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown />Expand All</button>
-        <button tabIndex={isSidebarExtended ? 0 : -1} data-testid="collapse-all-button" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
+        <button className="btn-outline-secondary" tabIndex={isSidebarExtended ? 0 : -1} data-testid="expand-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown />Expand All</button>
+        <button className="btn-outline-secondary" tabIndex={isSidebarExtended ? 0 : -1} data-testid="collapse-all-button" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
         <button type="button" onClick={toggle}>{isSidebarExtended ? <CarrotIconLeft /> : <CarrotIconRight />}</button>
       </div>
       <div role="button" tabIndex={-1} className="sidebar-content" onClick={handleSidebarContentClick} onKeyDown={() => {}}>

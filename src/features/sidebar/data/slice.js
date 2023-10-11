@@ -15,6 +15,9 @@ const slice = createSlice({
     toggleOpenCollapseSidebarItem: (state, { payload: { id } }) => {
       state.collapsibleMenuState[id] = Boolean(!state.collapsibleMenuState[id]);
     },
+    setOpenCollapseSidebarItem: (state, { payload: { id, isOpen } }) => {
+      state.collapsibleMenuState[id] = Boolean(isOpen);
+    },
     collapseAllSidebarItems: (state => {
       const sidebarItemKeys = Object.keys(state.collapsibleMenuState);
       for (let index = 0; index < sidebarItemKeys.length; index++) {
@@ -35,6 +38,7 @@ const slice = createSlice({
 export const {
   updateCollapsibleMenuState,
   toggleOpenCollapseSidebarItem,
+  setOpenCollapseSidebarItem,
   collapseAllSidebarItems,
   expandAllSidebarItems,
 } = slice.actions;
