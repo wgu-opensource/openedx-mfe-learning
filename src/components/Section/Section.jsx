@@ -6,6 +6,7 @@ import CompletedIcon from '../../assets/CompletedIcon';
 import InProgressIcon from '../../assets/InProgressIcon';
 import PendingIcon from '../../assets/PendingIcon';
 import Sequence from '../Sequence/Sequence';
+import SmallLoader from '../SmallLoader/SmallLoader';
 
 const statusIcons = {
   'in-progress': <InProgressIcon />,
@@ -17,6 +18,7 @@ const Section = ({
   currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse, isActiveSection, currentSequenceId, courseId,
 }) => {
   const hasCurrentUnit = sequences.some(sequence => sequence.units.some(unit => unit.id === currentUnitId));
+  const isLoading = sequences.length === 0;
 
   const handleOpenCollapse = () => onOpenCollapse(id);
   const handleOpenCollapseCurrentSequence = () => {
@@ -31,7 +33,8 @@ const Section = ({
         type="button"
         className={classNames('sidebar-item-header', { active: isActiveSection, 'has-current-unit': hasCurrentUnit && !collapsibleMenuState[id] }, status, 'section')}
         onClick={handleOpenCollapse}
-      >{collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />} <span className="sidebar-item-title">{title}</span> {statusIcons[status]}
+      >{collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />} <span className="sidebar-item-title">{title}</span>
+        { isLoading && collapsibleMenuState[id] ? <SmallLoader /> : statusIcons[status] }
       </button>
       <button
         type="button"
