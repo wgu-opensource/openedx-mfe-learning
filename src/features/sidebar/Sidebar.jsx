@@ -35,7 +35,7 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
 
   const scrollToCurrentUnit = () => {
     const currentUnit = document.querySelector('.sidebar-item-header.current');
-    if (currentUnit) {
+    if (currentUnit !== null && 'scrollIntoView' in currentUnit) {
       setTimeout(() => currentUnit.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'center' }), 0);
     }
   };
