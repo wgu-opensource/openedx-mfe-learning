@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useSelector } from 'react-redux';
 import CarrotIconDown from '../../assets/CarrotIcon';
 import CarrotIconRight from '../../assets/CarrotIconRight';
 import CompletedIcon from '../../assets/CompletedIcon';
 import InProgressIcon from '../../assets/InProgressIcon';
 import PendingIcon from '../../assets/PendingIcon';
 import Sequence from '../Sequence/Sequence';
+import { currentSequenceSelector } from '../../features/course-player/data/selectors';
 
 const statusIcons = {
   'in-progress': <InProgressIcon />,
@@ -16,7 +18,8 @@ const statusIcons = {
 const Section = ({
   currentUnitId, collapsibleMenuState = {}, id, title, status = 'pending', sequences = [], onOpenCollapse, isActiveSection, currentSequenceId, courseId,
 }) => {
-  const hasCurrentUnit = sequences.some(sequence => sequence.units.some(unit => unit.id === currentUnitId));
+  const currentSequence = useSelector(currentSequenceSelector);
+  const hasCurrentUnit = currentSequence.sectionId === id;
 
   const handleOpenCollapse = () => onOpenCollapse(id);
   const handleOpenCollapseCurrentSequence = () => {

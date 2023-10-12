@@ -28,6 +28,7 @@ import {
   checkSequenceUnitMarkerToSequenceUnitRedirect,
 } from './data/utils';
 import SimpleLoader from '../../components/SimpleLoader/SimpleLoader';
+import { setOpenCollapseSidebarItem as setOpenCollapseSidebarItemAction } from '../sidebar/data/slice';
 
 ensureConfig([
   'DISABLE_APP_HEADER',
@@ -85,6 +86,7 @@ const CoursePlayer = (props) => {
     sequenceMightBeUnit,
     course,
     fetchSequence,
+    setOpenCollapseSidebarItem,
     match: {
       params: {
         courseId: routeCourseId,
@@ -199,12 +201,16 @@ const CoursePlayer = (props) => {
 
   const handleNextSequenceClick = () => {
     if (nextSequence !== null) {
+      setOpenCollapseSidebarItem({ id: nextSequence.id, isOpen: true });
+      setOpenCollapseSidebarItem({ id: nextSequence.sectionId, isOpen: true });
       history.push(`/course/${routeCourseId}/${nextSequence.id}/first`);
     }
   };
 
   const handlePreviousSequenceClick = () => {
     if (previousSequence !== null) {
+      setOpenCollapseSidebarItem({ id: previousSequence.id, isOpen: true });
+      setOpenCollapseSidebarItem({ id: previousSequence.sectionId, isOpen: true });
       history.push(`/course/${routeCourseId}/${previousSequence.id}/last`);
     }
   };
@@ -279,6 +285,7 @@ CoursePlayer.propTypes = {
   saveSequencePosition: PropTypes.func.isRequired,
   checkBlockCompletion: PropTypes.func.isRequired,
   fetchSequence: PropTypes.func.isRequired,
+  setOpenCollapseSidebarItem: PropTypes.func.isRequired,
 };
 
 CoursePlayer.defaultProps = {
@@ -317,6 +324,7 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
+  setOpenCollapseSidebarItem: setOpenCollapseSidebarItemAction,
   checkBlockCompletion,
   saveSequencePosition: saveSequencePositionAction,
   fetchSequence: fetchSequenceAction,
