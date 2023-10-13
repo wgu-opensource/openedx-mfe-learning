@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spinner } from '@edx/paragon';
 
-const SimpleLoader = () => (
+const SmallLoader = () => (
   <div className="small-loader" data-testid="small-loader">
     <span className="small-loader-container">
       <Spinner
@@ -13,4 +13,4 @@ const SimpleLoader = () => (
   </div>
 );
 
-export default SimpleLoader;
+export default SmallLoader;
