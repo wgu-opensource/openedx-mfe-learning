@@ -36,6 +36,7 @@ const Section = ({
         type="button"
         className={classNames('sidebar-item-header', { active: isActiveSection, 'has-current-unit': hasCurrentUnit && !collapsibleMenuState[id] }, status, 'section')}
         onClick={handleOpenCollapse}
+        aria-expanded={collapsibleMenuState[id]}
       >{collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />} <span className="sidebar-item-title">{title}</span>
         { isLoading && collapsibleMenuState[id] ? <SmallLoader /> : statusIcons[status] }
       </button>
@@ -46,7 +47,7 @@ const Section = ({
         aria-label="Bookmark"
         tabIndex={hasCurrentUnit && !collapsibleMenuState[id] ? 0 : -1}
       />
-      <div data-testid={`section-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
+      <div role="group" data-testid={`section-collapsable-${id}`} className={`sidebar-item-collapsable ${!collapsibleMenuState[id] && 'collapsed'}`}>
         {sequences.map(sequence => (
           <Sequence
             key={sequence.id}

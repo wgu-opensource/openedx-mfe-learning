@@ -32,6 +32,7 @@ const Sequence = ({
           status,
           'sequence',
         )}
+        aria-expanded={collapsibleMenuState[id]}
         onClick={handleOpenCollapse}
       >
         {units.length > 0 && (collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />)}

@@ -26,11 +26,13 @@ const Unit = ({
   };
 
   return (
-    <button type="button" className="sidebar-item-container" data-testid={`unit-button-${id}`} onClick={handleClick}>
-      <div className={classNames('sidebar-item-header', {
-        current: isCurrentUnit,
-        active: isActiveUnit,
-      }, status, 'unit')}
+    <button role="menuitem" type="button" className="sidebar-item-container" data-testid={`unit-button-${id}`} onClick={handleClick}>
+      <div
+        role="none"
+        className={classNames('sidebar-item-header', {
+          current: isCurrentUnit,
+          active: isActiveUnit,
+        }, status, 'unit')}
       > <span className="sidebar-item-title">{title}</span> {statusIcons[status]}
       </div>
     </button>
