@@ -10,7 +10,7 @@ import {
 } from './data/slice';
 import collapsibleMenuStateSelector from './data/selectors';
 import CarrotIconTop from '../../assets/CarrotIconTop';
-import { toggleDesktopSidebar } from '../course-view/data/slice';
+import { closeDesktopSidebar, toggleDesktopSidebar } from '../course-view/data/slice';
 import CarrotIconRight from '../../assets/CarrotIconRight';
 import SimpleLoader from '../../components/SimpleLoader/SimpleLoader';
 
@@ -88,14 +88,19 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
       } else if (event.key === 'ArrowUp') {
         focusPreviousElement(document.activeElement);
         event.preventDefault();
+      } else if (event.key === 'Escape') {
+        document.body.tabIndex = -1;
+        document.body.focus();
+        document.body.removeAttribute('tabindex');
+        dispatch(closeDesktopSidebar());
       }
     }
     sidebar.addEventListener('keydown', handleKeydownEvent);
     return () => sidebar.removeEventListener('keydown', handleKeydownEvent);
-  }, [sectionSequenceUnits.length, collapsibleMenuState, isSidebarExtended]);
+  }, [sectionSequenceUnits.length, collapsibleMenuState, isSidebarExtended, dispatch]);
 
   return (
-    <div className="sidebar-container">
+    <div className="sidebar-container" role="menu">
       <div className="sidebar-header">
         <button className="btn-outline-secondary" tabIndex={isSidebarExtended ? 0 : -1} data-testid="expand-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown />Expand All</button>
         <button className="btn-outline-secondary" tabIndex={isSidebarExtended ? 0 : -1} data-testid="collapse-all-button" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
