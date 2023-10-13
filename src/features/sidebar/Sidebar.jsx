@@ -24,6 +24,13 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
     dispatch(toggleDesktopSidebar());
   };
 
+  const handleSidebarContentClick = () => {
+    if (isSidebarExtended) {
+      return;
+    }
+    toggle();
+  };
+
   // isOpen is optional, toggles if not set
   const handleOpenCollapse = (id, isOpen) => {
     if (isOpen != null) {
@@ -31,6 +38,9 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
       return;
     }
     dispatch(toggleOpenCollapseSidebarItem({ id }));
+
+    // Extend sidebar if collapsed while on desktop
+    handleSidebarContentClick();
   };
 
   const scrollToCurrentUnit = () => {
@@ -45,13 +55,6 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
   const handleExpandAll = () => {
     dispatch(expandAllSidebarItems());
     scrollToCurrentUnit();
-  };
-
-  const handleSidebarContentClick = () => {
-    if (isSidebarExtended) {
-      return;
-    }
-    toggle();
   };
 
   useEffect(() => {
@@ -106,7 +109,7 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
         <button className="btn-outline-secondary" tabIndex={isSidebarExtended ? 0 : -1} data-testid="collapse-all-button" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
         <button type="button" onClick={toggle}>{isSidebarExtended ? <CarrotIconLeft /> : <CarrotIconRight />}</button>
       </div>
-      <div role="button" tabIndex={-1} className="sidebar-content" onClick={handleSidebarContentClick} onKeyDown={() => {}}>
+      <div className="sidebar-content">
         <div className="white-background">
           {!sectionSequenceUnits?.length && <SimpleLoader />}
           {sectionSequenceUnits?.map(section => (
@@ -126,7 +129,6 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
           ))}
         </div>
       </div>
-      {/* <button type="button" onClick={toggle}>Toggle</button> */}
     </div>
   );
 };
