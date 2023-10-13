@@ -35,7 +35,9 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
 
   const scrollToCurrentUnit = () => {
     const currentUnit = document.querySelector('.sidebar-item-header.current');
-    setTimeout(() => currentUnit.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'center' }), 0);
+    if (currentUnit !== null && 'scrollIntoView' in currentUnit) {
+      setTimeout(() => currentUnit.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'center' }), 0);
+    }
   };
 
   const handleCollapseAll = () => dispatch(collapseAllSidebarItems());
@@ -51,6 +53,10 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
     }
     toggle();
   };
+
+  useEffect(() => {
+    scrollToCurrentUnit();
+  }, [currentUnitId]);
 
   useEffect(() => {
     const sidebar = document.getElementsByClassName('sidebar-container')[0];
