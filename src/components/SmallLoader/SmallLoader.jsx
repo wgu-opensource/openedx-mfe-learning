@@ -6,7 +6,7 @@ const SimpleLoader = () => (
     <span className="small-loader-container">
       <Spinner
         animation="border"
-        className="spinner-border-sm text-primary"
+        className="spinner-border-sm text-primary small-loader-spinner"
         screenReaderText="loading"
       />
     </span>
