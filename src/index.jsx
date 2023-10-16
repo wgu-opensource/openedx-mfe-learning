@@ -13,6 +13,7 @@ import './index.scss';
 import initializeStore from './app/store';
 import CourseView from './features/course-view/CourseView';
 import Layout from './features/layout/Layout';
+import Pendo from './features/pendo/Pendo';
 import CourseAccessErrorPage from './features/course-access-error-page/CourseAccessErrorPage';
 
 ensureConfig([
@@ -21,15 +22,14 @@ ensureConfig([
 ], 'CoursePlayer component');
 
 subscribe(APP_READY, () => {
-  const enablePendo = getConfig().ENABLE_PENDO === true;
+  const enablePendo = getConfig().ENABLE_PENDO;
   ReactDOM.render(
     <AppProvider store={initializeStore()}>
       <Helmet>
         <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
-        { enablePendo && (
-        <script src={getConfig().PENDO_SNIPPET} type="text/javascript" />
-        )}
+        { enablePendo && <script src={getConfig().PENDO_SNIPPET} type="text/javascript" async />}
       </Helmet>
+      { enablePendo && <Pendo />}
       <Layout>
         <Switch>
           <PageRoute path="/course/:courseId/access-denied" component={CourseAccessErrorPage} />
@@ -64,6 +64,7 @@ initialize({
         COPYRIGHT_STRING: process.env.COPYRIGHT_STRING || null,
         CREDENTIALS_BASE_URL: process.env.CREDENTIALS_BASE_URL || null,
         CREDIT_HELP_LINK_URL: process.env.CREDIT_HELP_LINK_URL || null,
+        CUSTOM_PENDO: process.env.CUSTOM_PENDO === 'true' || null,
         DISCUSSIONS_MFE_BASE_URL: process.env.DISCUSSIONS_MFE_BASE_URL || null,
         ENTERPRISE_LEARNER_PORTAL_HOSTNAME: process.env.ENTERPRISE_LEARNER_PORTAL_HOSTNAME || null,
         ENABLE_JUMPNAV: process.env.ENABLE_JUMPNAV || null,
@@ -71,6 +72,9 @@ initialize({
         ENABLE_PENDO: process.env.ENABLE_PENDO === 'true' || null,
         INSIGHTS_BASE_URL: process.env.INSIGHTS_BASE_URL || null,
         PENDO_SNIPPET: process.env.PENDO_SNIPPET || null,
+        PENDO_VISITOR_KEY: process.env.PENDO_VISITOR_KEY || null,
+        PENDO_VISITOR_IIFE: process.env.PENDO_VISITOR_IIFE || undefined,
+        PENDO_VISITOR_TYPE: process.env.PENDO_VISITOR_TYPE || null,
         PRIVACY_POLICY_URL: process.env.PRIVACY_POLICY_URL || null,
         SEARCH_CATALOG_URL: process.env.SEARCH_CATALOG_URL || null,
         SOCIAL_UTM_MILESTONE_CAMPAIGN: process.env.SOCIAL_UTM_MILESTONE_CAMPAIGN || null,
