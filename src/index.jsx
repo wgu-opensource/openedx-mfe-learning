@@ -77,6 +77,7 @@ initialize({
         PENDO_VISITOR_TYPE: process.env.PENDO_VISITOR_TYPE || null,
         PRIVACY_POLICY_URL: process.env.PRIVACY_POLICY_URL || null,
         SEARCH_CATALOG_URL: process.env.SEARCH_CATALOG_URL || null,
+        SITE_OPERATOR: process.env.SITE_OPERATOR || '',
         SOCIAL_UTM_MILESTONE_CAMPAIGN: process.env.SOCIAL_UTM_MILESTONE_CAMPAIGN || null,
         STUDIO_BASE_URL: process.env.STUDIO_BASE_URL || null,
         SUPPORT_URL: process.env.SUPPORT_URL || null,

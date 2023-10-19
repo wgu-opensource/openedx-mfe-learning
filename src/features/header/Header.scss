@@ -23,7 +23,8 @@
   }
 
   .logo {
-    max-height: 24px;
+    max-height: 32px;
+    height: 32px;
 
     @media (max-width: map-get($grid-breakpoints, "xl")) {
       margin-right: 0.75rem;

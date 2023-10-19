@@ -13,7 +13,7 @@ const Header = () => {
   const layoutHasSidebar = useSelector(layoutHasSidebarSelector);
 
   const logo = getConfig().LOGO_WHITE_URL;
-  const logoAltText = getConfig().SITE_NAME;
+  const logoAltText = `${getConfig().SITE_OPERATOR} logo`;
   const courseTitle = course?.title || '';
 
   const dispatch = useDispatch();
