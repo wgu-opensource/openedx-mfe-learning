@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import { history } from '@edx/frontend-platform';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import CompletedIcon from '../../assets/CompletedIcon';
 import PendingIcon from '../../assets/PendingIcon';
-import { closeMobileSidebar } from '../../features/course-view/data/slice';
+import { closeMobileSidebar, toggleDesktopSidebar } from '../../features/course-view/data/slice';
+import { isDesktopSidebarExtendedSelector } from '../../features/course-view/data/selectors';
 
 const statusIcons = {
   pending: <PendingIcon />,
@@ -15,14 +16,19 @@ const Unit = ({
   id, courseId, sequenceId, title, complete, isCurrentUnit, isActiveUnit,
 }) => {
   const status = complete ? 'completed' : 'pending';
+  const isSidebarExtended = useSelector(isDesktopSidebarExtendedSelector);
 
   const dispatch = useDispatch();
 
   const handleClick = () => {
     // Navigate
     history.push(`/course/${courseId}/${sequenceId}/${id}`);
-    // Close sidebar
+    // Close sidebar on mobile
     dispatch(closeMobileSidebar());
+    // Extend sidebar on desktop
+    if (!isSidebarExtended) {
+      dispatch(toggleDesktopSidebar());
+    }
   };
 
   return (
