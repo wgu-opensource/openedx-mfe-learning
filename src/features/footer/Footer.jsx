@@ -29,7 +29,7 @@ const Footer = ({ className }) => {
 
   ];
   const logo = getConfig().LOGO_TRADEMARK_URL;
-  const logoAltText = getConfig().SITE_NAME;
+  const logoAltText = `${getConfig().SITE_OPERATOR} logo`;
 
   const externalLinkClickHandler = (event) => {
     const label = event.currentTarget.getAttribute('href');
