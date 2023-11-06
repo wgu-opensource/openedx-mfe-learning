@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import { Sequence } from '@edx/frontend-app-learning';
+import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
+import LtiResources from '../../lti-resources/LtiResources';
 
 const SequenceContainer = ({
   courseId,
@@ -8,16 +10,29 @@ const SequenceContainer = ({
   nextSequenceHandler,
   previousSequenceHandler,
   unitNavigationHandler,
-}) => (
-  <Sequence
-    unitId={unitId}
-    sequenceId={sequenceId}
-    courseId={courseId}
-    unitNavigationHandler={unitNavigationHandler}
-    nextSequenceHandler={nextSequenceHandler}
-    previousSequenceHandler={previousSequenceHandler}
-  />
-);
+}) => {
+  const { administrator } = getAuthenticatedUser();
+  return (
+    <>
+      { administrator
+      && (
+      <LtiResources
+        courseId={courseId}
+        sequenceId={sequenceId}
+        unitId={unitId}
+      />
+      )}
+      <Sequence
+        unitId={unitId}
+        sequenceId={sequenceId}
+        courseId={courseId}
+        unitNavigationHandler={unitNavigationHandler}
+        nextSequenceHandler={nextSequenceHandler}
+        previousSequenceHandler={previousSequenceHandler}
+      />
+    </>
+  );
+};
 
 SequenceContainer.propTypes = {
   courseId: PropTypes.string,
