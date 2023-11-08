@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Sequence } from '@edx/frontend-app-learning';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
-import LtiResources from '../../lti-resources/LtiResources';
+import LtiResource from '../../lti-resources/LtiResource';
 
 const SequenceContainer = ({
   courseId,
@@ -16,7 +16,7 @@ const SequenceContainer = ({
     <>
       { administrator
       && (
-      <LtiResources
+      <LtiResource
         courseId={courseId}
         sequenceId={sequenceId}
         unitId={unitId}

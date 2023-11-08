@@ -1,0 +1,27 @@
+.btn-mentor {
+  margin-top: 16px;
+  // page is full expanded
+  margin-left: 120px;
+
+  @media (max-width: map-get($grid-breakpoints, "lg")) {
+    margin-left: 100px;
+  }
+
+  @media (max-width: map-get($grid-breakpoints, "md")) {
+    margin-left: 80px;
+  }
+
+  @media (max-width: map-get($grid-breakpoints, "sm")) {
+    margin-left: 24px;
+  }
+}
+
+.resource-display{
+  overflow-wrap: break-word;  
+  word-wrap: break-word; 
+  word-break: break-word;
+
+  @media (max-width: map-get($grid-breakpoints, "lg")) {
+    padding-right: 32px;
+  }
+}
