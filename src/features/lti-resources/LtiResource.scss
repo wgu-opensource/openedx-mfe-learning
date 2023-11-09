@@ -1,18 +1,22 @@
 .btn-mentor {
-  margin-top: 16px;
+  margin-top: 24px;
   // page is full expanded
-  margin-left: 120px;
+  margin-left: 190px;
+
+  @media (max-width: map-get($grid-breakpoints, "xl")) {
+    margin-left: 60px;
+  }
 
   @media (max-width: map-get($grid-breakpoints, "lg")) {
-    margin-left: 100px;
+    margin-left: 40px;
   }
 
   @media (max-width: map-get($grid-breakpoints, "md")) {
-    margin-left: 80px;
+    margin-left: 20px;
   }
 
   @media (max-width: map-get($grid-breakpoints, "sm")) {
-    margin-left: 24px;
+    margin-left: 20px;
   }
 }
 
