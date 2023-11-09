@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, ModalDialog, useToggle } from '@edx/paragon';
+import { currentCourseSelector } from '../course-player/data/selectors';
 
 // Used to generate resource identifiers for OEX as a LTI consumer
 const LtiResource = ({
-  courseId,
   sequenceId,
+  courseId,
   unitId,
 }) => {
-  const generateResource = () => {
-    // Get only the sequence Identifier
-    let atIndex = sequenceId.lastIndexOf('@');
-    const sequenceString = sequenceId.slice(atIndex + 1);
+  const currentSequence = useSelector(currentCourseSelector);
 
-    // Get only the unit Identifier
-    atIndex = unitId.lastIndexOf('@');
-    const unitString = unitId.slice(atIndex + 1);
+  const generateResource = () => {
+    // Get only the section Identifier
+    console.log(currentSequence);
+    const sectionString = '';
+
+    // Get only the sequence Identifier
+    const atIndexSequence = sequenceId.lastIndexOf('@');
+    const sequenceString = sequenceId.slice(atIndexSequence + 1);
 
     // Generate resource string
-    const courseResource = `/courses/${courseId}/courseware/${sequenceString}/${unitString}`;
+    const courseResource = `/courses/${courseId}/courseware/${sectionString}/${sequenceString}`;
     return courseResource;
   };
 
@@ -26,7 +30,7 @@ const LtiResource = ({
     const resourceString = generateResource();
 
     // Append the activate block and vertical block (unit)
-    const newString = `${resourceString}/activate_block/unit`;
+    const newString = `${resourceString}/activate_block/${unitId}`;
     return newString;
   };
 
