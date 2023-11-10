@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, ModalDialog, useToggle } from '@edx/paragon';
-import { useSelector } from 'react-redux';
 import { currentSequenceSelector } from '../course-player/data/selectors';
 
 // Used to generate resource identifiers for OEX as a LTI consumer
 const LtiResource = ({
-  courseId,
   sequenceId,
+  courseId,
   unitId,
 }) => {
   const currentSequence = useSelector(currentSequenceSelector);
