@@ -13,18 +13,11 @@ const LtiResource = ({
   const currentSequence = useSelector(currentSequenceSelector);
   const currentSectionId = currentSequence ? currentSequence.sectionId : null;
   const generateResource = () => {
-    // Test output for current sectionId
-    console.log('The current Section: ', currentSectionId);
-    console.log('The current Sequence: ', sequenceId);
-
     // Get only the section Identifier
     const sectionString = currentSectionId ? currentSectionId.slice(currentSectionId.lastIndexOf('@') + 1) : '';
 
     // Get only the sequence Identifier
     const sequenceString = sequenceId ? sequenceId.slice(sequenceId.lastIndexOf('@') + 1) : '';
-
-    console.log('The new section string: ', sectionString);
-    console.log('The new sequence string: ', sequenceString);
 
     // Generate resource string
     const courseResource = `/courses/${courseId}/courseware/${sectionString}/${sequenceString}`;
@@ -35,8 +28,7 @@ const LtiResource = ({
     const resourceString = generateResource();
 
     // Append the activate block and vertical block (unit)
-    console.log('Here is the blockId: ', unitId);
-    const newString = `${resourceString}/${unitId}`;
+    const newString = `${resourceString}/1?activate_block_id=${unitId}`;
     return newString;
   };
 
