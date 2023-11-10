@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, ModalDialog, useToggle } from '@edx/paragon';
+import { useSelector } from 'react-redux';
+import { currentSequenceSelector } from '../course-player/data/selectors';
 
 // Used to generate resource identifiers for OEX as a LTI consumer
 const LtiResource = ({
@@ -8,17 +10,24 @@ const LtiResource = ({
   sequenceId,
   unitId,
 }) => {
+  const currentSequence = useSelector(currentSequenceSelector);
+  const currentSectionId = currentSequence ? currentSequence.sectionId : null;
   const generateResource = () => {
-    // Get only the sequence Identifier
-    let atIndex = sequenceId.lastIndexOf('@');
-    const sequenceString = sequenceId.slice(atIndex + 1);
+    // Test output for current sectionId
+    console.log('The current Section: ', currentSectionId);
+    console.log('The current Sequence: ', sequenceId);
 
-    // Get only the unit Identifier
-    atIndex = unitId.lastIndexOf('@');
-    const unitString = unitId.slice(atIndex + 1);
+    // Get only the section Identifier
+    const sectionString = currentSectionId ? currentSectionId.slice(currentSectionId.lastIndexOf('@') + 1) : '';
+
+    // Get only the sequence Identifier
+    const sequenceString = sequenceId ? sequenceId.slice(sequenceId.lastIndexOf('@') + 1) : '';
+
+    console.log('The new section string: ', sectionString);
+    console.log('The new sequence string: ', sequenceString);
 
     // Generate resource string
-    const courseResource = `/courses/${courseId}/courseware/${sequenceString}/${unitString}`;
+    const courseResource = `/courses/${courseId}/courseware/${sectionString}/${sequenceString}`;
     return courseResource;
   };
 
@@ -26,7 +35,8 @@ const LtiResource = ({
     const resourceString = generateResource();
 
     // Append the activate block and vertical block (unit)
-    const newString = `${resourceString}/activate_block/unit`;
+    console.log('Here is the blockId: ', unitId);
+    const newString = `${resourceString}/${unitId}`;
     return newString;
   };
 
