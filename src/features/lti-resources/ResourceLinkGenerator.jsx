@@ -12,6 +12,7 @@ const ResourceLinkGenerator = ({
 }) => {
   const currentSequence = useSelector(currentSequenceSelector);
   const currentSectionId = currentSequence ? currentSequence.sectionId : null;
+
   const generateCourseResource = () => {
     // Get only the section identifier
     const sectionString = currentSectionId ? currentSectionId.slice(currentSectionId.lastIndexOf('@') + 1) : '';
