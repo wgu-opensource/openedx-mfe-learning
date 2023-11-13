@@ -29,10 +29,9 @@ const generateResource = (currentSectionId, sequenceId, courseId) => {
   }
 };
 
-const generateDeepLink = (sequenceId, courseId, unitId) => {
+const generateDeepLink = (currentSectionId, sequenceId, courseId, unitId) => {
   // Obtain course resource
-  const resourceString = generateResource(sequenceId, courseId);
-  console.log('The unit Id: ', unitId);
+  const resourceString = generateResource(currentSectionId, sequenceId, courseId);
 
   // Append the activate block and vertical block (unit)
   const deepLinkString = `${resourceString}/1?activate_block_id=${unitId}`;
@@ -49,7 +48,7 @@ const ResourceLinkGenerator = ({
   const currentSectionId = currentSequence ? currentSequence.sectionId : null;
   // Call the functions to generate resource and deep link
   const resourceStringCourse = generateResource(currentSectionId, sequenceId, courseId);
-  const resourceStringDeep = generateDeepLink(unitId);
+  const resourceStringDeep = generateDeepLink(currentSectionId, sequenceId, courseId, unitId);
 
   const [isOpen, open, close] = useToggle(false);
   const [modalSize] = useState('xl');
