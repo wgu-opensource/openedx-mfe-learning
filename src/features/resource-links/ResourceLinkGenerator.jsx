@@ -4,6 +4,41 @@ import PropTypes from 'prop-types';
 import { Button, ModalDialog, useToggle } from '@edx/paragon';
 import { currentSequenceSelector } from '../course-player/data/selectors';
 
+const generateResource = (currentSectionId, sequenceId, courseId) => {
+  try {
+    // Get only the section Identifier
+    const sectionString = currentSectionId ? currentSectionId.slice(currentSectionId.lastIndexOf('@') + 1) : '';
+
+    if (!sectionString) {
+      throw new Error('Unable to obtain sectionString');
+    }
+
+    // Get only the sequence Identifier
+    const sequenceString = sequenceId ? sequenceId.slice(sequenceId.lastIndexOf('@') + 1) : '';
+
+    if (!sequenceString) {
+      throw new Error('Unable to obtain sequenceString');
+    }
+
+    // Generate resource string
+    const courseResource = `/courses/${courseId}/courseware/${sectionString}/${sequenceString}`;
+    return courseResource;
+  } catch (error) {
+    console.error(error);
+    return ('The courseResource cannot be created without both the sectionString and sequenceString.');
+  }
+};
+
+const generateDeepLink = (sequenceId, courseId, unitId) => {
+  // Obtain course resource
+  const resourceString = generateResource(sequenceId, courseId);
+  console.log('The unit Id: ', unitId);
+
+  // Append the activate block and vertical block (unit)
+  const deepLinkString = `${resourceString}/1?activate_block_id=${unitId}`;
+  return deepLinkString;
+};
+
 // Used to generate resource identifiers for OEX as a LTI consumer
 const ResourceLinkGenerator = ({
   sequenceId,
@@ -12,31 +47,13 @@ const ResourceLinkGenerator = ({
 }) => {
   const currentSequence = useSelector(currentSequenceSelector);
   const currentSectionId = currentSequence ? currentSequence.sectionId : null;
-  const generateResource = () => {
-    // Get only the section Identifier
-    const sectionString = currentSectionId ? currentSectionId.slice(currentSectionId.lastIndexOf('@') + 1) : '';
-
-    // Get only the sequence Identifier
-    const sequenceString = sequenceId ? sequenceId.slice(sequenceId.lastIndexOf('@') + 1) : '';
-
-    // Generate resource string
-    const courseResource = `/courses/${courseId}/courseware/${sectionString}/${sequenceString}`;
-    return courseResource;
-  };
-
-  const generateDeepLink = () => {
-    const resourceString = generateResource();
-
-    // Append the activate block and vertical block (unit)
-    const newString = `${resourceString}/1?activate_block_id=${unitId}`;
-    return newString;
-  };
+  // Call the functions to generate resource and deep link
+  const resourceStringCourse = generateResource(currentSectionId, sequenceId, courseId);
+  const resourceStringDeep = generateDeepLink(unitId);
 
   const [isOpen, open, close] = useToggle(false);
   const [modalSize] = useState('xl');
   const [modalVariant] = useState('default');
-  const resourceStringCourse = generateResource();
-  const resourceStringDeep = generateDeepLink();
 
   return (
     <>
