@@ -13,10 +13,10 @@ const ResourceLinkGenerator = ({
   const currentSequence = useSelector(currentSequenceSelector);
   const currentSectionId = currentSequence ? currentSequence.sectionId : null;
   const generateResource = () => {
-    // Get only the section Identifier
+    // Get only the section identifier
     const sectionString = currentSectionId ? currentSectionId.slice(currentSectionId.lastIndexOf('@') + 1) : '';
 
-    // Get only the sequence Identifier
+    // Get only the sequence identifier
     const sequenceString = sequenceId ? sequenceId.slice(sequenceId.lastIndexOf('@') + 1) : '';
 
     // Generate resource string
@@ -28,8 +28,8 @@ const ResourceLinkGenerator = ({
     const resourceString = generateResource();
 
     // Append the activate block and vertical block (unit)
-    const newString = `${resourceString}/1?activate_block_id=${unitId}`;
-    return newString;
+    const deepLinkString = `${resourceString}/1?activate_block_id=${unitId}`;
+    return deepLinkString;
   };
 
   const [isOpen, open, close] = useToggle(false);
