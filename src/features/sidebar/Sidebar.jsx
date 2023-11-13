@@ -14,6 +14,21 @@ import { closeDesktopSidebar, toggleDesktopSidebar } from '../course-view/data/s
 import CarrotIconRight from '../../assets/CarrotIconRight';
 import SimpleLoader from '../../components/SimpleLoader/SimpleLoader';
 
+const ConditionalButton = ({
+  isSidebarExtended, onClick, dataTestId, children, ariaLabel,
+}) => (
+  <button
+    className="btn-outline-secondary"
+    data-testid={dataTestId}
+    type="button"
+    onClick={onClick}
+    disabled={!isSidebarExtended}
+    aria-label={ariaLabel}
+  >
+    {children}
+  </button>
+);
+
 const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
   const dispatch = useDispatch();
   const courseId = useSelector(currentCourseIdSelector);
@@ -105,9 +120,25 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
   return (
     <div className="sidebar-container" role="menu">
       <div className="sidebar-header">
-        <button className="btn-outline-secondary" tabIndex={isSidebarExtended ? 0 : -1} data-testid="expand-all-button" type="button" onClick={handleExpandAll}><CarrotIconDown />Expand All</button>
-        <button className="btn-outline-secondary" tabIndex={isSidebarExtended ? 0 : -1} data-testid="collapse-all-button" type="button" onClick={handleCollapseAll}><CarrotIconTop />Collapse All</button>
-        <button type="button" onClick={toggle}>{isSidebarExtended ? <CarrotIconLeft /> : <CarrotIconRight />}</button>
+        <ConditionalButton
+          isSidebarExtended={isSidebarExtended}
+          onClick={handleExpandAll}
+          dataTestId="expand-all-button"
+          ariaLabel="Expand All"
+        >
+          <CarrotIconDown /> Expand All
+        </ConditionalButton>
+        <ConditionalButton
+          isSidebarExtended={isSidebarExtended}
+          onClick={handleCollapseAll}
+          dataTestId="collapse-all-button"
+          ariaLabel="Collapse All"
+        >
+          <CarrotIconTop /> Collapse All
+        </ConditionalButton>
+        <button type="button" onClick={toggle} aria-label="Toggle Sidebar">
+          {isSidebarExtended ? <CarrotIconLeft /> : <CarrotIconRight />}
+        </button>
       </div>
       <div className="sidebar-content">
         <div className="white-background">
@@ -131,6 +162,14 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
       </div>
     </div>
   );
+};
+
+ConditionalButton.propTypes = {
+  isSidebarExtended: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  dataTestId: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  ariaLabel: PropTypes.string.isRequired,
 };
 
 Sidebar.propTypes = {
