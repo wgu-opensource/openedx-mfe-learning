@@ -12,11 +12,12 @@ const ResourceLinkGenerator = ({
 }) => {
   const currentSequence = useSelector(currentSequenceSelector);
   const currentSectionId = currentSequence ? currentSequence.sectionId : null;
-  const generateResource = () => {
-    // Get only the section Identifier
+
+  const generateCourseResource = () => {
+    // Get only the section identifier
     const sectionString = currentSectionId ? currentSectionId.slice(currentSectionId.lastIndexOf('@') + 1) : '';
 
-    // Get only the sequence Identifier
+    // Get only the sequence identifier
     const sequenceString = sequenceId ? sequenceId.slice(sequenceId.lastIndexOf('@') + 1) : '';
 
     // Generate resource string
@@ -24,19 +25,20 @@ const ResourceLinkGenerator = ({
     return courseResource;
   };
 
-  const generateDeepLink = () => {
-    const resourceString = generateResource();
+  const generateDeepResource = () => {
+    // Obtain course resource
+    const resourceString = generateCourseResource();
 
-    // Append the activate block and vertical block (unit)
-    const newString = `${resourceString}/1?activate_block_id=${unitId}`;
-    return newString;
+    // Append activate block and vertical block (unit)
+    const deepLinkResource = `${resourceString}/1?activate_block_id=${unitId}`;
+    return deepLinkResource;
   };
 
   const [isOpen, open, close] = useToggle(false);
   const [modalSize] = useState('xl');
   const [modalVariant] = useState('default');
-  const resourceStringCourse = generateResource();
-  const resourceStringDeep = generateDeepLink();
+  const resourceStringCourse = generateCourseResource();
+  const resourceStringDeep = generateDeepResource();
 
   return (
     <>
