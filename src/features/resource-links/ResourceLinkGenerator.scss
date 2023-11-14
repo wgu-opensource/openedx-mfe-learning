@@ -1,18 +1,5 @@
 .btn-mentor {
   margin-top: 24px;
-  margin-left: 240px;
-
-  @media (max-width: map-get($grid-breakpoints, "xl")) {
-    margin-left: 120px;
-  }
-
-  @media (max-width: map-get($grid-breakpoints, "lg")) {
-    margin-left: 40px;
-  }
-
-  @media (max-width: map-get($grid-breakpoints, "md")) {
-    margin-left: 20px;
-  }
 }
 
 .resource-display{

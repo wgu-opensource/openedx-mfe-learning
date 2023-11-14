@@ -75,7 +75,7 @@ const ResourceLinkGenerator = ({
 
   return (
     <>
-      <div className="d-flex">
+      <div className="unit-container">
         <Button variant="primary" className="btn-mentor" onClick={open}>
           Get Resource IDs
         </Button>
