@@ -24,18 +24,37 @@ const generateResource = (currentSectionId, sequenceId, courseId) => {
     const courseResource = `/courses/${courseId}/courseware/${sectionString}/${sequenceString}`;
     return courseResource;
   } catch (error) {
-    console.error(error);
+    console.error(`Error in generateResource: ${error.message}`);
     return ('The courseResource cannot be created without both the sectionString and sequenceString.');
   }
 };
 
 const generateDeepLink = (currentSectionId, sequenceId, courseId, unitId) => {
-  // Obtain course resource
-  const resourceString = generateResource(currentSectionId, sequenceId, courseId);
+  try {
+    // Obtain course resource
+    const resourceString = generateResource(currentSectionId, sequenceId, courseId);
 
-  // Append the activate block and vertical block (unit)
-  const deepLinkString = `${resourceString}/1?activate_block_id=${unitId}`;
-  return deepLinkString;
+    if (!resourceString.includes('/')) {
+      throw new Error('Invalid resourceString format');
+    }
+
+    // Check if unitId is null or undefined
+    if (unitId === null || unitId === undefined) {
+      throw new Error('There was an issue obtaining a valid unitId');
+    }
+
+    // Append the activate block and vertical block (unit)
+    const deepLinkString = `${resourceString}/1?activate_block_id=${unitId}`;
+
+    if (!deepLinkString) {
+      throw new Error('Unable to obtain deepLinkString');
+    }
+
+    return deepLinkString;
+  } catch (error) {
+    console.error(`Error in generateDeepLink: ${error.message}`);
+    return `Error generating deep link: ${error.message}`;
+  }
 };
 
 // Used to generate resource identifiers for OEX as a LTI consumer
