@@ -1,5 +1,5 @@
 import React from 'react';
-import { getConfig, ensureConfig } from '@edx/frontend-platform';
+import { getConfig } from '@edx/frontend-platform';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMobileSidebar } from '../course-view/data/slice';
 
@@ -7,11 +7,6 @@ import { currentCourseHomeMetaSelector } from './data/selectors';
 import Logo from '../../assets/Logo';
 import MenuIcon from '../../assets/MenuIcon';
 import { layoutHasSidebarSelector } from '../course-view/data';
-
-ensureConfig([
-  'LOGO_WHITE_URL',
-  'SITE_OPERATOR',
-], 'Header component');
 
 const Header = () => {
   const course = useSelector(currentCourseHomeMetaSelector);
