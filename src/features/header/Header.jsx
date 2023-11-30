@@ -11,7 +11,7 @@ import { layoutHasSidebarSelector } from '../course-view/data';
 ensureConfig([
   'LOGO_WHITE_URL',
   'SITE_OPERATOR',
-], 'Footer component');
+], 'Header component');
 
 const Header = () => {
   const course = useSelector(currentCourseHomeMetaSelector);
