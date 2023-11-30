@@ -116,6 +116,12 @@ collapsibleMenuState: {
 
 - `isExpanded`: This is a boolean value that indicates whether the element with the specified `elementId` is currently expanded (`true`) or collapsed (`false`).
 
+## Analytics Events
+- The sidebar uses the edx.ui.lms.outline.selected event
+- When a user navigates via the sidebar this event is generated from Unit.jsx
+- The event payload contains the target unit title, target unit url, and current url
+- For more information on this event see https://edx.readthedocs.io/projects/devdata/en/latest/internal_data_formats/tracking_logs/student_event_types.html#edx-ui-lms-sequence-next-selected
+
 ## Additional Notes
 
 - The `SimpleLoader` component is displayed when section data is being fetched.
@@ -123,4 +129,3 @@ collapsibleMenuState: {
 - The `statusIcons` dictionary maps status strings ('in-progress', 'pending', 'completed') to their corresponding icon components.
 - All components make use of `PropTypes` to validate the props being passed in.
 ---
-
