@@ -11,10 +11,12 @@ const SequenceContainer = ({
   previousSequenceHandler,
   unitNavigationHandler,
 }) => {
-  const { administrator } = getAuthenticatedUser();
+  const { administrator, roles } = getAuthenticatedUser();
+  const staff = roles.includes('staff');
+  console.log(`User roles: ${roles}`);
   return (
     <>
-      { administrator
+      { (administrator || staff)
       && (
       <ResourceLinkGenerator
         courseId={courseId}
