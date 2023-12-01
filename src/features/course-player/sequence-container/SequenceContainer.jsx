@@ -13,11 +13,10 @@ const SequenceContainer = ({
   previousSequenceHandler,
   unitNavigationHandler,
 }) => {
+  // Show resources if user is an administrator or course staff
   const { administrator } = getAuthenticatedUser();
   const course = useSelector(currentCourseHomeMetaSelector);
   const isStaff = course ? course.isStaff : false;
-  console.log(course);
-  console.log(isStaff);
   return (
     <>
       { (administrator || isStaff)
