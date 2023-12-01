@@ -13,13 +13,14 @@ const SequenceContainer = ({
   previousSequenceHandler,
   unitNavigationHandler,
 }) => {
-  // Show resources for administrators and course staff
   const { administrator } = getAuthenticatedUser();
   const course = useSelector(currentCourseHomeMetaSelector);
-  const { isCourseStaff } = course;
+  const isStaff = course ? course.isStaff : false;
+  console.log(course);
+  console.log(isStaff);
   return (
     <>
-      { (administrator || isCourseStaff)
+      { (administrator || isStaff)
       && (
       <ResourceLinkGenerator
         courseId={courseId}
