@@ -13,7 +13,7 @@ const SequenceContainer = ({
 }) => {
   const { administrator, roles } = getAuthenticatedUser();
   const staff = roles.includes('staff');
-  console.log(`User roles: ${roles}`);
+  console.log(roles);
   return (
     <>
       { (administrator || staff)
