@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Sequence } from '@edx/frontend-app-learning';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
+import { currentCourseHomeMetaSelector } from '../../header/data/selectors';
 import ResourceLinkGenerator from '../../resource-links/ResourceLinkGenerator';
 
 const SequenceContainer = ({
@@ -11,12 +13,13 @@ const SequenceContainer = ({
   previousSequenceHandler,
   unitNavigationHandler,
 }) => {
-  const { administrator, roles } = getAuthenticatedUser();
-  const staff = roles.includes('staff');
-  console.log(roles);
+  // Show resources for administrators and course staff
+  const { administrator } = getAuthenticatedUser();
+  const course = useSelector(currentCourseHomeMetaSelector);
+  const { isCourseStaff } = course;
   return (
     <>
-      { (administrator || staff)
+      { (administrator || isCourseStaff)
       && (
       <ResourceLinkGenerator
         courseId={courseId}
