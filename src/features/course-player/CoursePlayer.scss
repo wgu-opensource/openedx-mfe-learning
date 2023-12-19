@@ -18,6 +18,10 @@
     min-height: calc(100vh - $desktop-header-height);
   }
 
+  &.disable-app-header.disable-app-footer {
+    min-height: calc(100vh - $desktop-header-height - $desktop-footer-height);
+  }
+
   @media (max-width: map-get($grid-breakpoints, "xl")) {
     padding: 0px !important;
 
@@ -33,6 +37,10 @@
 
     &.disable-app-footer {
       min-height: calc(100vh - $mobile-header-height);
+    }
+
+    &.disable-app-header.disable-app-footer {
+      min-height: calc(100vh - $mobile-header-height - $mobile-footer-height);
     }
   }
 
