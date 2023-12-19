@@ -10,10 +10,12 @@ import {
 
 ensureConfig([
   'DISABLE_APP_HEADER',
+  'DISABLE_APP_FOOTER',
 ], 'Layout component');
 
 const Layout = ({ children }) => {
   const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
+  const disableAppFooter = getConfig().DISABLE_APP_FOOTER === true;
   const layoutHasSidebar = useSelector(layoutHasSidebarSelector);
   const isSidebarExtended = useSelector(isDesktopSidebarExtendedSelector);
 
@@ -23,11 +25,15 @@ const Layout = ({ children }) => {
       <div className={classNames('layout-body', { 'disable-app-header': disableAppHeader })}>
         {children}
       </div>
-      <Footer className={classNames({
-        'footer-no-sidebar': !layoutHasSidebar,
-        'footer-sidebar-extended': layoutHasSidebar && isSidebarExtended,
-      })}
-      />
+      {!disableAppFooter && (
+        <Footer
+          className={classNames({
+            'footer-no-sidebar': !layoutHasSidebar,
+            'footer-sidebar-extended': layoutHasSidebar && isSidebarExtended,
+            'disable-app-footer': disableAppFooter,
+          })}
+        />
+      )}
     </>
   );
 };

@@ -32,6 +32,7 @@ import { setOpenCollapseSidebarItem as setOpenCollapseSidebarItemAction } from '
 
 ensureConfig([
   'DISABLE_APP_HEADER',
+  'DISABLE_APP_FOOTER',
 ], 'CoursePlayer component');
 
 /**

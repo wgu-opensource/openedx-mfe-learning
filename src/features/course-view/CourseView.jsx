@@ -20,10 +20,12 @@ import { setLayoutHasSidebar } from './data/slice';
 
 ensureConfig([
   'DISABLE_APP_HEADER',
+  'DISABLE_APP_FOOTER',
 ], 'CourseView component');
 
 const CourseView = (props) => {
   const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
+  const disableAppFooter = getConfig().DISABLE_APP_FOOTER === true;
 
   const courseStatus = useSelector(currentCourseStatusSelector);
 
@@ -81,6 +83,7 @@ const CourseView = (props) => {
         { 'cv-course-sidebar-extended': isSidebarExtended },
         { 'cv-course-sidebar-mobile-closed': isMobileSidebarClosed },
         { 'disable-app-header': disableAppHeader },
+        { 'disable-app-footer': disableAppFooter },
       )}
       >
         <Sidebar
