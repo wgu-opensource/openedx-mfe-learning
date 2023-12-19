@@ -243,7 +243,9 @@ button.sidebar-item-container {
 
 // Unit hover & focus states
 button.sidebar-item-container:focus {
-  background: $gray-100 !important;
+  .sidebar-item-header {
+    background: $gray-100 !important;
+  }
 
   .sidebar-item-header.active {
     background: $primary-200 !important;
