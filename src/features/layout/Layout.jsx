@@ -14,7 +14,7 @@ ensureConfig([
 
 const Layout = ({ children }) => {
   const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
-  const disableAppFooter = getConfig().DISABLE_APP_FOOTER;
+  const disableAppFooter = getConfig().DISABLE_APP_FOOTER === true;
   const layoutHasSidebar = useSelector(layoutHasSidebarSelector);
   const isSidebarExtended = useSelector(isDesktopSidebarExtendedSelector);
 
