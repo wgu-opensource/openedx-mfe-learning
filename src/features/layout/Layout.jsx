@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { ensureConfig, getConfig } from '@edx/frontend-platform/config';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import {
@@ -14,9 +15,12 @@ ensureConfig([
 
 const Layout = ({ children }) => {
   const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
-  const disableAppFooter = getConfig().DISABLE_APP_FOOTER === true;
+  const disableAppFooter = getConfig().DISABLE_APP_FOOTER;
+  console.log('FOOTER LAYOUT VALUE: ', disableAppFooter);
   const layoutHasSidebar = useSelector(layoutHasSidebarSelector);
   const isSidebarExtended = useSelector(isDesktopSidebarExtendedSelector);
+
+  useEffect(() => {}, [disableAppFooter]);
 
   return (
     <>
