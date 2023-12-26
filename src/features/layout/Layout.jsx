@@ -11,11 +11,13 @@ import {
 
 ensureConfig([
   'DISABLE_APP_HEADER',
+  'DISABLE_APP_FOOTER',
 ], 'Layout component');
 
 const Layout = ({ children }) => {
   const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
-  const disableAppFooter = getConfig().DISABLE_APP_FOOTER;
+  const disableAppFooter = getConfig().DISABLE_APP_FOOTER === true;
+  console.log('HEADER LAYOUT VALUE: ', disableAppHeader);
   console.log('FOOTER LAYOUT VALUE: ', disableAppFooter);
   const layoutHasSidebar = useSelector(layoutHasSidebarSelector);
   const isSidebarExtended = useSelector(isDesktopSidebarExtendedSelector);
