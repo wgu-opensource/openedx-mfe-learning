@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, ModalDialog, useToggle } from '@edx/paragon';
@@ -64,14 +64,25 @@ const ResourceLinkGenerator = ({
   unitId,
 }) => {
   const currentSequence = useSelector(currentSequenceSelector);
-  const currentSectionId = currentSequence ? currentSequence.sectionId : null;
-  // Call the functions to generate resource and deep link
-  const resourceStringCourse = generateResource(currentSectionId, sequenceId, courseId);
-  const resourceStringDeep = generateDeepLink(currentSectionId, sequenceId, courseId, unitId);
-
   const [isOpen, open, close] = useToggle(false);
   const [modalSize] = useState('xl');
   const [modalVariant] = useState('default');
+
+  const [resourceStringCourse, setResourceStringCourse] = useState('');
+  const [resourceStringDeep, setResourceStringDeep] = useState('');
+
+  useEffect(() => {
+    if (currentSequence && sequenceId && courseId) {
+      const currentSectionId = currentSequence.sectionId;
+
+      // Call the functions to generate resource and deep link
+      const courseResource = generateResource(currentSectionId, sequenceId, courseId);
+      const deepLinkResource = generateDeepLink(currentSectionId, sequenceId, courseId, unitId);
+
+      setResourceStringCourse(courseResource);
+      setResourceStringDeep(deepLinkResource);
+    }
+  }, [currentSequence, sequenceId, courseId, unitId]);
 
   return (
     <>
