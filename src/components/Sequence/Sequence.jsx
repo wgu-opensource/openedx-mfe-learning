@@ -68,7 +68,7 @@ Sequence.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  units: PropTypes.string.isRequired,
+  units: PropTypes.array.isRequired, // eslint-disable-line
   onOpenCollapse: PropTypes.func.isRequired,
   collapsibleMenuState: PropTypes.objectOf(PropTypes.bool).isRequired,
   courseId: PropTypes.string.isRequired,
