@@ -74,3 +74,7 @@ After doing that, you can run tutor commands inside that shell as normal.
 
 Q: Which version of tutor/OpenEDX are we targeting?
 A: 15.3.8 (Olive), it is defined in `Pipfile`
+
+## Known Issues
+
+When viewing an LMS course page on the MFE in the local environment, the console will output the warning: Failed prop type: The prop `id` is marked as required in `ForwardRef(DropdownToggle)`, but its value is `undefined`.
