@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, ModalDialog, useToggle } from '@edx/paragon';
@@ -52,7 +52,6 @@ const generateDeepLink = (currentSectionId, sequenceId, courseId, unitId) => {
 
     return deepLinkString;
   } catch (error) {
-    console.error(`Error in generateDeepLink: ${error.message}`);
     return `Error generating deep link: ${error.message}`;
   }
 };
@@ -64,14 +63,38 @@ const ResourceLinkGenerator = ({
   unitId,
 }) => {
   const currentSequence = useSelector(currentSequenceSelector);
-  const currentSectionId = currentSequence ? currentSequence.sectionId : null;
-  // Call the functions to generate resource and deep link
-  const resourceStringCourse = generateResource(currentSectionId, sequenceId, courseId);
-  const resourceStringDeep = generateDeepLink(currentSectionId, sequenceId, courseId, unitId);
-
   const [isOpen, open, close] = useToggle(false);
   const [modalSize] = useState('xl');
   const [modalVariant] = useState('default');
+
+  const [resourceStringCourse, setResourceStringCourse] = useState('');
+  const [resourceStringDeep, setResourceStringDeep] = useState('');
+
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    if (currentSequence && sequenceId && courseId) {
+      const currentSectionId = currentSequence.sectionId;
+
+      // Check if sequenceId is truthy
+      if (!sequenceId) {
+        setErrorMessage('SequenceId is not available to create resource ID.');
+      }
+
+      // Check if currentSectionId is truthy
+      if (currentSectionId) {
+        // Call the functions to generate resource and deep link
+        const courseResource = generateResource(currentSectionId, sequenceId, courseId);
+        const deepLinkResource = generateDeepLink(currentSectionId, sequenceId, courseId, unitId);
+
+        setResourceStringCourse(courseResource);
+        setResourceStringDeep(deepLinkResource);
+        setErrorMessage('');
+      } else {
+        setErrorMessage('currentSectionId is not available to create resource ID.');
+      }
+    }
+  }, [currentSequence, sequenceId, courseId, unitId]);
 
   return (
     <>
@@ -95,9 +118,16 @@ const ResourceLinkGenerator = ({
           </ModalDialog.Title>
         </ModalDialog.Header>
         <ModalDialog.Body>
-          <p className="resource-display">
-            { resourceStringCourse }
-          </p>
+          {errorMessage && (
+            <p className="error-message">
+              {errorMessage}
+            </p>
+          )}
+          {resourceStringCourse && (
+            <p className="resource-display">
+              {resourceStringCourse}
+            </p>
+          )}
         </ModalDialog.Body>
         <ModalDialog.Header>
           <ModalDialog.Title>
@@ -105,9 +135,16 @@ const ResourceLinkGenerator = ({
           </ModalDialog.Title>
         </ModalDialog.Header>
         <ModalDialog.Body>
-          <p className="resource-display">
-            { resourceStringDeep }
-          </p>
+          {errorMessage && (
+            <p className="error-message">
+              {errorMessage}
+            </p>
+          )}
+          {resourceStringDeep && (
+            <p className="resource-display">
+              {resourceStringDeep}
+            </p>
+          )}
         </ModalDialog.Body>
       </ModalDialog>
     </>

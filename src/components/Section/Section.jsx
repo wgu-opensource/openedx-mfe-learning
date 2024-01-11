@@ -74,6 +74,7 @@ Section.propTypes = {
   title: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   sequences: PropTypes.arrayOf(PropTypes.shape({
+    units: PropTypes.array.isRequired, // eslint-disable-line
     id: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     collapsibleMenuState: PropTypes.objectOf(PropTypes.bool),
