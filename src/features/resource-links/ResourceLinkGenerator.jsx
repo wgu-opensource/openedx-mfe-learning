@@ -52,7 +52,6 @@ const generateDeepLink = (currentSectionId, sequenceId, courseId, unitId) => {
 
     return deepLinkString;
   } catch (error) {
-    console.error(`Error in generateDeepLink: ${error.message}`);
     return `Error generating deep link: ${error.message}`;
   }
 };
@@ -71,40 +70,31 @@ const ResourceLinkGenerator = ({
   const [resourceStringCourse, setResourceStringCourse] = useState('');
   const [resourceStringDeep, setResourceStringDeep] = useState('');
 
-  const [isSectionIdTruthy, setIsSectionIdTruthy] = useState(false);
-  const [isSequenceIdTruthy, setIsSequenceIdTruthy] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     if (currentSequence && sequenceId && courseId) {
       const currentSectionId = currentSequence.sectionId;
 
+      // Check if sequenceId is truthy
+      if (!sequenceId) {
+        setErrorMessage('SequenceId is not available to create resource ID.');
+      }
+
       // Check if currentSectionId is truthy
       if (currentSectionId) {
-        setIsSectionIdTruthy(true);
-
         // Call the functions to generate resource and deep link
         const courseResource = generateResource(currentSectionId, sequenceId, courseId);
         const deepLinkResource = generateDeepLink(currentSectionId, sequenceId, courseId, unitId);
 
         setResourceStringCourse(courseResource);
         setResourceStringDeep(deepLinkResource);
-      }
-
-      // Check if sequenceId is truthy
-      if (sequenceId) {
-        setIsSequenceIdTruthy(true);
+        setErrorMessage('');
+      } else {
+        setErrorMessage('currentSectionId is not available to create resource ID.');
       }
     }
   }, [currentSequence, sequenceId, courseId, unitId]);
-
-  // Render nothing if currentSectionId or sequenceId is not truthy
-  if (!isSectionIdTruthy || !isSequenceIdTruthy) {
-    return (
-      <div className="error-message">
-        <p>Error: Unable to obtain necessary data for generating resource links.</p>
-      </div>
-    );
-  }
 
   return (
     <>
@@ -128,9 +118,16 @@ const ResourceLinkGenerator = ({
           </ModalDialog.Title>
         </ModalDialog.Header>
         <ModalDialog.Body>
-          <p className="resource-display">
-            { resourceStringCourse }
-          </p>
+          {errorMessage && (
+            <p className="error-message">
+              {errorMessage}
+            </p>
+          )}
+          {resourceStringCourse && (
+            <p className="resource-display">
+              {resourceStringCourse}
+            </p>
+          )}
         </ModalDialog.Body>
         <ModalDialog.Header>
           <ModalDialog.Title>
@@ -138,9 +135,16 @@ const ResourceLinkGenerator = ({
           </ModalDialog.Title>
         </ModalDialog.Header>
         <ModalDialog.Body>
-          <p className="resource-display">
-            { resourceStringDeep }
-          </p>
+          {errorMessage && (
+            <p className="error-message">
+              {errorMessage}
+            </p>
+          )}
+          {resourceStringDeep && (
+            <p className="resource-display">
+              {resourceStringDeep}
+            </p>
+          )}
         </ModalDialog.Body>
       </ModalDialog>
     </>
