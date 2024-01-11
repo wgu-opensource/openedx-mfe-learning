@@ -71,18 +71,36 @@ const ResourceLinkGenerator = ({
   const [resourceStringCourse, setResourceStringCourse] = useState('');
   const [resourceStringDeep, setResourceStringDeep] = useState('');
 
+  const [isSectionIdTruthy, setIsSectionIdTruthy] = useState(false);
+  const [isSequenceIdTruthy, setIsSequenceIdTruthy] = useState(false);
+
   useEffect(() => {
     if (currentSequence && sequenceId && courseId) {
       const currentSectionId = currentSequence.sectionId;
 
-      // Call the functions to generate resource and deep link
-      const courseResource = generateResource(currentSectionId, sequenceId, courseId);
-      const deepLinkResource = generateDeepLink(currentSectionId, sequenceId, courseId, unitId);
+      // Check if currentSectionId is truthy
+      if (currentSectionId) {
+        setIsSectionIdTruthy(true);
 
-      setResourceStringCourse(courseResource);
-      setResourceStringDeep(deepLinkResource);
+        // Call the functions to generate resource and deep link
+        const courseResource = generateResource(currentSectionId, sequenceId, courseId);
+        const deepLinkResource = generateDeepLink(currentSectionId, sequenceId, courseId, unitId);
+
+        setResourceStringCourse(courseResource);
+        setResourceStringDeep(deepLinkResource);
+      }
+
+      // Check if sequenceId is truthy
+      if (sequenceId) {
+        setIsSequenceIdTruthy(true);
+      }
     }
   }, [currentSequence, sequenceId, courseId, unitId]);
+
+  // Render nothing if currentSectionId or sequenceId is not truthy
+  if (!isSectionIdTruthy || !isSequenceIdTruthy) {
+    return null;
+  }
 
   return (
     <>
