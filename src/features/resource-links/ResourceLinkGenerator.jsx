@@ -99,7 +99,11 @@ const ResourceLinkGenerator = ({
 
   // Render nothing if currentSectionId or sequenceId is not truthy
   if (!isSectionIdTruthy || !isSequenceIdTruthy) {
-    return null;
+    return (
+      <div className="error-message">
+        <p>Error: Unable to obtain necessary data for generating resource links.</p>
+      </div>
+    );
   }
 
   return (
