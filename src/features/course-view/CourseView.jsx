@@ -19,11 +19,11 @@ import { updateCollapsibleMenuState } from '../sidebar/data/slice';
 import { setLayoutHasSidebar } from './data/slice';
 
 ensureConfig([
-  'DISABLE_APP_HEADER',
+  'DISABLE_DESKTOP_HEADER',
 ], 'CourseView component');
 
 const CourseView = (props) => {
-  const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
+  const disableDesktopHeader = getConfig().DISABLE_DESKTOP_HEADER === true;
 
   const courseStatus = useSelector(currentCourseStatusSelector);
 
@@ -80,7 +80,7 @@ const CourseView = (props) => {
         'cv-course-sidebar',
         { 'cv-course-sidebar-extended': isSidebarExtended },
         { 'cv-course-sidebar-mobile-closed': isMobileSidebarClosed },
-        { 'disable-app-header': disableAppHeader },
+        { 'disable-desktop-header': disableDesktopHeader },
       )}
       >
         <Sidebar

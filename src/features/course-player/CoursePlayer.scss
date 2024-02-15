@@ -10,7 +10,7 @@
     box-shadow: 0rem 0.25rem 0.5rem 0rem $shadow-color;
   }
 
-  &.disable-app-header {
+  &.disable-desktop-header {
     min-height: calc(100vh - $desktop-footer-height);
   }
 
@@ -23,8 +23,8 @@
       box-shadow: none;
     }
 
-    &.disable-app-header {
-      min-height: calc(100vh - $mobile-footer-height);
+    &.disable-desktop-header {
+      min-height: calc(100vh - $mobile-footer-height - $mobile-header-height);
     }
   }
 
