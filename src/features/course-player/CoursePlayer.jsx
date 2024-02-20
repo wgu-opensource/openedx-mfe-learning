@@ -31,7 +31,7 @@ import SimpleLoader from '../../components/SimpleLoader/SimpleLoader';
 import { setOpenCollapseSidebarItem as setOpenCollapseSidebarItemAction } from '../sidebar/data/slice';
 
 ensureConfig([
-  'DISABLE_APP_HEADER',
+  'DISABLE_DESKTOP_HEADER',
 ], 'CoursePlayer component');
 
 /**
@@ -96,7 +96,7 @@ const CoursePlayer = (props) => {
     },
   } = props;
 
-  const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
+  const disableDesktopHeader = getConfig().DISABLE_DESKTOP_HEADER === true;
 
   const saveUnitPosition = sequence?.saveUnitPosition;
   const unitIds = sequence?.unitIds;
@@ -224,7 +224,7 @@ const CoursePlayer = (props) => {
   };
 
   return (
-    <div className={classNames('course-player-main-content', { 'disable-app-header': disableAppHeader })}>
+    <div className={classNames('course-player-main-content', { 'disable-desktop-header': disableDesktopHeader })}>
       <Helmet>
         <title>{`${course?.title || 'Course'} | ${getConfig().SITE_NAME}`}</title>
       </Helmet>

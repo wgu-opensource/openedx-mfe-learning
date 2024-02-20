@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { ensureConfig, getConfig } from '@edx/frontend-platform/config';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import {
@@ -14,15 +15,16 @@ ensureConfig([
 ], 'Layout component');
 
 const Layout = ({ children }) => {
-  const disableAppHeader = getConfig().DISABLE_APP_HEADER === true;
+  const disableDesktopHeader = getConfig().DISABLE_DESKTOP_HEADER === true;
   const disableAppFooter = getConfig().DISABLE_APP_FOOTER === true;
+  const isMobileDevice = useMediaQuery({ query: '(max-width: 1260px)' });
   const layoutHasSidebar = useSelector(layoutHasSidebarSelector);
   const isSidebarExtended = useSelector(isDesktopSidebarExtendedSelector);
 
   return (
     <>
-      {!disableAppHeader && <Header />}
-      <div className={classNames('layout-body', { 'disable-app-header': disableAppHeader })}>
+      {(!disableDesktopHeader || isMobileDevice) && <Header />}
+      <div className={classNames('layout-body', { 'disable-desktop-header': disableDesktopHeader })}>
         {children}
       </div>
       {!disableAppFooter && (

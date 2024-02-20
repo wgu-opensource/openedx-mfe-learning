@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import { getConfig } from '@edx/frontend-platform';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +10,7 @@ import MenuIcon from '../../assets/MenuIcon';
 import { layoutHasSidebarSelector } from '../course-view/data';
 
 const Header = () => {
+  const disableHeaderLogo = getConfig().DISABLE_HEADER_LOGO === true;
   const course = useSelector(currentCourseHomeMetaSelector);
   const layoutHasSidebar = useSelector(layoutHasSidebarSelector);
 
@@ -23,12 +25,15 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
+    <header className={classNames('header', { 'disable-header-logo': disableHeaderLogo })}>
+      { !disableHeaderLogo
+      && (
       <Logo
         className="logo"
         src={logo}
         alt={logoAltText}
       />
+      ) }
       <span className="course-title">
         {`${courseTitle}`}
       </span>
