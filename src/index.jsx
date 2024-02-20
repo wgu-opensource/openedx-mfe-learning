@@ -89,6 +89,7 @@ initialize({
         TWITTER_URL: process.env.TWITTER_URL || null,
         LEGACY_THEME_NAME: process.env.LEGACY_THEME_NAME || null,
         DISABLE_APP_FOOTER: process.env.DISABLE_APP_FOOTER === 'true' || null,
+        DISABLE_HEADER_LOGO: process.env.DISABLE_HEADER_LOGO === 'true' || null,
         DISABLE_DESKTOP_HEADER: process.env.DISABLE_DESKTOP_HEADER === 'true' || null,
         ACCESS_DENIED_PAGE_INSTRUCTIONS_LINK: process.env.ACCESS_DENIED_PAGE_INSTRUCTIONS_LINK || '',
         ACCESS_DENIED_PAGE_STUDENT_PORTAL_LINK: process.env.ACCESS_DENIED_PAGE_STUDENT_PORTAL_LINK || '',
