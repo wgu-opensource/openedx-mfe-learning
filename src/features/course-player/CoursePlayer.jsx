@@ -7,6 +7,7 @@ import {
   fetchSequence as fetchSequenceAction,
   checkBlockCompletion,
   saveSequencePosition as saveSequencePositionAction,
+  AlertList,
 } from '@edx/frontend-app-learning';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import classNames from 'classnames';
@@ -230,6 +231,7 @@ const CoursePlayer = (props) => {
       </Helmet>
       {isReadyToShow() ? (
         <div className="course-player-sequence-container">
+          <AlertList topic="sequence" />
           <SequenceContainer
             courseId={routeCourseId}
             sequenceId={routeSequenceId}
@@ -273,6 +275,7 @@ CoursePlayer.propTypes = {
   }).isRequired,
   courseId: PropTypes.string,
   sequenceId: PropTypes.string,
+  sectionId: PropTypes.string,
   firstSequenceId: PropTypes.string,
   courseStatus: PropTypes.oneOf(['loaded', 'loading', 'failed', 'denied']).isRequired,
   sequenceStatus: PropTypes.oneOf(['loaded', 'loading', 'failed']).isRequired,
@@ -297,6 +300,7 @@ CoursePlayer.defaultProps = {
   sectionViaSequenceId: null,
   course: null,
   sequence: null,
+  sectionId: null,
 };
 
 const mapStateToProps = (state) => {

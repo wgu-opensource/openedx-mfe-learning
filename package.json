@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@edx/brand": "npm:@edx/brand-openedx@1.2.0",
-    "@edx/frontend-app-learning": "github:wgu-opensource/frontend-app-learning#0.5.2",
+    "@edx/frontend-app-learning": "github:wgu-opensource/frontend-app-learning#0.5.3",
     "@edx/frontend-component-footer": "12.1.2",
     "@edx/frontend-component-header": "4.2.3",
     "@edx/frontend-platform": "4.2.0",
@@ -83,5 +83,8 @@
     "lint-staged": "^14.0.1",
     "mini-css-extract-plugin": "^2.7.6",
     "rosie": "2.1.0"
+  },
+  "volta": {
+    "node": "18.19.1"
   }
 }
