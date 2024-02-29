@@ -10,7 +10,7 @@ import {
 } from '../course-view/data/selectors';
 
 ensureConfig([
-  'DISABLE_APP_HEADER',
+  'DISABLE_DESKTOP_HEADER',
   'DISABLE_APP_FOOTER',
 ], 'Layout component');
 
