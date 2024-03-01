@@ -121,11 +121,11 @@ const CoursePlayer = (props) => {
   useEffect(() => {
     // Coerce the route ids into null here because they can be undefined, but the redux ids would be null instead.
     if (courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null)) {
-    // The non-route ids are pulled from redux state - they are changed at the same time as the status variables.
-    // But the route ids are pulled directly from the route. So if the route changes, and we start a fetch above,
-    // there's a race condition where the route ids are for one course, but the status and the other ids are for a
-    // different course. Since all the logic below depends on the status variables and the route unit id, we'll wait
-    // until the ids match and thus the redux states got updated. So just bail for now.
+      // The non-route ids are pulled from redux state - they are changed at the same time as the status variables.
+      // But the route ids are pulled directly from the route. So if the route changes, and we start a fetch above,
+      // there's a race condition where the route ids are for one course, but the status and the other ids are for a
+      // different course. Since all the logic below depends on the status variables and the route unit id, we'll wait
+      // until the ids match and thus the redux states got updated. So just bail for now.
       return;
     }
 

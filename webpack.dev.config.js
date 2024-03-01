@@ -3,7 +3,10 @@ const path = require('path');
 
 module.exports = createConfig('webpack-dev-server', {
   devServer: {
-    allowedHosts: ['apps.local.overhang.io'],
+    allowedHosts: ['all'],
+    client: {
+      webSocketURL: 'auto://0.0.0.0:0/ws',
+    },
   },
   resolve: {
     /*

@@ -28,7 +28,7 @@ subscribe(APP_READY, () => {
     <AppProvider store={initializeStore()}>
       <Helmet>
         <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
-        { enablePendo && <script src={getConfig().PENDO_SNIPPET} type="text/javascript" async />}
+        {enablePendo && <script src={getConfig().PENDO_SNIPPET} type="text/javascript" async />}
       </Helmet>
       { enablePendo && <Pendo />}
       <UserMessagesProvider>
