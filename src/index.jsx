@@ -5,6 +5,7 @@ import {
   mergeConfig, getConfig, ensureConfig,
 } from '@edx/frontend-platform';
 import { AppProvider, ErrorPage, PageRoute } from '@edx/frontend-platform/react';
+import { UserMessagesProvider } from '@edx/frontend-app-learning';
 import ReactDOM from 'react-dom';
 import { Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -27,22 +28,24 @@ subscribe(APP_READY, () => {
     <AppProvider store={initializeStore()}>
       <Helmet>
         <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
-        { enablePendo && <script src={getConfig().PENDO_SNIPPET} type="text/javascript" async />}
+        {enablePendo && <script src={getConfig().PENDO_SNIPPET} type="text/javascript" async />}
       </Helmet>
       { enablePendo && <Pendo />}
-      <Layout>
-        <Switch>
-          <PageRoute path="/course/:courseId/access-denied" component={CourseAccessErrorPage} />
-          <PageRoute
-            path={[
-              '/course/:courseId/:sequenceId/:unitId',
-              '/course/:courseId/:sequenceId',
-              '/course/:courseId',
-            ]}
-            component={CourseView}
-          />
-        </Switch>
-      </Layout>
+      <UserMessagesProvider>
+        <Layout>
+          <Switch>
+            <PageRoute path="/course/:courseId/access-denied" component={CourseAccessErrorPage} />
+            <PageRoute
+              path={[
+                '/course/:courseId/:sequenceId/:unitId',
+                '/course/:courseId/:sequenceId',
+                '/course/:courseId',
+              ]}
+              component={CourseView}
+            />
+          </Switch>
+        </Layout>
+      </UserMessagesProvider>
     </AppProvider>,
     document.getElementById('root'),
   );

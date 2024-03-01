@@ -20,6 +20,7 @@ import {
   fetchSequence,
   appendBrowserTimezoneToUrl,
   executeThunk,
+  UserMessagesProvider,
 } from '@edx/frontend-app-learning';
 import {
   sequenceMetadataFactory,
@@ -182,7 +183,9 @@ function render(
     // eslint-disable-next-line react/jsx-filename-extension
     <IntlProvider locale="en">
       <AppProvider store={store || globalStore}>
-        {children}
+        <UserMessagesProvider>
+          {children}
+        </UserMessagesProvider>
       </AppProvider>
     </IntlProvider>
   );

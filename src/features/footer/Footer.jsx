@@ -23,10 +23,9 @@ const Footer = ({ className }) => {
   const adaUrl = getConfig().ADA_URL;
   const copyRight = getConfig().COPYRIGHT_STRING;
   const links = [
-    { label: 'Privacy Policy', url: getConfig().PRIVACY_POLICY_URL },
-    { label: 'Terms of Service', url: getConfig().TERMS_OF_SERVICE_URL },
-    { label: 'Honor Code', url: getConfig().HONOR_CODE_URL },
-
+    { label: 'Privacy Policy', url: getConfig().PRIVACY_POLICY_URL, id: 1 },
+    { label: 'Terms of Service', url: getConfig().TERMS_OF_SERVICE_URL, id: 2 },
+    { label: 'Honor Code', url: getConfig().HONOR_CODE_URL, id: 3 },
   ];
   const logo = getConfig().LOGO_TRADEMARK_URL;
   const logoAltText = `${getConfig().SITE_OPERATOR} logo`;
@@ -73,31 +72,23 @@ const Footer = ({ className }) => {
       <div className="footer-section-container footer-bottom-container">
         <div className="footer-copy">
           <span>
-            {COPY_SYMBOL}
-            {' '}
-            {copyRight}
+            {COPY_SYMBOL} {copyRight}
           </span>
         </div>
-        <div className="footer-links-container">
-          {links.map((link, index) => (
-            <>
-              <a
-                className="info-link aria-tooltip-link"
-                href={link.url}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`${link.label} (opens in new tab)`}
-                onClick={externalLinkClickHandler}
-              >
-                {link.label}
-                <span className="aria-tooltip">Opens in new tab</span>
-              </a>
-              {links.length !== (index + 1) && (
-              <span className="link-divider">
-                |
-              </span>
-              )}
-            </>
+        <div className="footer-links-container divide-x">
+          {links.map((link) => (
+            <a
+              key={link.id}
+              className="info-link aria-tooltip-link"
+              href={link.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${link.label} (opens in new tab)`}
+              onClick={externalLinkClickHandler}
+            >
+              {link.label}
+              <span className="aria-tooltip">Opens in new tab</span>
+            </a>
           ))}
         </div>
       </div>

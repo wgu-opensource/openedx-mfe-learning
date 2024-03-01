@@ -7,6 +7,7 @@ import {
   fetchSequence as fetchSequenceAction,
   checkBlockCompletion,
   saveSequencePosition as saveSequencePositionAction,
+  AlertList,
 } from '@edx/frontend-app-learning';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import classNames from 'classnames';
@@ -120,11 +121,11 @@ const CoursePlayer = (props) => {
   useEffect(() => {
     // Coerce the route ids into null here because they can be undefined, but the redux ids would be null instead.
     if (courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null)) {
-    // The non-route ids are pulled from redux state - they are changed at the same time as the status variables.
-    // But the route ids are pulled directly from the route. So if the route changes, and we start a fetch above,
-    // there's a race condition where the route ids are for one course, but the status and the other ids are for a
-    // different course. Since all the logic below depends on the status variables and the route unit id, we'll wait
-    // until the ids match and thus the redux states got updated. So just bail for now.
+      // The non-route ids are pulled from redux state - they are changed at the same time as the status variables.
+      // But the route ids are pulled directly from the route. So if the route changes, and we start a fetch above,
+      // there's a race condition where the route ids are for one course, but the status and the other ids are for a
+      // different course. Since all the logic below depends on the status variables and the route unit id, we'll wait
+      // until the ids match and thus the redux states got updated. So just bail for now.
       return;
     }
 
@@ -230,6 +231,7 @@ const CoursePlayer = (props) => {
       </Helmet>
       {isReadyToShow() ? (
         <div className="course-player-sequence-container">
+          <AlertList topic="sequence" />
           <SequenceContainer
             courseId={routeCourseId}
             sequenceId={routeSequenceId}
@@ -273,6 +275,7 @@ CoursePlayer.propTypes = {
   }).isRequired,
   courseId: PropTypes.string,
   sequenceId: PropTypes.string,
+  sectionId: PropTypes.string,
   firstSequenceId: PropTypes.string,
   courseStatus: PropTypes.oneOf(['loaded', 'loading', 'failed', 'denied']).isRequired,
   sequenceStatus: PropTypes.oneOf(['loaded', 'loading', 'failed']).isRequired,
@@ -297,6 +300,7 @@ CoursePlayer.defaultProps = {
   sectionViaSequenceId: null,
   course: null,
   sequence: null,
+  sectionId: null,
 };
 
 const mapStateToProps = (state) => {

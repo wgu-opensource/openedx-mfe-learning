@@ -26,7 +26,6 @@
 
     .footer-links-container {
       display: flex;
-      column-gap: 12px;
       flex-wrap: wrap;
     }
 
@@ -58,8 +57,20 @@
     font-weight: $font-weight-bold;
   }
 
-  .link-divider {
-    color: $info-500;
+  .divide-x > * + * {
+    border-left: 1px solid $info-500;
+  }
+
+  .divide-x > * {
+    padding: 0 10px;
+  }
+
+  .divide-x > *:first-child {
+    padding-left: 0;
+  }
+
+  .divide-x > *:last-child {
+    padding-right: 0;
   }
 
   .aria-tooltip-link {
