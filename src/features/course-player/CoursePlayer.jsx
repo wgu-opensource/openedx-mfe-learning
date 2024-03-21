@@ -220,7 +220,8 @@ const CoursePlayer = (props) => {
     // Avoid crashes with invalid course or sequence states
     const isInvalidState = (courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null));
     // Only consider we are ready to render SequenceContainer once we get all required route params
-    const isReady = routeCourseId != null && routeSequenceId != null && routeUnitId != null;
+    const isReady = routeCourseId != null && routeSequenceId != null;
+
     return !isInvalidState && isReady;
   };
 

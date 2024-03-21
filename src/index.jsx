@@ -30,7 +30,7 @@ subscribe(APP_READY, () => {
         <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
         {enablePendo && <script src={getConfig().PENDO_SNIPPET} type="text/javascript" async />}
       </Helmet>
-      { enablePendo && <Pendo />}
+      {enablePendo && <Pendo />}
       <UserMessagesProvider>
         <Layout>
           <Switch>
