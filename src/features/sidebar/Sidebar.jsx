@@ -173,9 +173,13 @@ ConditionalButton.propTypes = {
 };
 
 Sidebar.propTypes = {
-  currentUnitId: PropTypes.string.isRequired,
+  currentUnitId: PropTypes.string,
   sequenceId: PropTypes.string.isRequired,
   isSidebarExtended: PropTypes.bool.isRequired,
+};
+
+Sidebar.defaultProps = {
+  currentUnitId: null,
 };
 
 export default Sidebar;

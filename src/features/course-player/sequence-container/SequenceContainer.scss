@@ -291,15 +291,33 @@
   }
 
   h2 {
+    color: $primary-500;
+    font-size: $h2-font-size;
     @media screen and (max-width: 768px) {
       font-size: $h2-mobile-font-size;
     }
   }
-
   // Disable bookmark button
   button.pgn__stateful-btn {
     display: none;
     visibility: hidden;
+  }
+}
+
+// Custom headers for content lock
+h3 {
+  color: $primary-500;
+  font-size: $h3-font-size;
+  @media screen and (max-width: 768px) {
+    font-size: $h3-mobile-font-size;
+  }
+}
+  
+h4 {
+  color: $primary-500;
+  font-size: $h4-font-size;
+  @media screen and (max-width: 768px) {
+    font-size: $h4-mobile-font-size;
   }
 }
 

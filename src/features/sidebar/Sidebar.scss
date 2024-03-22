@@ -365,3 +365,9 @@ button.sidebar-item-container:focus {
 .sidebar-item-collapsable.collapsed {
   display: none;
 }
+
+.fa-lock{
+  color: $primary-500 !important;
+  padding-left: 5px;
+  padding-right: 5px;
+}

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { Sequence } from '@edx/frontend-app-learning';
+import { Sequence, AlertList } from '@edx/frontend-app-learning';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 import { currentCourseHomeMetaSelector } from '../../header/data/selectors';
 import ResourceLinkGenerator from '../../resource-links/ResourceLinkGenerator';
@@ -27,6 +27,7 @@ const SequenceContainer = ({
         unitId={unitId}
       />
       )}
+      <AlertList topic="sequence" />
       <Sequence
         unitId={unitId}
         sequenceId={sequenceId}
