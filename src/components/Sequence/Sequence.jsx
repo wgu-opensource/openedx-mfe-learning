@@ -1,11 +1,18 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { useModel } from '@edx/frontend-app-learning';
+import { sendTrackingLogEvent } from '@edx/frontend-platform/analytics';
+import { history } from '@edx/frontend-platform';
+import { useDispatch } from 'react-redux';
 import CarrotIconDown from '../../assets/CarrotIcon';
 import CarrotIconRight from '../../assets/CarrotIconRight';
 import CompletedIcon from '../../assets/CompletedIcon';
 import InProgressIcon from '../../assets/InProgressIcon';
 import PendingIcon from '../../assets/PendingIcon';
 import Unit from '../Unit/Unit';
+import { closeMobileSidebar } from '../../features/course-view/data/slice';
 
 const statusIcons = {
   'in-progress': <InProgressIcon />,
@@ -16,7 +23,34 @@ const statusIcons = {
 const Sequence = ({
   id, title, status = 'pending', units = [], onOpenCollapse, collapsibleMenuState = {}, currentUnitId, isActiveSequence, hasCurrentUnit, sectionId, courseId,
 }) => {
+  const sequence = useModel('sequences', id);
+  const gated = sequence && sequence.gatedContent !== undefined && sequence.gatedContent.gated;
+
   const handleOpenCollapse = () => onOpenCollapse(id);
+  const dispatch = useDispatch();
+
+  const logEvent = (eventName, widgetPlacement, targetUnitTitle, targetUnit) => {
+    const currentUrl = window.location.href;
+    const courseLocation = currentUrl.indexOf('/course');
+    const baseUrl = currentUrl.slice(0, courseLocation);
+    const targetUrl = baseUrl + targetUnit;
+    const payload = {
+      target_name: targetUnitTitle,
+      target_url: targetUrl,
+      widget_placement: widgetPlacement,
+      current_url: currentUrl,
+    };
+    sendTrackingLogEvent(eventName, payload);
+  };
+
+  const handleClick = () => {
+    // Log navigation event
+    logEvent('edx.ui.lms.outline.selected', 'accordion', title, `/course/${courseId}/${id}`);
+    // Navigate
+    history.push(`/course/${courseId}/${id}`);
+    // Close sidebar
+    dispatch(closeMobileSidebar);
+  };
 
   return (
     <div className="sidebar-item-container">
@@ -33,10 +67,10 @@ const Sequence = ({
           'sequence',
         )}
         aria-expanded={collapsibleMenuState[id]}
-        onClick={handleOpenCollapse}
+        onClick={units.length ? handleOpenCollapse : handleClick}
       >
         {units.length > 0 && (collapsibleMenuState[id] ? <CarrotIconDown className="carrot-down" /> : <CarrotIconRight className="carrot" />)}
-        <span className="sidebar-item-title">{title}</span>
+        <span className="sidebar-item-title">{title} { gated && <FontAwesomeIcon icon={faLock} /> }</span>
         {statusIcons[status]}
       </button>
       <button

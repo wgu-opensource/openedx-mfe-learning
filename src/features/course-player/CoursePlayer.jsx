@@ -7,7 +7,6 @@ import {
   fetchSequence as fetchSequenceAction,
   checkBlockCompletion,
   saveSequencePosition as saveSequencePositionAction,
-  AlertList,
 } from '@edx/frontend-app-learning';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import classNames from 'classnames';
@@ -220,7 +219,7 @@ const CoursePlayer = (props) => {
     // Avoid crashes with invalid course or sequence states
     const isInvalidState = (courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null));
     // Only consider we are ready to render SequenceContainer once we get all required route params
-    const isReady = routeCourseId != null && routeSequenceId != null && routeUnitId != null;
+    const isReady = routeCourseId != null && routeSequenceId != null;
     return !isInvalidState && isReady;
   };
 
@@ -231,7 +230,6 @@ const CoursePlayer = (props) => {
       </Helmet>
       {isReadyToShow() ? (
         <div className="course-player-sequence-container">
-          <AlertList topic="sequence" />
           <SequenceContainer
             courseId={routeCourseId}
             sequenceId={routeSequenceId}
@@ -249,7 +247,7 @@ const CoursePlayer = (props) => {
 const sequenceShape = PropTypes.shape({
   id: PropTypes.string.isRequired,
   unitIds: PropTypes.arrayOf(PropTypes.string),
-  sectionId: PropTypes.string.isRequired,
+  sectionId: PropTypes.string,
   saveUnitPosition: PropTypes.any, // eslint-disable-line
 });
 
