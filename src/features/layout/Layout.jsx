@@ -17,7 +17,7 @@ ensureConfig([
 const Layout = ({ children }) => {
   const disableDesktopHeader = getConfig().DISABLE_DESKTOP_HEADER === true;
   const disableAppFooter = getConfig().DISABLE_APP_FOOTER === true;
-  const isMobileDevice = useMediaQuery({ query: '(max-width: 1260px)' });
+  const isMobileDevice = useMediaQuery({ query: '(max-width: 1200px)' });
   const layoutHasSidebar = useSelector(layoutHasSidebarSelector);
   const isSidebarExtended = useSelector(isDesktopSidebarExtendedSelector);
 
