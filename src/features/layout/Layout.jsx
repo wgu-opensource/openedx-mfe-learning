@@ -20,6 +20,7 @@ const Layout = ({ children }) => {
   const isMobileDevice = useMediaQuery({ query: '(max-width: 1200px)' });
   const layoutHasSidebar = useSelector(layoutHasSidebarSelector);
   const isSidebarExtended = useSelector(isDesktopSidebarExtendedSelector);
+  const customLinks = getConfig().FOOTER_LINK_MAP ? JSON.parse(getConfig().FOOTER_LINK_MAP) : undefined;
 
   return (
     <>
@@ -33,6 +34,7 @@ const Layout = ({ children }) => {
             'footer-no-sidebar': !layoutHasSidebar,
             'footer-sidebar-extended': layoutHasSidebar && isSidebarExtended,
           })}
+          links={customLinks}
         />
       )}
     </>
