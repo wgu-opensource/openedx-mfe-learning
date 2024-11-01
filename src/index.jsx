@@ -95,6 +95,7 @@ initialize({
         DISABLE_HEADER_LOGO: process.env.DISABLE_HEADER_LOGO === 'true' || null,
         DISABLE_DESKTOP_HEADER: process.env.DISABLE_DESKTOP_HEADER === 'true' || null,
         DASHBOARD_BASE_URL: process.env.DASHBOARD_BASE_URL || null,
+        FOOTER_LINK_MAP: process.env.FOOTER_LINK_MAP || null,
         ENABLE_DASHBOARD_RETURN_LINK: process.env.ENABLE_DASHBOARD_RETURN_LINK === 'true' || null,
         ACCESS_DENIED_PAGE_INSTRUCTIONS_LINK: process.env.ACCESS_DENIED_PAGE_INSTRUCTIONS_LINK || '',
         ACCESS_DENIED_PAGE_STUDENT_PORTAL_LINK: process.env.ACCESS_DENIED_PAGE_STUDENT_PORTAL_LINK || '',

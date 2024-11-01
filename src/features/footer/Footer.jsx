@@ -17,16 +17,11 @@ ensureConfig([
   'SITE_NAME',
 ], 'Footer component');
 
-const Footer = ({ className }) => {
+const Footer = ({ className, links }) => {
   const { config } = useContext(AppContext);
 
   const adaUrl = getConfig().ADA_URL;
   const copyRight = getConfig().COPYRIGHT_STRING;
-  const links = [
-    { label: 'Privacy Policy', url: getConfig().PRIVACY_POLICY_URL, id: 1 },
-    { label: 'Terms of Service', url: getConfig().TERMS_OF_SERVICE_URL, id: 2 },
-    { label: 'Honor Code', url: getConfig().HONOR_CODE_URL, id: 3 },
-  ];
   const logo = getConfig().LOGO_TRADEMARK_URL;
   const logoAltText = `${getConfig().SITE_OPERATOR} logo`;
 
@@ -98,10 +93,16 @@ const Footer = ({ className }) => {
 
 Footer.propTypes = {
   className: PropTypes.string,
+  links: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
 };
 
 Footer.defaultProps = {
   className: '',
+  links: [
+    { label: 'Privacy Policy', url: getConfig().PRIVACY_POLICY_URL, id: 1 },
+    { label: 'Terms of Service', url: getConfig().TERMS_OF_SERVICE_URL, id: 2 },
+    { label: 'Honor Code', url: getConfig().HONOR_CODE_URL, id: 3 },
+  ],
 };
 
 export default Footer;
