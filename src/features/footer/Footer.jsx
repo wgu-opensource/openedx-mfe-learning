@@ -93,7 +93,7 @@ const Footer = ({ className, links }) => {
 
 Footer.propTypes = {
   className: PropTypes.string,
-  links: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  links: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))),
 };
 
 Footer.defaultProps = {
