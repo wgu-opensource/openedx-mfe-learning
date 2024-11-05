@@ -24,6 +24,16 @@ const Footer = ({ className, links }) => {
   const copyRight = getConfig().COPYRIGHT_STRING;
   const logo = getConfig().LOGO_TRADEMARK_URL;
   const logoAltText = `${getConfig().SITE_OPERATOR} logo`;
+  let footerlinks = [];
+  if (links == null) {
+    footerlinks = [
+      { label: 'Privacy Policy', url: getConfig().PRIVACY_POLICY_URL, id: 1 },
+      { label: 'Terms of Service', url: getConfig().TERMS_OF_SERVICE_URL, id: 2 },
+      { label: 'Honor Code', url: getConfig().HONOR_CODE_URL, id: 3 },
+    ];
+  } else {
+    footerlinks = links;
+  }
 
   const externalLinkClickHandler = (event) => {
     const label = event.currentTarget.getAttribute('href');
@@ -71,7 +81,7 @@ const Footer = ({ className, links }) => {
           </span>
         </div>
         <div className="footer-links-container divide-x">
-          {links.map((link) => (
+          {footerlinks.map((link) => (
             <a
               key={link.id}
               className="info-link aria-tooltip-link"
@@ -98,11 +108,7 @@ Footer.propTypes = {
 
 Footer.defaultProps = {
   className: '',
-  links: [
-    { label: 'Privacy Policy', url: getConfig().PRIVACY_POLICY_URL, id: 1 },
-    { label: 'Terms of Service', url: getConfig().TERMS_OF_SERVICE_URL, id: 2 },
-    { label: 'Honor Code', url: getConfig().HONOR_CODE_URL, id: 3 },
-  ],
+  links: null,
 };
 
 export default Footer;
