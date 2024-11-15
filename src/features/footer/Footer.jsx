@@ -17,18 +17,23 @@ ensureConfig([
   'SITE_NAME',
 ], 'Footer component');
 
-const Footer = ({ className }) => {
+const Footer = ({ className, links }) => {
   const { config } = useContext(AppContext);
 
   const adaUrl = getConfig().ADA_URL;
   const copyRight = getConfig().COPYRIGHT_STRING;
-  const links = [
-    { label: 'Privacy Policy', url: getConfig().PRIVACY_POLICY_URL, id: 1 },
-    { label: 'Terms of Service', url: getConfig().TERMS_OF_SERVICE_URL, id: 2 },
-    { label: 'Honor Code', url: getConfig().HONOR_CODE_URL, id: 3 },
-  ];
   const logo = getConfig().LOGO_TRADEMARK_URL;
   const logoAltText = `${getConfig().SITE_OPERATOR} logo`;
+  let footerlinks = [];
+  if (links == null) {
+    footerlinks = [
+      { label: 'Privacy Policy', url: getConfig().PRIVACY_POLICY_URL, id: 1 },
+      { label: 'Terms of Service', url: getConfig().TERMS_OF_SERVICE_URL, id: 2 },
+      { label: 'Honor Code', url: getConfig().HONOR_CODE_URL, id: 3 },
+    ];
+  } else {
+    footerlinks = links;
+  }
 
   const externalLinkClickHandler = (event) => {
     const label = event.currentTarget.getAttribute('href');
@@ -76,7 +81,7 @@ const Footer = ({ className }) => {
           </span>
         </div>
         <div className="footer-links-container divide-x">
-          {links.map((link) => (
+          {footerlinks.map((link) => (
             <a
               key={link.id}
               className="info-link aria-tooltip-link"
@@ -98,10 +103,12 @@ const Footer = ({ className }) => {
 
 Footer.propTypes = {
   className: PropTypes.string,
+  links: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))),
 };
 
 Footer.defaultProps = {
   className: '',
+  links: null,
 };
 
 export default Footer;

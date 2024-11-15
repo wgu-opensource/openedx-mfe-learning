@@ -21,4 +21,15 @@ describe('Footer', () => {
       ),
     ).toBeInTheDocument());
   });
+  it('Renders Links', async () => {
+    render(
+      <Footer links={[{ label: 'Test Link', url: 'http://test/url', id: 1 }]} />,
+    );
+    await waitFor(() => expect(
+      screen.queryByText(
+        'Test Link',
+        { exact: true },
+      ),
+    ).toBeInTheDocument());
+  });
 });

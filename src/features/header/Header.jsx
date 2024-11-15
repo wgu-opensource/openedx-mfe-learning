@@ -17,6 +17,8 @@ const Header = () => {
   const logo = getConfig().LOGO_WHITE_URL;
   const logoAltText = `${getConfig().SITE_OPERATOR} logo`;
   const courseTitle = course?.title || '';
+  const enableDashboardReturnLink = getConfig().ENABLE_DASHBOARD_RETURN_LINK === true;
+  const dashboardReturnLink = `${getConfig().DASHBOARD_BASE_URL}/course/overview/${course?.courseId}`;
 
   const dispatch = useDispatch();
 
@@ -28,11 +30,21 @@ const Header = () => {
     <header className={classNames('header', { 'disable-header-logo': disableHeaderLogo })}>
       { !disableHeaderLogo
       && (
-      <Logo
-        className="logo"
-        src={logo}
-        alt={logoAltText}
-      />
+        enableDashboardReturnLink ? (
+          <a target="_blank" href={dashboardReturnLink} rel="noreferrer">
+            <Logo
+              className="logo"
+              src={logo}
+              alt={logoAltText}
+            />
+          </a>
+        ) : (
+          <Logo
+            className="logo"
+            src={logo}
+            alt={logoAltText}
+          />
+        )
       ) }
       <span className="course-title">
         {`${courseTitle}`}
