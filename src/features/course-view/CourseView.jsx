@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router-dom';
 import { fetchCourse } from '@edx/frontend-app-learning';
 import { ensureConfig, getConfig } from '@edx/frontend-platform';
 import CoursePlayer from '../course-player/CoursePlayer';
@@ -64,7 +64,7 @@ const CourseView = (props) => {
   // Handle access denied errors
   if (courseStatus === 'denied') {
     const redirectUrl = `/course/${routeCourseId}/access-denied`;
-    return (<Redirect to={redirectUrl} />);
+    return (<Navigate replace to={redirectUrl} />);
   }
 
   return (

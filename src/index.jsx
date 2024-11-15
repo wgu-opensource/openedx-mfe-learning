@@ -4,10 +4,10 @@ import {
   APP_INIT_ERROR, APP_READY, subscribe, initialize,
   mergeConfig, getConfig, ensureConfig,
 } from '@edx/frontend-platform';
-import { AppProvider, ErrorPage, PageRoute } from '@edx/frontend-platform/react';
-import { UserMessagesProvider } from '@edx/frontend-app-learning';
+import { AppProvider, ErrorPage } from '@edx/frontend-platform/react';
+import { UserMessagesProvider, DecodePageRoute } from '@edx/frontend-app-learning';
 import ReactDOM from 'react-dom';
-import { Switch } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import messages from './i18n';
 import './index.scss';
@@ -33,17 +33,20 @@ subscribe(APP_READY, () => {
       {enablePendo && <Pendo />}
       <UserMessagesProvider>
         <Layout>
-          <Switch>
-            <PageRoute path="/course/:courseId/access-denied" component={CourseAccessErrorPage} />
-            <PageRoute
+          <Routes>
+            <Route
+              path="/course/:courseId/access-denied"
+              element={<DecodePageRoute><CourseAccessErrorPage /></DecodePageRoute>}
+            />
+            <Route
               path={[
                 '/course/:courseId/:sequenceId/:unitId',
                 '/course/:courseId/:sequenceId',
                 '/course/:courseId',
               ]}
-              component={CourseView}
+              element={<DecodePageRoute><CourseView /></DecodePageRoute>}
             />
-          </Switch>
+          </Routes>
         </Layout>
       </UserMessagesProvider>
     </AppProvider>,

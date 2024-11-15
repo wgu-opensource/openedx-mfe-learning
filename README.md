@@ -73,7 +73,7 @@ After doing that, you can run tutor commands inside that shell as normal.
 ## FAQ
 
 Q: Which version of tutor/OpenEDX are we targeting?
-A: 15.3.8 (Olive), it is defined in `Pipfile`
+A: 17.0.6 (Quince), it is defined in `Pipfile`
 
 ## Known Issues
 
