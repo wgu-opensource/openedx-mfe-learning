@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { history } from '@edx/frontend-platform';
+import { useNavigate } from 'react-router-dom';
 import { ensureConfig, getConfig } from '@edx/frontend-platform/config';
 import {
   fetchSequence as fetchSequenceAction,
@@ -94,6 +94,8 @@ const CoursePlayer = (props) => {
 
   const saveUnitPosition = sequence?.saveUnitPosition;
   const unitIds = sequence?.unitIds;
+
+  const navigate = useNavigate();
 
   // Do not remove this hook. See function description.
   useLoadBearingHook(routeUnitId);
@@ -230,14 +232,14 @@ const CoursePlayer = (props) => {
 
   const handleUnitNavigationClick = (nextUnitId) => {
     props.checkBlockCompletion(courseId, sequenceId, routeUnitId);
-    history.push(`/course/${routeCourseId}/${routeSequenceId}/${nextUnitId}`);
+    navigate(`/course/${routeCourseId}/${routeSequenceId}/${nextUnitId}`);
   };
 
   const handleNextSequenceClick = () => {
     if (nextSequence !== null) {
       setOpenCollapseSidebarItem({ id: nextSequence.id, isOpen: true });
       setOpenCollapseSidebarItem({ id: nextSequence.sectionId, isOpen: true });
-      history.push(`/course/${routeCourseId}/${nextSequence.id}/first`);
+      navigate(`/course/${routeCourseId}/${nextSequence.id}/first`);
     }
   };
 
@@ -248,7 +250,7 @@ const CoursePlayer = (props) => {
         id: previousSequence.sectionId,
         isOpen: true,
       });
-      history.push(`/course/${routeCourseId}/${previousSequence.id}/last`);
+      navigate(`/course/${routeCourseId}/${previousSequence.id}/last`);
     }
   };
 

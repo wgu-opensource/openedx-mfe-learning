@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { useModel } from '@edx/frontend-app-learning';
 import { sendTrackingLogEvent } from '@edx/frontend-platform/analytics';
-import { history } from '@edx/frontend-platform';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import CarrotIconDown from '../../assets/CarrotIcon';
 import CarrotIconRight from '../../assets/CarrotIconRight';
 import CompletedIcon from '../../assets/CompletedIcon';
@@ -29,6 +29,8 @@ const Sequence = ({
   const handleOpenCollapse = () => onOpenCollapse(id);
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const logEvent = (eventName, widgetPlacement, targetUnitTitle, targetUnit) => {
     const currentUrl = window.location.href;
     const courseLocation = currentUrl.indexOf('/course');
@@ -47,7 +49,7 @@ const Sequence = ({
     // Log navigation event
     logEvent('edx.ui.lms.outline.selected', 'accordion', title, `/course/${courseId}/${id}`);
     // Navigate
-    history.push(`/course/${courseId}/${id}`);
+    navigate(`/course/${courseId}/${id}`);
     // Close sidebar
     dispatch(closeMobileSidebar);
   };
