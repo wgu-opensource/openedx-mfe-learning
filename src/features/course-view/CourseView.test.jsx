@@ -17,13 +17,9 @@ describe('CourseView', () => {
     store = await initializeTestStore();
     const { courseware } = store.getState();
     mockData = {
-      match: {
-        params: {
-          courseId: courseware.courseId,
-          sequenceId: courseware.sequenceId,
-          unitId: 'test',
-        },
-      },
+      routeCourseId: courseware.courseId,
+      routeSequenceId: courseware.sequenceId,
+      routeUnitId: 'test',
     };
   });
 

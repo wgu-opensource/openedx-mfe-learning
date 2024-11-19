@@ -53,11 +53,11 @@ npm start
 
 ### Logging in
 
-Go to http://apps.local.overhang.io/authn/login?next=%2F
+Go to http://apps.local.edly.io/authn/login?next=%2F
 
 ### Accessing the MFE
 
-Go to http://apps.local.overhang.io/wgulearning
+Go to http://apps.local.edly.io/wgulearning
 
 ### Running tutor commands
 
