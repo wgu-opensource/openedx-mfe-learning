@@ -34,10 +34,10 @@ describe('CourseView', () => {
 
   it('redirects to access denied page when user is not authorized', async () => {
     const axiosMock = new MockAdapter(getAuthenticatedHttpClient());
-    let courseHomeMetadataUrl = `${getConfig().LMS_BASE_URL}/api/course_home/course_metadata/${mockData.match.params.courseId}`;
+    let courseHomeMetadataUrl = `${getConfig().LMS_BASE_URL}/api/course_home/course_metadata/${mockData.routeCourseId}`;
     courseHomeMetadataUrl = appendBrowserTimezoneToUrl(courseHomeMetadataUrl);
 
-    let courseMetadataUrl = `${getConfig().LMS_BASE_URL}/api/courseware/course/${mockData.match.params.courseId}`;
+    let courseMetadataUrl = `${getConfig().LMS_BASE_URL}/api/courseware/course/${mockData.routeCourseId}`;
     courseMetadataUrl = appendBrowserTimezoneToUrl(courseMetadataUrl);
 
     const {
@@ -57,6 +57,6 @@ describe('CourseView', () => {
 
     render(<CourseView {...mockData} />);
 
-    await waitFor(() => expect(global.location.href).toEqual(`http://localhost/course/${mockData.match.params.courseId}/access-denied`));
+    await waitFor(() => expect(global.location.href).toEqual(`http://localhost/course/${mockData.routeCourseId}/access-denied`));
   });
 });
