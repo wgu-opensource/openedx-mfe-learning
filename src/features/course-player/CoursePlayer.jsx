@@ -149,7 +149,7 @@ const CoursePlayer = (props) => {
     // Check resume redirect:
     //   /course/:courseId -> /course/:courseId/:sequenceId/:unitId
     // based on sequence/unit where user was last active.
-    checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId);
+    checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId, navigate);
 
     // Check section-unit to unit redirect:
     //    /course/:courseId/:sectionId/:unitId -> /course/:courseId/:unitId
@@ -168,6 +168,7 @@ const CoursePlayer = (props) => {
       sequenceStatus,
       sectionViaSequenceId,
       routeUnitId,
+      navigate,
     );
 
     // Check section to sequence redirect:
@@ -179,6 +180,7 @@ const CoursePlayer = (props) => {
       sequenceStatus,
       sectionViaSequenceId,
       routeUnitId,
+      navigate,
     );
 
     // Check unit to sequence-unit redirect:
@@ -192,6 +194,7 @@ const CoursePlayer = (props) => {
       sequenceId,
       sectionViaSequenceId,
       routeUnitId,
+      navigate,
     );
 
     // Check sequence to sequence-unit redirect:
@@ -203,6 +206,7 @@ const CoursePlayer = (props) => {
       sequenceStatus,
       sequence,
       routeUnitId,
+      navigate,
     );
 
     // Check sequence-unit marker to sequence-unit redirect:
@@ -215,6 +219,7 @@ const CoursePlayer = (props) => {
       sequenceStatus,
       sequence,
       routeUnitId,
+      navigate,
     );
   }, [
     courseId,
@@ -228,6 +233,7 @@ const CoursePlayer = (props) => {
     sequenceId,
     sequenceMightBeUnit,
     sequenceStatus,
+    navigate,
   ]);
 
   const handleUnitNavigationClick = (nextUnitId) => {
@@ -259,7 +265,8 @@ const CoursePlayer = (props) => {
     const isInvalidState = courseId !== (routeCourseId || null)
       || sequenceId !== (routeSequenceId || null);
     // Only consider we are ready to render SequenceContainer once we get all required route params
-    const isReady = routeCourseId != null && routeSequenceId != null;
+    const isReady = routeCourseId != null && routeSequenceId != null && routeUnitId != null && routeUnitId !== 'first' && routeUnitId !== 'last';
+    console.log('>>>>>>>>>>>', !isInvalidState && isReady);
     return !isInvalidState && isReady;
   };
 
