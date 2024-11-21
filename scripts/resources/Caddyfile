@@ -29,7 +29,7 @@
 	}
 }
 
-local.overhang.io{$default_site_port}, preview.local.overhang.io{$default_site_port} {
+local.edly.io{$default_site_port}, preview.local.edly.io{$default_site_port} {
 	@favicon_matcher {
 		path_regexp ^/favicon.ico$
 	}
@@ -51,7 +51,7 @@ local.overhang.io{$default_site_port}, preview.local.overhang.io{$default_site_p
 	}
 }
 
-studio.local.overhang.io{$default_site_port} {
+studio.local.edly.io{$default_site_port} {
 	@favicon_matcher {
 		path_regexp ^/favicon.ico$
 	}
@@ -66,7 +66,7 @@ studio.local.overhang.io{$default_site_port} {
 	}
 }
 
-apps.local.overhang.io{$default_site_port} {
+apps.local.edly.io{$default_site_port} {
 	respond / 204
 	request_body {
 		max_size 2MB
@@ -74,7 +74,7 @@ apps.local.overhang.io{$default_site_port} {
 	reverse_proxy /api/mfe_config/v1* lms:8000 {
 		# We need to specify the host header, otherwise it will be rejected with 400
 		# from the lms.
-		header_up Host local.overhang.io
+		header_up Host local.edly.io
 	}
 	reverse_proxy /wgulearning* host.docker.internal:2000 {
 		header_up X-Forwarded-Port 80

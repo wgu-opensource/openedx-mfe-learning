@@ -91,17 +91,17 @@ export const sidebarMockStore = {
           {
             slug: 'courseware',
             title: 'Course',
-            url: 'http://apps.local.overhang.io/learning/course/course-v1:edX+DemoX+Demo_Course/home',
+            url: 'http://apps.local.edly.io/learning/course/course-v1:edX+DemoX+Demo_Course/home',
           },
           {
             slug: 'progress',
             title: 'Progress',
-            url: 'http://apps.local.overhang.io/learning/course/course-v1:edX+DemoX+Demo_Course/progress',
+            url: 'http://apps.local.edly.io/learning/course/course-v1:edX+DemoX+Demo_Course/progress',
           },
           {
             slug: 'instructor',
             title: 'Instructor',
-            url: 'http://local.overhang.io/courses/course-v1:edX+DemoX+Demo_Course/instructor',
+            url: 'http://local.edly.io/courses/course-v1:edX+DemoX+Demo_Course/instructor',
           },
         ],
         title: 'Demonstration Course',

@@ -20,13 +20,9 @@ describe('CoursePlayer', () => {
     store = await initializeTestStore({ courseMetadata, unitBlocks });
     const { courseware } = store.getState();
     mockData = {
-      match: {
-        params: {
-          courseId: courseware.courseId,
-          sequenceId: courseware.sequenceId,
-          unitId: unitBlocks[0].id,
-        },
-      },
+      routeCourseId: courseware.courseId,
+      routeSequenceId: courseware.sequenceId,
+      routeUnitId: unitBlocks[0].id,
     };
   });
 
@@ -42,31 +38,23 @@ describe('CoursePlayer', () => {
   });
 
   describe('when the content is not ready to show', () => {
-    it('shows loading spinner when sequenceId and unitId are not set in the url', async () => {
+    it('shows loading spinner when sequenceId and unitId are not set in the url', () => {
       const { courseware } = store.getState();
       const incompleteMockData = {
-        match: {
-          params: {
-            courseId: courseware.courseId,
-            sequenceId: null,
-            unitId: null,
-          },
-        },
+        routeCourseId: courseware.courseId,
+        routeSequenceId: null,
+        routeUnitId: null,
       };
       render(<CoursePlayer {...incompleteMockData} />);
-      await waitFor(() => expect(screen.queryByTestId('simple-loader')).toBeInTheDocument());
+      expect(screen.queryByTestId('simple-loader')).toBeInTheDocument();
     });
 
     it('shows loading spinner when courseId is not set in the url', async () => {
       const { courseware } = store.getState();
       const incompleteMockData = {
-        match: {
-          params: {
-            courseId: null,
-            sequenceId: courseware.sequenceId,
-            unitId: unitBlocks[0].id,
-          },
-        },
+        routeCourseId: null,
+        routeSequenceId: courseware.sequenceId,
+        routeUnitId: unitBlocks[0].id,
       };
       render(<CoursePlayer {...incompleteMockData} />);
       await waitFor(() => expect(screen.queryByTestId('simple-loader')).toBeInTheDocument());
@@ -75,31 +63,23 @@ describe('CoursePlayer', () => {
     it('shows loading spinner when sequenceId is not set in the url', async () => {
       const { courseware } = store.getState();
       const incompleteMockData = {
-        match: {
-          params: {
-            courseId: courseware.courseId,
-            sequenceId: null,
-            unitId: unitBlocks[0].id,
-          },
-        },
+        routeCourseId: courseware.courseId,
+        routeSequenceId: null,
+        routeUnitId: unitBlocks[0].id,
       };
       render(<CoursePlayer {...incompleteMockData} />);
       await waitFor(() => expect(screen.queryByTestId('simple-loader')).toBeInTheDocument());
     });
 
-    it('shows loading spinner when unitId is not set in the url', async () => {
+    it('shows loading spinner when unitId is not set in the url', () => {
       const { courseware } = store.getState();
       const incompleteMockData = {
-        match: {
-          params: {
-            courseId: courseware.courseId,
-            sequenceId: courseware.sequenceId,
-            unitId: null,
-          },
-        },
+        routeCourseId: courseware.courseId,
+        routeSequenceId: courseware.sequenceId,
+        routeUnitId: null,
       };
       render(<CoursePlayer {...incompleteMockData} />);
-      await waitFor(() => expect(screen.queryByTestId('simple-loader')).toBeInTheDocument());
+      expect(screen.queryByTestId('simple-loader')).toBeInTheDocument();
     });
   });
 });

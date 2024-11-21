@@ -27,8 +27,11 @@ describe('<Sidebar />', () => {
   it('renders without crashing', () => {
     const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
 
-    const { getAllByText } = render(<Sidebar currentUnitId={currentUnitId} isSidebarExtended={false} />, { store });
     const { models: { sections, sequences, units } } = store.getState();
+    const { getAllByText } = render(
+      <Sidebar currentUnitId={currentUnitId} sequenceId={Object.keys(sequences)[0]} isSidebarExtended={false} />,
+      { store },
+    );
 
     Object.values(sections).forEach(section => {
       const sectionTitle = getAllByText(section.title);
@@ -48,7 +51,11 @@ describe('<Sidebar />', () => {
 
   it('section and sequence expand when click on it', async () => {
     const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
-    const { getByTestId } = render(<Sidebar currentUnitId={currentUnitId} isSidebarExtended={false} />, { store });
+    const { models: { sequences } } = store.getState();
+    const { getByTestId } = render(
+      <Sidebar currentUnitId={currentUnitId} sequenceId={Object.keys(sequences)[0]} isSidebarExtended={false} />,
+      { store },
+    );
 
     const sectionCollapsable = getByTestId('section-collapsable-block-v1:edX+DemoX+Demo_Course+type@chapter+block@d8a6192ade314473a78242dfeedfbf5b');
     expect(sectionCollapsable.classList.contains('collapsed')).toBeTruthy();
@@ -83,7 +90,11 @@ describe('<Sidebar />', () => {
 
   it('closes sidebar on unit selection in mobile', async () => {
     const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
-    const { getByTestId } = render(<Sidebar currentUnitId={currentUnitId} isSidebarExtended={false} />, { store });
+    const { models: { sequences } } = store.getState();
+    const { getByTestId } = render(
+      <Sidebar currentUnitId={currentUnitId} sequenceId={Object.keys(sequences)[0]} isSidebarExtended={false} />,
+      { store },
+    );
 
     // Sidebar is already open according to mock data in sidebarMockStore
     const { courseView: { isMobileSidebarOpen: isMobileSidebarOpenInitial } } = store.getState();

@@ -2,8 +2,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { Redirect } from 'react-router';
-import { fetchCourse } from '@edx/frontend-app-learning';
+import { Navigate } from 'react-router-dom';
+import {
+  fetchCourse,
+  withParamsAndNavigation,
+} from '@edx/frontend-app-learning';
 import { ensureConfig, getConfig } from '@edx/frontend-platform';
 import CoursePlayer from '../course-player/CoursePlayer';
 import {
@@ -18,9 +21,7 @@ import fetchUnits from '../sidebar/data/thunks';
 import { updateCollapsibleMenuState } from '../sidebar/data/slice';
 import { setLayoutHasSidebar } from './data/slice';
 
-ensureConfig([
-  'DISABLE_DESKTOP_HEADER',
-], 'CourseView component');
+ensureConfig(['DISABLE_DESKTOP_HEADER'], 'CourseView component');
 
 const CourseView = (props) => {
   const disableDesktopHeader = getConfig().DISABLE_DESKTOP_HEADER === true;
@@ -34,13 +35,9 @@ const CourseView = (props) => {
 
   const dispatch = useDispatch();
   const {
-    match: {
-      params: {
-        unitId: routeUnitId,
-        courseId: routeCourseId,
-        sequenceId: routeSequenceId,
-      },
-    },
+    routeUnitId,
+    routeCourseId,
+    routeSequenceId,
   } = props;
 
   useEffect(() => {
@@ -64,24 +61,25 @@ const CourseView = (props) => {
   // Handle access denied errors
   if (courseStatus === 'denied') {
     const redirectUrl = `/course/${routeCourseId}/access-denied`;
-    return (<Redirect to={redirectUrl} />);
+    return <Navigate replace to={redirectUrl} />;
   }
 
   return (
     <>
-      <div className={classNames(
-        'cv-course-content',
-        { 'cv-course-content-sidebar-extended': isSidebarExtended },
-      )}
+      <div
+        className={classNames('cv-course-content', {
+          'cv-course-content-sidebar-extended': isSidebarExtended,
+        })}
       >
         <CoursePlayer {...props} />
       </div>
-      <div className={classNames(
-        'cv-course-sidebar',
-        { 'cv-course-sidebar-extended': isSidebarExtended },
-        { 'cv-course-sidebar-mobile-closed': isMobileSidebarClosed },
-        { 'disable-desktop-header': disableDesktopHeader },
-      )}
+      <div
+        className={classNames(
+          'cv-course-sidebar',
+          { 'cv-course-sidebar-extended': isSidebarExtended },
+          { 'cv-course-sidebar-mobile-closed': isMobileSidebarClosed },
+          { 'disable-desktop-header': disableDesktopHeader },
+        )}
       >
         <Sidebar
           currentUnitId={routeUnitId}
@@ -95,13 +93,14 @@ const CourseView = (props) => {
 };
 
 CourseView.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      courseId: PropTypes.string.isRequired,
-      sequenceId: PropTypes.string,
-      unitId: PropTypes.string,
-    }).isRequired,
-  }).isRequired,
+  routeCourseId: PropTypes.string.isRequired,
+  routeSequenceId: PropTypes.string,
+  routeUnitId: PropTypes.string,
 };
 
-export default CourseView;
+CourseView.defaultProps = {
+  routeSequenceId: null,
+  routeUnitId: null,
+};
+
+export default withParamsAndNavigation(CourseView);

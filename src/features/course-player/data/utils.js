@@ -1,20 +1,19 @@
 import { defaultMemoize as memoize } from 'reselect';
-import { history } from '@edx/frontend-platform';
 import {
   getResumeBlock,
   getSequenceForUnitDeprecated,
 } from '@edx/frontend-app-learning';
 
 // Look at where this is called in CoursePlayer for more info about its usage
-export const checkResumeRedirect = memoize((courseStatus, courseId, sequenceId, firstSequenceId) => {
+export const checkResumeRedirect = memoize((courseStatus, courseId, sequenceId, firstSequenceId, navigate) => {
   if (courseStatus === 'loaded' && !sequenceId) {
     // Note that getResumeBlock is just an API call, not a redux thunk.
     return getResumeBlock(courseId).then((data) => {
       // This is a replace because we don't want this change saved in the browser's history.
       if (data.sectionId && data.unitId) {
-        history.replace(`/course/${courseId}/${data.sectionId}/${data.unitId}`);
+        navigate(`/course/${courseId}/${data.sectionId}/${data.unitId}`, { replace: true });
       } else if (firstSequenceId) {
-        history.replace(`/course/${courseId}/${firstSequenceId}`);
+        navigate(`/course/${courseId}/${firstSequenceId}`, { replace: true });
       }
     });
   }
@@ -22,24 +21,28 @@ export const checkResumeRedirect = memoize((courseStatus, courseId, sequenceId, 
 });
 
 // Look at where this is called in CoursePlayer for more info about its usage
-export const checkSectionUnitToUnitRedirect = memoize((courseStatus, courseId, sequenceStatus, section, unitId) => {
-  if (courseStatus === 'loaded' && sequenceStatus === 'failed' && section && unitId) {
-    history.replace(`/course/${courseId}/${unitId}`);
-  }
-});
+export const checkSectionUnitToUnitRedirect = memoize(
+  (courseStatus, courseId, sequenceStatus, section, unitId, navigate) => {
+    if (courseStatus === 'loaded' && sequenceStatus === 'failed' && section && unitId) {
+      navigate(`/course/${courseId}/${unitId}`, { replace: true });
+    }
+  },
+);
 
 // Look at where this is called in CoursePlayer for more info about its usage
-export const checkSectionToSequenceRedirect = memoize((courseStatus, courseId, sequenceStatus, section, unitId) => {
-  if (courseStatus === 'loaded' && sequenceStatus === 'failed' && section && !unitId) {
+export const checkSectionToSequenceRedirect = memoize(
+  (courseStatus, courseId, sequenceStatus, section, unitId, navigate) => {
+    if (courseStatus === 'loaded' && sequenceStatus === 'failed' && section && !unitId) {
     // If the section is non-empty, redirect to its first sequence.
-    if (section.sequenceIds && section.sequenceIds[0]) {
-      history.replace(`/course/${courseId}/${section.sequenceIds[0]}`);
+      if (section.sequenceIds && section.sequenceIds[0]) {
+        navigate(`/course/${courseId}/${section.sequenceIds[0]}`, { replace: true });
       // Otherwise, just go to the course root, letting the resume redirect take care of things.
-    } else {
-      history.replace(`/course/${courseId}`);
+      } else {
+        navigate(`/course/${courseId}`, { replace: true });
+      }
     }
-  }
-});
+  },
+);
 
 // Look at where this is called in CoursePlayer for more info about its usage
 export const checkUnitToSequenceUnitRedirect = memoize((
@@ -50,6 +53,7 @@ export const checkUnitToSequenceUnitRedirect = memoize((
   sequenceId,
   section,
   routeUnitId,
+  navigate,
 ) => {
   if (courseStatus === 'loaded' && sequenceStatus === 'failed' && !section && !routeUnitId) {
     if (sequenceMightBeUnit) {
@@ -59,56 +63,58 @@ export const checkUnitToSequenceUnitRedirect = memoize((
       return getSequenceForUnitDeprecated(courseId, unitId).then(
         parentId => {
           if (parentId) {
-            history.replace(`/course/${courseId}/${parentId}/${unitId}`);
+            navigate(`/course/${courseId}/${parentId}/${unitId}`, { replace: true });
           } else {
-            history.replace(`/course/${courseId}`);
+            navigate(`/course/${courseId}`, { replace: true });
           }
         },
         () => { // error case
-          history.replace(`/course/${courseId}`);
+          navigate(`/course/${courseId}`, { replace: true });
         },
       );
     }
     // Invalid sequence that isn't a unit either. Redirect up to main course.
-    history.replace(`/course/${courseId}`);
+    navigate(`/course/${courseId}`, { replace: true });
   }
   return null;
 });
 
 // Look at where this is called in CoursePlayer for more info about its usage
-export const checkSequenceToSequenceUnitRedirect = memoize((courseId, sequenceStatus, sequence, unitId) => {
+export const checkSequenceToSequenceUnitRedirect = memoize((courseId, sequenceStatus, sequence, unitId, navigate) => {
   if (sequenceStatus === 'loaded' && sequence.id && !unitId) {
     if (sequence.unitIds !== undefined && sequence.unitIds.length > 0) {
       const nextUnitId = sequence.unitIds[sequence.activeUnitIndex];
       // This is a replace because we don't want this change saved in the browser's history.
-      history.replace(`/course/${courseId}/${sequence.id}/${nextUnitId}`);
+      navigate(`/course/${courseId}/${sequence.id}/${nextUnitId}`, { replace: true });
     }
   }
 });
 
 // Look at where this is called in CoursePlayer for more info about its usage
-export const checkSequenceUnitMarkerToSequenceUnitRedirect = memoize((courseId, sequenceStatus, sequence, unitId) => {
-  if (sequenceStatus !== 'loaded' || !sequence.id) {
-    return;
-  }
-
-  const hasUnits = sequence.unitIds?.length > 0;
-
-  if (unitId === 'first') {
-    if (hasUnits) {
-      const firstUnitId = sequence.unitIds[0];
-      history.replace(`/course/${courseId}/${sequence.id}/${firstUnitId}`);
-    } else {
-      // No units... go to general sequence page
-      history.replace(`/course/${courseId}/${sequence.id}`);
+export const checkSequenceUnitMarkerToSequenceUnitRedirect = memoize(
+  (courseId, sequenceStatus, sequence, unitId, navigate) => {
+    if (sequenceStatus !== 'loaded' || !sequence.id) {
+      return;
     }
-  } else if (unitId === 'last') {
-    if (hasUnits) {
-      const lastUnitId = sequence.unitIds[sequence.unitIds.length - 1];
-      history.replace(`/course/${courseId}/${sequence.id}/${lastUnitId}`);
-    } else {
+
+    const hasUnits = sequence.unitIds?.length > 0;
+
+    if (unitId === 'first') {
+      if (hasUnits) {
+        const firstUnitId = sequence.unitIds[0];
+        navigate(`/course/${courseId}/${sequence.id}/${firstUnitId}`, { replace: true });
+      } else {
       // No units... go to general sequence page
-      history.replace(`/course/${courseId}/${sequence.id}`);
+        navigate(`/course/${courseId}/${sequence.id}`, { replace: true });
+      }
+    } else if (unitId === 'last') {
+      if (hasUnits) {
+        const lastUnitId = sequence.unitIds[sequence.unitIds.length - 1];
+        navigate(`/course/${courseId}/${sequence.id}/${lastUnitId}`, { replace: true });
+      } else {
+      // No units... go to general sequence page
+        navigate(`/course/${courseId}/${sequence.id}`, { replace: true });
+      }
     }
-  }
-});
+  },
+);

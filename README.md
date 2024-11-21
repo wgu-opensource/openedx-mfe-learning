@@ -53,11 +53,11 @@ npm start
 
 ### Logging in
 
-Go to http://apps.local.overhang.io/authn/login?next=%2F
+Go to http://apps.local.edly.io/authn/login?next=%2F
 
 ### Accessing the MFE
 
-Go to http://apps.local.overhang.io/wgulearning
+Go to http://apps.local.edly.io/wgulearning
 
 ### Running tutor commands
 
@@ -73,7 +73,7 @@ After doing that, you can run tutor commands inside that shell as normal.
 ## FAQ
 
 Q: Which version of tutor/OpenEDX are we targeting?
-A: 15.3.8 (Olive), it is defined in `Pipfile`
+A: 17.0.6 (Quince), it is defined in `Pipfile`
 
 ## Known Issues
 

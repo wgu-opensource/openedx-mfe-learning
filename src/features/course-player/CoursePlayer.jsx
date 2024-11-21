@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { history } from '@edx/frontend-platform';
+import { useNavigate } from 'react-router-dom';
 import { ensureConfig, getConfig } from '@edx/frontend-platform/config';
 import {
   fetchSequence as fetchSequenceAction,
@@ -30,9 +30,7 @@ import {
 import SimpleLoader from '../../components/SimpleLoader/SimpleLoader';
 import { setOpenCollapseSidebarItem as setOpenCollapseSidebarItemAction } from '../sidebar/data/slice';
 
-ensureConfig([
-  'DISABLE_DESKTOP_HEADER',
-], 'CoursePlayer component');
+ensureConfig(['DISABLE_DESKTOP_HEADER'], 'CoursePlayer component');
 
 /**
  * Workaround for an error in Firefox, it exists on the original frontend-app-learning, but needs to be
@@ -67,7 +65,7 @@ ensureConfig([
 function useLoadBearingHook(id) {
   const setValue = useState(0)[1];
   useLayoutEffect(() => {
-    setValue(currentValue => currentValue + 1);
+    setValue((currentValue) => currentValue + 1);
   }, [id, setValue]);
 }
 
@@ -87,13 +85,9 @@ const CoursePlayer = (props) => {
     course,
     fetchSequence,
     setOpenCollapseSidebarItem,
-    match: {
-      params: {
-        courseId: routeCourseId,
-        sequenceId: routeSequenceId,
-        unitId: routeUnitId,
-      },
-    },
+    routeCourseId,
+    routeSequenceId,
+    routeUnitId,
   } = props;
 
   const disableDesktopHeader = getConfig().DISABLE_DESKTOP_HEADER === true;
@@ -101,16 +95,31 @@ const CoursePlayer = (props) => {
   const saveUnitPosition = sequence?.saveUnitPosition;
   const unitIds = sequence?.unitIds;
 
+  const navigate = useNavigate();
+
   // Do not remove this hook. See function description.
   useLoadBearingHook(routeUnitId);
 
   // checkSaveSequencePosition
   useEffect(() => {
-    if (sequenceStatus === 'loaded' && saveUnitPosition && routeUnitId && unitIds) {
+    if (
+      sequenceStatus === 'loaded'
+      && saveUnitPosition
+      && routeUnitId
+      && unitIds
+    ) {
       const activeUnitIndex = unitIds.indexOf(routeUnitId);
       saveSequencePosition(courseId, sequenceId, activeUnitIndex);
     }
-  }, [courseId, routeUnitId, saveSequencePosition, saveUnitPosition, sequenceId, sequenceStatus, unitIds]);
+  }, [
+    courseId,
+    routeUnitId,
+    saveSequencePosition,
+    saveUnitPosition,
+    sequenceId,
+    sequenceStatus,
+    unitIds,
+  ]);
 
   // // checkFetchSequence
   useEffect(() => {
@@ -119,7 +128,10 @@ const CoursePlayer = (props) => {
 
   useEffect(() => {
     // Coerce the route ids into null here because they can be undefined, but the redux ids would be null instead.
-    if (courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null)) {
+    if (
+      courseId !== (routeCourseId || null)
+      || sequenceId !== (routeSequenceId || null)
+    ) {
       // The non-route ids are pulled from redux state - they are changed at the same time as the status variables.
       // But the route ids are pulled directly from the route. So if the route changes, and we start a fetch above,
       // there's a race condition where the route ids are for one course, but the status and the other ids are for a
@@ -137,7 +149,7 @@ const CoursePlayer = (props) => {
     // Check resume redirect:
     //   /course/:courseId -> /course/:courseId/:sequenceId/:unitId
     // based on sequence/unit where user was last active.
-    checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId);
+    checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId, navigate);
 
     // Check section-unit to unit redirect:
     //    /course/:courseId/:sectionId/:unitId -> /course/:courseId/:unitId
@@ -150,12 +162,26 @@ const CoursePlayer = (props) => {
     // otherwise, we could get stuck in a redirect loop, since a sequence that failed to load
     // would endlessly redirect to itself through `checkSectionUnitToUnitRedirect`
     // and `checkUnitToSequenceUnitRedirect`.
-    checkSectionUnitToUnitRedirect(courseStatus, courseId, sequenceStatus, sectionViaSequenceId, routeUnitId);
+    checkSectionUnitToUnitRedirect(
+      courseStatus,
+      courseId,
+      sequenceStatus,
+      sectionViaSequenceId,
+      routeUnitId,
+      navigate,
+    );
 
     // Check section to sequence redirect:
     //    /course/:courseId/:sectionId         -> /course/:courseId/:sequenceId
     // by redirecting to the first sequence within the section.
-    checkSectionToSequenceRedirect(courseStatus, courseId, sequenceStatus, sectionViaSequenceId, routeUnitId);
+    checkSectionToSequenceRedirect(
+      courseStatus,
+      courseId,
+      sequenceStatus,
+      sectionViaSequenceId,
+      routeUnitId,
+      navigate,
+    );
 
     // Check unit to sequence-unit redirect:
     //    /course/:courseId/:unitId -> /course/:courseId/:sequenceId/:unitId
@@ -168,21 +194,35 @@ const CoursePlayer = (props) => {
       sequenceId,
       sectionViaSequenceId,
       routeUnitId,
+      navigate,
     );
 
     // Check sequence to sequence-unit redirect:
     //    /course/:courseId/:sequenceId -> /course/:courseId/:sequenceId/:unitId
     // by filling in the ID the most-recently-active unit in the sequence, OR
     // the ID of the first unit the sequence if none is active.
-    checkSequenceToSequenceUnitRedirect(courseId, sequenceStatus, sequence, routeUnitId);
+    checkSequenceToSequenceUnitRedirect(
+      courseId,
+      sequenceStatus,
+      sequence,
+      routeUnitId,
+      navigate,
+    );
 
     // Check sequence-unit marker to sequence-unit redirect:
     //    /course/:courseId/:sequenceId/first -> /course/:courseId/:sequenceId/:unitId
     //    /course/:courseId/:sequenceId/last -> /course/:courseId/:sequenceId/:unitId
     // by filling in the ID the first or last unit in the sequence.
     // "Sequence unit marker" is an invented term used only in this component.
-    checkSequenceUnitMarkerToSequenceUnitRedirect(courseId, sequenceStatus, sequence, routeUnitId);
-  }, [courseId,
+    checkSequenceUnitMarkerToSequenceUnitRedirect(
+      courseId,
+      sequenceStatus,
+      sequence,
+      routeUnitId,
+      navigate,
+    );
+  }, [
+    courseId,
     courseStatus,
     firstSequenceId,
     routeCourseId,
@@ -192,41 +232,53 @@ const CoursePlayer = (props) => {
     sequence,
     sequenceId,
     sequenceMightBeUnit,
-    sequenceStatus]);
+    sequenceStatus,
+    navigate,
+  ]);
 
   const handleUnitNavigationClick = (nextUnitId) => {
     props.checkBlockCompletion(courseId, sequenceId, routeUnitId);
-    history.push(`/course/${routeCourseId}/${routeSequenceId}/${nextUnitId}`);
+    navigate(`/course/${routeCourseId}/${routeSequenceId}/${nextUnitId}`);
   };
 
   const handleNextSequenceClick = () => {
     if (nextSequence !== null) {
       setOpenCollapseSidebarItem({ id: nextSequence.id, isOpen: true });
       setOpenCollapseSidebarItem({ id: nextSequence.sectionId, isOpen: true });
-      history.push(`/course/${routeCourseId}/${nextSequence.id}/first`);
+      navigate(`/course/${routeCourseId}/${nextSequence.id}/first`);
     }
   };
 
   const handlePreviousSequenceClick = () => {
     if (previousSequence !== null) {
       setOpenCollapseSidebarItem({ id: previousSequence.id, isOpen: true });
-      setOpenCollapseSidebarItem({ id: previousSequence.sectionId, isOpen: true });
-      history.push(`/course/${routeCourseId}/${previousSequence.id}/last`);
+      setOpenCollapseSidebarItem({
+        id: previousSequence.sectionId,
+        isOpen: true,
+      });
+      navigate(`/course/${routeCourseId}/${previousSequence.id}/last`);
     }
   };
 
   const isReadyToShow = () => {
     // Avoid crashes with invalid course or sequence states
-    const isInvalidState = (courseId !== (routeCourseId || null) || sequenceId !== (routeSequenceId || null));
+    const isInvalidState = courseId !== (routeCourseId || null)
+      || sequenceId !== (routeSequenceId || null);
     // Only consider we are ready to render SequenceContainer once we get all required route params
-    const isReady = routeCourseId != null && routeSequenceId != null;
+    const isReady = routeCourseId != null && routeSequenceId != null && routeUnitId != null && routeUnitId !== 'first' && routeUnitId !== 'last';
     return !isInvalidState && isReady;
   };
 
   return (
-    <div className={classNames('course-player-main-content', { 'disable-desktop-header': disableDesktopHeader })}>
+    <div
+      className={classNames('course-player-main-content', {
+        'disable-desktop-header': disableDesktopHeader,
+      })}
+    >
       <Helmet>
-        <title>{`${course?.title || 'Course'} | ${getConfig().SITE_NAME}`}</title>
+        <title>
+          {`${course?.title || 'Course'} | ${getConfig().SITE_NAME}`}
+        </title>
       </Helmet>
       {isReadyToShow() ? (
         <div className="course-player-sequence-container">
@@ -239,7 +291,9 @@ const CoursePlayer = (props) => {
             previousSequenceHandler={handlePreviousSequenceClick}
           />
         </div>
-      ) : <SimpleLoader />}
+      ) : (
+        <SimpleLoader />
+      )}
     </div>
   );
 };
@@ -264,18 +318,15 @@ const courseShape = PropTypes.shape({
 });
 
 CoursePlayer.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      courseId: PropTypes.string.isRequired,
-      sequenceId: PropTypes.string,
-      unitId: PropTypes.string,
-    }).isRequired,
-  }).isRequired,
+  routeCourseId: PropTypes.string.isRequired,
+  routeSequenceId: PropTypes.string,
+  routeUnitId: PropTypes.string,
   courseId: PropTypes.string,
   sequenceId: PropTypes.string,
   sectionId: PropTypes.string,
   firstSequenceId: PropTypes.string,
-  courseStatus: PropTypes.oneOf(['loaded', 'loading', 'failed', 'denied']).isRequired,
+  courseStatus: PropTypes.oneOf(['loaded', 'loading', 'failed', 'denied'])
+    .isRequired,
   sequenceStatus: PropTypes.oneOf(['loaded', 'loading', 'failed']).isRequired,
   sequenceMightBeUnit: PropTypes.bool.isRequired,
   nextSequence: sequenceShape,
@@ -290,6 +341,8 @@ CoursePlayer.propTypes = {
 };
 
 CoursePlayer.defaultProps = {
+  routeSequenceId: null,
+  routeUnitId: null,
   courseId: null,
   sequenceId: null,
   firstSequenceId: null,

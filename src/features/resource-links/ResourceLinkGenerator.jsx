@@ -24,6 +24,7 @@ const generateResource = (currentSectionId, sequenceId, courseId) => {
     const courseResource = `/courses/${courseId}/courseware/${sectionString}/${sequenceString}`;
     return courseResource;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(`Error in generateResource: ${error.message}`);
     return ('The courseResource cannot be created without both the sectionString and sequenceString.');
   }
