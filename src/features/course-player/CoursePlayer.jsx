@@ -266,7 +266,6 @@ const CoursePlayer = (props) => {
       || sequenceId !== (routeSequenceId || null);
     // Only consider we are ready to render SequenceContainer once we get all required route params
     const isReady = routeCourseId != null && routeSequenceId != null && routeUnitId != null && routeUnitId !== 'first' && routeUnitId !== 'last';
-    console.log('>>>>>>>>>>>', !isInvalidState && isReady);
     return !isInvalidState && isReady;
   };
 
