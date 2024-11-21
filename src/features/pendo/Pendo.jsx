@@ -28,7 +28,8 @@ function pendoHelperUser(pendoKey) {
 // Use this function for a custom visitor ID
 async function pendoHelperCustom(pendoKey) {
   // eslint-disable-next-line prefer-const
-  const { username } = getAuthenticatedUser();
+  const authenticatedUser = getAuthenticatedUser();
+  const username = authenticatedUser?.username ?? null;
 
   // eslint-disable-next-line no-shadow
   async function customVisitorIife(lmsUrl, username) {
