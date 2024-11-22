@@ -26,14 +26,20 @@ function pendoHelperUser(pendoKey) {
 }
 
 // Use this function for a custom visitor ID
-function pendoHelperCustom(pendoKey) {
+async function pendoHelperCustom(pendoKey) {
   // eslint-disable-next-line prefer-const
-  let visitor = null;
+  const authenticatedUser = getAuthenticatedUser();
+  const username = authenticatedUser?.username ?? null;
 
-  // Iife should retreive custom visitor ID and assign to visitor
-  // eslint-disable-next-line no-unused-expressions
-  function customVisitorIife() { getConfig().PENDO_VISITOR_IIFE; }
-  customVisitorIife();
+  // eslint-disable-next-line no-shadow
+  async function customVisitorIife(lmsUrl, username) {
+    if (getConfig().PENDO_VISITOR_IIFE) {
+      // eslint-disable-next-line no-new-func
+      return new Function('lmsUrl', 'username', `return ${getConfig().PENDO_VISITOR_IIFE};`)(lmsUrl, username);
+    }
+    return null;
+  }
+  const visitor = await customVisitorIife(getConfig().LMS_BASE_URL, username);
 
   if (localStorage.getItem(pendoKey === null)) {
     localStorage.setItem(pendoKey, visitor);
