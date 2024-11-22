@@ -45,13 +45,13 @@ describe('SequenceContainer', () => {
   it('handles loading unit', async () => {
     render(<SequenceContainer {...mockData} />);
     expect(await screen.findByText('Loading learning sequence...')).toBeInTheDocument();
-    // Renders navigation buttons (4 prev, next, bookmark, notificaitons tray) plus one button for each unit.
-    expect(screen.getAllByRole('button')).toHaveLength(4 + unitBlocks.length);
+    // Renders navigation buttons (3 prev, bookmark, notificaitons tray).
+    expect(screen.getAllByRole('button')).toHaveLength(3);
 
     loadUnit();
     await waitFor(() => expect(screen.queryByText('Loading learning sequence...')).not.toBeInTheDocument());
-    // At this point there will be 2 `Previous` and 2 `Next` buttons.
-    expect(screen.getAllByRole('button', { name: /previous|next/i }).length).toEqual(4);
+    // At this point there will be 1 `Previous` and 1 `Next` buttons.
+    expect(screen.getAllByRole('button', { name: /previous|next/i }).length).toEqual(2);
   });
 
   it('has top navigation hidden', async () => {

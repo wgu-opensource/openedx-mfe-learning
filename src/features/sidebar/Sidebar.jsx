@@ -143,7 +143,7 @@ const Sidebar = ({ currentUnitId, sequenceId, isSidebarExtended }) => {
       <div className="sidebar-content">
         <div className="white-background">
           {!sectionSequenceUnits?.length && <SimpleLoader />}
-          {sectionSequenceUnits?.map(section => (
+          {sequenceId && sectionSequenceUnits?.map(section => (
             <Section
               key={section.id}
               collapsibleMenuState={collapsibleMenuState}
@@ -174,12 +174,13 @@ ConditionalButton.propTypes = {
 
 Sidebar.propTypes = {
   currentUnitId: PropTypes.string,
-  sequenceId: PropTypes.string.isRequired,
+  sequenceId: PropTypes.string,
   isSidebarExtended: PropTypes.bool.isRequired,
 };
 
 Sidebar.defaultProps = {
   currentUnitId: null,
+  sequenceId: null,
 };
 
 export default Sidebar;

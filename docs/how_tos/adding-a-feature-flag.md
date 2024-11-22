@@ -32,7 +32,7 @@ export default Example;
 
 For setting the variable dinamically for a specific OpenEDX site, follow these steps:
 
-1. Go to `http://local.overhang.io/admin/site_configuration/siteconfiguration/` (adjust the base url to the desired environment) and select the specific site you want to configure
+1. Go to `http://local.edly.io/admin/site_configuration/siteconfiguration/` (adjust the base url to the desired environment) and select the specific site you want to configure
 2. Inside the "Site values" JSON, add a "MFE_CONFIG" key with an empty object as a value, if it doesn't exist already.
 3. Inside that "MFE_CONFIG" object, add your variables in valid JSON syntax.
 
