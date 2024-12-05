@@ -1,7 +1,6 @@
 /* eslint-disable import/first */
 /* eslint-disable no-import-assign */
 import { getResumeBlock, getSequenceForUnitDeprecated } from '@edx/frontend-app-learning';
-import { history } from '@edx/frontend-platform';
 
 import {
   checkResumeRedirect,
@@ -19,10 +18,11 @@ jest.mock('@edx/frontend-app-learning', () => ({
 
 describe('Utils library', () => {
   let mockId = 0;
+  let navigate = jest.fn();
 
   beforeEach(() => {
     mockId++;
-    history.replace = jest.fn();
+    navigate = jest.fn();
   });
 
   afterEach(() => {
@@ -46,9 +46,9 @@ describe('Utils library', () => {
     it('it should replace history with "/course/courseId/firstSequenceId" when getResumeBlock does not return the required data', () => {
       getResumeBlock.mockResolvedValueOnce({});
 
-      checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId).then(() => {
+      checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId, navigate).then(() => {
         expect(getResumeBlock).toHaveBeenCalled();
-        expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${firstSequenceId}`);
+        expect(navigate).toHaveBeenCalledWith(`/course/${courseId}/${firstSequenceId}`, { replace: true });
       });
     });
 
@@ -59,9 +59,9 @@ describe('Utils library', () => {
       };
       getResumeBlock.mockResolvedValueOnce(data);
 
-      checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId).then(() => {
+      checkResumeRedirect(courseStatus, courseId, sequenceId, firstSequenceId, navigate).then(() => {
         expect(getResumeBlock).toHaveBeenCalled();
-        expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${data.sectionId}/${data.unitId}`);
+        expect(navigate).toHaveBeenCalledWith(`/course/${courseId}/${data.sectionId}/${data.unitId}`, { replace: true });
       });
     });
   });
@@ -90,9 +90,10 @@ describe('Utils library', () => {
         sequenceStatus,
         section,
         unitId,
+        navigate,
       );
 
-      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${unitId}`);
+      expect(navigate).toHaveBeenCalledWith(`/course/${courseId}/${unitId}`, { replace: true });
     });
   });
 
@@ -119,9 +120,10 @@ describe('Utils library', () => {
         sequenceStatus,
         section,
         unitId,
+        navigate,
       );
 
-      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
+      expect(navigate).toHaveBeenCalledWith(`/course/${courseId}`, { replace: true });
     });
 
     it('it should replace history with "/course/courseId/section.sequenceIds[0]" when there is sequenceIds[0]', () => {
@@ -133,9 +135,10 @@ describe('Utils library', () => {
         sequenceStatus,
         section,
         unitId,
+        navigate,
       );
 
-      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${section.sequenceIds[0]}`);
+      expect(navigate).toHaveBeenCalledWith(`/course/${courseId}/${section.sequenceIds[0]}`, { replace: true });
     });
   });
 
@@ -173,9 +176,10 @@ describe('Utils library', () => {
         sequenceId,
         section,
         routeUnitId,
+        navigate,
       );
 
-      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
+      expect(navigate).toHaveBeenCalledWith(`/course/${courseId}`, { replace: true });
     });
 
     it('it should replace history with "/course/courseId/parentId/unitId" when getSequenceForUnitDeprecated return a valid parentId', () => {
@@ -189,9 +193,10 @@ describe('Utils library', () => {
         sequenceId,
         section,
         routeUnitId,
+        navigate,
       ).then(() => {
         expect(getSequenceForUnitDeprecated).toHaveBeenCalled();
-        expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${parentId}/${unitId}`);
+        expect(navigate).toHaveBeenCalledWith(`/course/${courseId}/${parentId}/${unitId}`, { replace: true });
       });
     });
 
@@ -207,9 +212,10 @@ describe('Utils library', () => {
         sequenceId,
         section,
         routeUnitId,
+        navigate,
       ).then(() => {
         expect(getSequenceForUnitDeprecated).toHaveBeenCalled();
-        expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
+        expect(navigate).toHaveBeenCalledWith(`/course/${courseId}`, { replace: true });
       });
     });
 
@@ -224,9 +230,10 @@ describe('Utils library', () => {
         sequenceId,
         section,
         routeUnitId,
+        navigate,
       ).then(() => {
         expect(getSequenceForUnitDeprecated).toHaveBeenCalled();
-        expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}`);
+        expect(navigate).toHaveBeenCalledWith(`/course/${courseId}`, { replace: true });
       });
     });
   });
@@ -254,9 +261,10 @@ describe('Utils library', () => {
         sequenceStatus,
         sequence,
         unitId,
+        navigate,
       );
 
-      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}/${sequence.unitIds[0]}`);
+      expect(navigate).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}/${sequence.unitIds[0]}`, { replace: true });
     });
   });
 
@@ -286,9 +294,10 @@ describe('Utils library', () => {
         sequenceStatus,
         sequence,
         unitId,
+        navigate,
       );
 
-      expect(history.replace).not.toHaveBeenCalled();
+      expect(navigate).not.toHaveBeenCalled();
     });
 
     it('it should not replace history when unitId is != to "first" or "last"', () => {
@@ -299,9 +308,10 @@ describe('Utils library', () => {
         sequenceStatus,
         sequence,
         unitId,
+        navigate,
       );
 
-      expect(history.replace).not.toHaveBeenCalled();
+      expect(navigate).not.toHaveBeenCalled();
     });
 
     it('it should replace history with "/course/courseId/sequence.id/sequence.unitIds[0]" when  unitId = "first" and there are unitIds', () => {
@@ -312,9 +322,10 @@ describe('Utils library', () => {
         sequenceStatus,
         sequence,
         unitId,
+        navigate,
       );
 
-      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}/${sequence.unitIds[0]}`);
+      expect(navigate).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}/${sequence.unitIds[0]}`, { replace: true });
     });
 
     it('it should replace history with "/course/courseId/sequence.id" when  unitId = "first" and there are not unitIds', () => {
@@ -326,9 +337,10 @@ describe('Utils library', () => {
         sequenceStatus,
         sequence,
         unitId,
+        navigate,
       );
 
-      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}`);
+      expect(navigate).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}`, { replace: true });
     });
 
     it('it should replace history with "/course/courseId/sequence.id/sequence.unitIds[0]" when unitId = "last" there are unitIds', () => {
@@ -339,9 +351,10 @@ describe('Utils library', () => {
         sequenceStatus,
         sequence,
         unitId,
+        navigate,
       );
 
-      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}/${sequence.unitIds[1]}`);
+      expect(navigate).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}/${sequence.unitIds[1]}`, { replace: true });
     });
 
     it('it should replace history with "/course/courseId/sequence.id" when unitId = "last" and there are not unitIds', () => {
@@ -353,9 +366,10 @@ describe('Utils library', () => {
         sequenceStatus,
         sequence,
         unitId,
+        navigate,
       );
 
-      expect(history.replace).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}`);
+      expect(navigate).toHaveBeenCalledWith(`/course/${courseId}/${sequence.id}`, { replace: true });
     });
   });
 });

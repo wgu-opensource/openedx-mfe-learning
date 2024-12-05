@@ -10,7 +10,8 @@ ensureConfig([
 // Use this function if OEX username is Pendo visitor ID
 function pendoHelperUser(pendoKey) {
   const pendoVisitor = getConfig().PENDO_VISITOR_TYPE;
-  const { username } = getAuthenticatedUser();
+  const authenticatedUser = getAuthenticatedUser();
+  const username = authenticatedUser?.username ?? null;
 
   // Check if token is in local storage, if so replace
   if (localStorage.getItem(pendoVisitor === null)) {

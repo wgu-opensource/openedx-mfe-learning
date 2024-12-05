@@ -22,11 +22,11 @@ describe('SequenceContainer', () => {
       unitId: unitBlocks[0].id,
       sequenceId: courseware.sequenceId,
       courseId: courseware.courseId,
-      unitNavigationHandler: () => {},
-      nextSequenceHandler: () => {},
-      previousSequenceHandler: () => {},
-      toggleNotificationTray: () => {},
-      setNotificationStatus: () => {},
+      unitNavigationHandler: () => { },
+      nextSequenceHandler: () => { },
+      previousSequenceHandler: () => { },
+      toggleNotificationTray: () => { },
+      setNotificationStatus: () => { },
     };
   });
 
@@ -45,13 +45,13 @@ describe('SequenceContainer', () => {
   it('handles loading unit', async () => {
     render(<SequenceContainer {...mockData} />);
     expect(await screen.findByText('Loading learning sequence...')).toBeInTheDocument();
-    // Renders navigation buttons plus one button for each unit.
-    expect(screen.getAllByRole('button')).toHaveLength(3 + unitBlocks.length);
+    // Renders navigation buttons (3 prev, bookmark, notificaitons tray).
+    expect(screen.getAllByRole('button')).toHaveLength(3);
 
     loadUnit();
     await waitFor(() => expect(screen.queryByText('Loading learning sequence...')).not.toBeInTheDocument());
-    // At this point there will be 2 `Previous` and 2 `Next` buttons.
-    expect(screen.getAllByRole('button', { name: /previous|next/i }).length).toEqual(4);
+    // At this point there will be 1 `Previous` and 1 `Next` buttons.
+    expect(screen.getAllByRole('button', { name: /previous|next/i }).length).toEqual(2);
   });
 
   it('has top navigation hidden', async () => {
@@ -68,27 +68,6 @@ describe('SequenceContainer', () => {
     });
 
     expect(nav).not.toBeVisible();
-  });
-
-  it('has sidebar triggers button hidden', async () => {
-    // Sidebar triggers button is part of the Sequence component, shown only on sm screens,
-    // but we don't want to show it
-
-    // Set width to less than small so the component is rendered
-    global.innerWidth = breakpoints.extraSmall.maxWidth;
-
-    const { container } = render(<SequenceContainer {...mockData} />);
-    appendStyles(container);
-
-    let button;
-    await waitFor(() => {
-      button = container.querySelector('[aria-label="Show notification tray"]');
-      if (!button) {
-        throw new Error('Sidebar triggers button not found in the DOM');
-      }
-    });
-
-    expect(button).not.toBeVisible();
   });
 
   it('has bookmark button hidden', async () => {

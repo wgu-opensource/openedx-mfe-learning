@@ -27,8 +27,11 @@ describe('<Sidebar />', () => {
   it('renders without crashing', () => {
     const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
 
-    const { getAllByText } = render(<Sidebar currentUnitId={currentUnitId} />, { store });
     const { models: { sections, sequences, units } } = store.getState();
+    const { getAllByText } = render(
+      <Sidebar currentUnitId={currentUnitId} sequenceId={Object.keys(sequences)[0]} isSidebarExtended={false} />,
+      { store },
+    );
 
     Object.values(sections).forEach(section => {
       const sectionTitle = getAllByText(section.title);
@@ -48,7 +51,11 @@ describe('<Sidebar />', () => {
 
   it('section and sequence expand when click on it', async () => {
     const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
-    const { getByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store });
+    const { models: { sequences } } = store.getState();
+    const { getByTestId } = render(
+      <Sidebar currentUnitId={currentUnitId} sequenceId={Object.keys(sequences)[0]} isSidebarExtended={false} />,
+      { store },
+    );
 
     const sectionCollapsable = getByTestId('section-collapsable-block-v1:edX+DemoX+Demo_Course+type@chapter+block@d8a6192ade314473a78242dfeedfbf5b');
     expect(sectionCollapsable.classList.contains('collapsed')).toBeTruthy();
@@ -65,7 +72,7 @@ describe('<Sidebar />', () => {
 
   it('collapse all sidebar items', () => {
     const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
-    const { getByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store });
+    const { getByTestId } = render(<Sidebar currentUnitId={currentUnitId} isSidebarExtended={false} />, { store });
 
     const collapseAllButton = getByTestId('collapse-all-button');
     fireEvent.click(collapseAllButton);
@@ -75,7 +82,7 @@ describe('<Sidebar />', () => {
     const scrollIntoViewMock = jest.fn();
     HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
     const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
-    const { getByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store });
+    const { getByTestId } = render(<Sidebar currentUnitId={currentUnitId} isSidebarExtended={false} />, { store });
 
     const expandAllButton = getByTestId('expand-all-button');
     fireEvent.click(expandAllButton);
@@ -83,7 +90,11 @@ describe('<Sidebar />', () => {
 
   it('closes sidebar on unit selection in mobile', async () => {
     const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
-    const { getByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store });
+    const { models: { sequences } } = store.getState();
+    const { getByTestId } = render(
+      <Sidebar currentUnitId={currentUnitId} sequenceId={Object.keys(sequences)[0]} isSidebarExtended={false} />,
+      { store },
+    );
 
     // Sidebar is already open according to mock data in sidebarMockStore
     const { courseView: { isMobileSidebarOpen: isMobileSidebarOpenInitial } } = store.getState();
@@ -118,7 +129,10 @@ describe('<Sidebar />', () => {
       },
     });
 
-    const { queryByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store: emptyStore });
+    const { queryByTestId } = render(<Sidebar
+      currentUnitId={currentUnitId}
+      isSidebarExtended={false}
+    />, { store: emptyStore });
 
     const loader = queryByTestId('simple-loader');
     expect(loader).toBeInTheDocument();
@@ -126,7 +140,7 @@ describe('<Sidebar />', () => {
 
   it('doesnt show loading spinner when sectionSequenceUnits is not empty', async () => {
     const currentUnitId = Object.keys(sidebarMockStore.models.units)[0];
-    const { queryByTestId } = render(<Sidebar currentUnitId={currentUnitId} />, { store });
+    const { queryByTestId } = render(<Sidebar currentUnitId={currentUnitId} isSidebarExtended={false} />, { store });
 
     const loader = queryByTestId('simple-loader');
     expect(loader).not.toBeInTheDocument();

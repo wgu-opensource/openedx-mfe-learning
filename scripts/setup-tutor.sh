@@ -10,8 +10,6 @@ cd "$SCRIPT_DIR"
 cd "$PROJECT_ROOT"
 pipenv install
 pipenv run tutor config save
-pipenv run tutor images build openedx permissions
-pipenv run tutor config save --set DOCKER_IMAGE_MYSQL=mariadb:10.4
 pipenv run tutor local launch # Initial launch required for setting up dbs etc.
 
 echo "Creating OpenEDX Test user: staff@example.com"

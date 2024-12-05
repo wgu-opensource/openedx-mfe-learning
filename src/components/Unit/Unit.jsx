@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { sendTrackingLogEvent } from '@edx/frontend-platform/analytics';
-import { history } from '@edx/frontend-platform';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import CompletedIcon from '../../assets/CompletedIcon';
@@ -18,6 +18,8 @@ const Unit = ({
   const status = complete ? 'completed' : 'pending';
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const logEvent = (eventName, widgetPlacement, targetUnitTitle, targetUnit) => {
     const currentUrl = window.location.href;
@@ -37,7 +39,7 @@ const Unit = ({
     // Log navigation event
     logEvent('edx.ui.lms.outline.selected', 'accordion', title, `/course/${courseId}/${sequenceId}/${id}`);
     // Navigate
-    history.push(`/course/${courseId}/${sequenceId}/${id}`);
+    navigate(`/course/${courseId}/${sequenceId}/${id}`);
     // Close sidebar
     dispatch(closeMobileSidebar());
   };
