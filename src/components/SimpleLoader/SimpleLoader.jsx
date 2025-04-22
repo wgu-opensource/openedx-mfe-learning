@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spinner } from '@edx/paragon';
+import { Spinner } from '@openedx/paragon';
 
 const SimpleLoader = () => (
   <div className="simple-loader text-center m-4" data-testid="simple-loader">
