@@ -112,6 +112,7 @@ const ResourceLinkGenerator = ({
         variant={modalVariant}
         hasCloseButton
         isFullscreenOnMobile
+        isOverflowVisible
       >
         <ModalDialog.Header>
           <ModalDialog.Title>
