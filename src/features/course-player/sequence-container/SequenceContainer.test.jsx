@@ -61,7 +61,7 @@ describe('SequenceContainer', () => {
 
     let nav;
     await waitFor(() => {
-      nav = container.querySelector('#courseware-sequenceNavigation');
+      nav = container.querySelector('#courseware-sequence-navigation');
       if (!nav) {
         throw new Error('Top Navigation not found in the DOM');
       }
