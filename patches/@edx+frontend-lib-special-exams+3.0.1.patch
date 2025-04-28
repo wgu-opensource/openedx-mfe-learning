@@ -1,5 +1,5 @@
 diff --git a/node_modules/@edx/frontend-lib-special-exams/package.json b/node_modules/@edx/frontend-lib-special-exams/package.json
-index e5139cc..9afaf93 100644
+index e2d6e59..b2bcef5 100644
 --- a/node_modules/@edx/frontend-lib-special-exams/package.json
 +++ b/node_modules/@edx/frontend-lib-special-exams/package.json
 @@ -8,9 +8,6 @@
