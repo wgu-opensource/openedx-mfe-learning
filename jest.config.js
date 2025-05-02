@@ -15,6 +15,7 @@ module.exports = createConfig('jest', {
   moduleNameMapper: {
     rosie: path.resolve('./node_modules/rosie'),
     '^@edx/frontend-app-learning/tests$': `${path.resolve('./node_modules/@edx/frontend-app-learning/dist/testExports.js')}`,
+    '^@src(.*)$': `${path.resolve('./node_modules/@edx/frontend-app-learning/dist/$1')}`,
     '^@edx/frontend-platform(.*)$': `${path.resolve('./node_modules/@edx/frontend-platform')}$1`,
     '^@openedx/paragon(.*)$': `${path.resolve('./node_modules/@openedx/paragon')}$1`,
     '^prop-types$': path.resolve('./node_modules/prop-types'),

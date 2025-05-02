@@ -45,8 +45,8 @@ describe('SequenceContainer', () => {
   it('handles loading unit', async () => {
     render(<SequenceContainer {...mockData} />);
     expect(await screen.findByText('Loading learning sequence...')).toBeInTheDocument();
-    // Renders navigation buttons (3 prev, bookmark, notificaitons tray).
-    expect(screen.getAllByRole('button')).toHaveLength(3);
+    // Renders navigation buttons (2 bookmark, notificaitons tray).
+    expect(screen.getAllByRole('button')).toHaveLength(2);
 
     loadUnit();
     await waitFor(() => expect(screen.queryByText('Loading learning sequence...')).not.toBeInTheDocument());
