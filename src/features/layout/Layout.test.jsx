@@ -1,5 +1,5 @@
 import React from 'react';
-import { breakpoints } from '@edx/paragon';
+import { breakpoints } from '@openedx/paragon';
 import {
   render, screen, initializeTestStore,
 } from '../../setupTest';

@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import { render as rtlRender } from '@testing-library/react';
 import { configureStore } from '@reduxjs/toolkit';
 import MockAdapter from 'axios-mock-adapter';
-import AppProvider from '@edx/frontend-platform/react/AppProvider';
+import { AppProvider } from '@edx/frontend-platform/react';
 import {
   coursewareReducer,
   modelsReducer,
@@ -27,6 +27,7 @@ import {
   learningSequencesOutlineFactory,
   // eslint-disable-next-line import/no-unresolved
 } from '@edx/frontend-app-learning/tests';
+import { reducer as specialExamsReducer } from '@edx/frontend-lib-special-exams';
 
 import { readFileSync } from 'fs';
 import appMessages from './i18n';
@@ -127,6 +128,7 @@ export async function initializeTestStore(options = {}, overrideStore = true) {
       courseware: coursewareReducer,
       courseView: courseViewReducer,
       sidebar: sidebarReducer,
+      specialExams: specialExamsReducer,
     },
   });
   if (overrideStore) {

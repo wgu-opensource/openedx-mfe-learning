@@ -1,6 +1,6 @@
 import React from 'react';
 import { Factory } from 'rosie';
-import { breakpoints } from '@edx/paragon';
+import { breakpoints } from '@openedx/paragon';
 import {
   loadUnit, render, screen, waitFor, initializeTestStore, appendStyles,
 } from '../../../setupTest';
@@ -45,8 +45,8 @@ describe('SequenceContainer', () => {
   it('handles loading unit', async () => {
     render(<SequenceContainer {...mockData} />);
     expect(await screen.findByText('Loading learning sequence...')).toBeInTheDocument();
-    // Renders navigation buttons (3 prev, bookmark, notificaitons tray).
-    expect(screen.getAllByRole('button')).toHaveLength(3);
+    // Renders navigation buttons (2 bookmark, notificaitons tray).
+    expect(screen.getAllByRole('button')).toHaveLength(2);
 
     loadUnit();
     await waitFor(() => expect(screen.queryByText('Loading learning sequence...')).not.toBeInTheDocument());
@@ -61,7 +61,7 @@ describe('SequenceContainer', () => {
 
     let nav;
     await waitFor(() => {
-      nav = container.querySelector('#courseware-sequenceNavigation');
+      nav = container.querySelector('#courseware-sequence-navigation');
       if (!nav) {
         throw new Error('Top Navigation not found in the DOM');
       }

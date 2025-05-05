@@ -1,7 +1,7 @@
 import React from 'react';
 import MockAdapter from 'axios-mock-adapter';
 import { getConfig } from '@edx/frontend-platform';
-import { breakpoints } from '@edx/paragon';
+import { breakpoints } from '@openedx/paragon';
 import { appendBrowserTimezoneToUrl } from '@edx/frontend-app-learning';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import {

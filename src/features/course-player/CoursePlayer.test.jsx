@@ -1,6 +1,6 @@
 import React from 'react';
 import { Factory } from 'rosie';
-import { breakpoints } from '@edx/paragon';
+import { breakpoints } from '@openedx/paragon';
 import {
   loadUnit, render, screen, waitFor, initializeTestStore,
 } from '../../setupTest';

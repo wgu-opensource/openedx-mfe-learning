@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Button, ModalDialog, useToggle } from '@edx/paragon';
+import { Button, ModalDialog, useToggle } from '@openedx/paragon';
 import { currentSequenceSelector } from '../course-player/data/selectors';
 
 const generateResource = (currentSectionId, sequenceId, courseId) => {
@@ -112,6 +112,7 @@ const ResourceLinkGenerator = ({
         variant={modalVariant}
         hasCloseButton
         isFullscreenOnMobile
+        isOverflowVisible
       >
         <ModalDialog.Header>
           <ModalDialog.Title>
