@@ -73,7 +73,7 @@ After doing that, you can run tutor commands inside that shell as normal.
 ## FAQ
 
 Q: Which version of tutor/OpenEDX are we targeting?
-A: 18.2.2 (Redwood), it is defined in `Pipfile`
+A: 21.0.2 (Ulmo), it is defined in `Pipfile`
 
 ## Known Issues
 

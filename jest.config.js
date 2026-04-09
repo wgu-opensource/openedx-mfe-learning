@@ -25,4 +25,7 @@ module.exports = createConfig('jest', {
     '^react-router-dom$': path.resolve('./node_modules/react-router-dom'),
     '^redux$': path.resolve('./node_modules/redux'),
   },
+  transformIgnorePatterns: [
+    '/node_modules/(?!(uuid|@edx/frontend-platform|@openedx/paragon|@openedx/frontend-build|@edx/frontend-app-learning)/)',
+  ],
 });

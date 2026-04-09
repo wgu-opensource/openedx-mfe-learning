@@ -38,7 +38,7 @@ ensureConfig(
 
 subscribe(APP_READY, () => {
   const enablePendo = getConfig().ENABLE_PENDO;
-  ReactDOM.render(
+  ReactDOM.createRoot(
     <AppProvider store={initializeStore()}>
       <Helmet>
         <link
@@ -86,7 +86,7 @@ subscribe(APP_READY, () => {
 });
 
 subscribe(APP_INIT_ERROR, (error) => {
-  ReactDOM.render(
+  ReactDOM.createRoot(
     <ErrorPage message={error.message} />,
     document.getElementById('root'),
   );

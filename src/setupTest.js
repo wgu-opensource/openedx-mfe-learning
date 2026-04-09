@@ -1,7 +1,6 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
 import path from 'path';
 import { getConfig, mergeConfig } from '@edx/frontend-platform';
 import { configure as configureI18n, IntlProvider } from '@edx/frontend-platform/i18n';
@@ -215,3 +214,12 @@ export * from '@testing-library/react';
 export {
   render,
 };
+
+Object.defineProperty(window, 'localStorage', {
+  value: {
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn(),
+  },
+});

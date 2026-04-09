@@ -4,10 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-tutor = {version = "==18.2.2", extras = ["full"]}
+tutor = {version = "==21.0.2", extras = ["full"]}
 
 [dev-packages]
 
 [requires]
-python_version = "3.10"
+python_version = "3.11"
 python_full_version = "3.10.12"
