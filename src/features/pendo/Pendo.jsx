@@ -55,6 +55,10 @@ const Pendo = () => {
   const pendoKey = getConfig().PENDO_VISITOR_KEY;
 
   useEffect(() => {
+    const stored = localStorage.getItem(pendoKey);
+    if (stored && stored !== 'null' && stored !== 'undefined') {
+      return;
+    }
     if (customPendo) {
       pendoHelperCustom(pendoKey);
     } else {
