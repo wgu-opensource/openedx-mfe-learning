@@ -38,6 +38,7 @@ ensureConfig(
 
 subscribe(APP_READY, () => {
   const enablePendo = getConfig().ENABLE_PENDO;
+  const keepaliveScript = getConfig().SESSION_KEEPALIVE_SCRIPT_URL;
   ReactDOM.render(
     <AppProvider store={initializeStore()}>
       <Helmet>
@@ -52,6 +53,22 @@ subscribe(APP_READY, () => {
             type="text/javascript"
             async
           />
+        )}
+        {/*
+          WGU PingFed SSO keep-alive. Served BY THE LMS
+          (academy-oedx-plugin -> wgu_session_keepalive), not bundled here, so
+          its behaviour, timings and copy ship with a plugin deploy rather than
+          an MFE rebuild -- and the legacy LMS pages run byte-identical code.
+
+          The LMS publishes an empty string when the feature is off, so this
+          renders nothing at all in an environment that has not enabled it.
+
+          `defer` rather than `async`: the script mounts a modal into
+          document.body and reads localStorage on start, so it wants a parsed
+          document. It is tiny and never blocks first paint.
+        */}
+        {keepaliveScript && (
+          <script src={keepaliveScript} type="text/javascript" defer />
         )}
       </Helmet>
       {enablePendo && <Pendo />}
