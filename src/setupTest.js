@@ -21,6 +21,7 @@ import {
   appendBrowserTimezoneToUrl,
   executeThunk,
   UserMessagesProvider,
+  pluginsReducer,
 } from '@edx/frontend-app-learning';
 import {
   sequenceMetadataFactory,
@@ -129,7 +130,14 @@ export async function initializeTestStore(options = {}, overrideStore = true) {
       courseView: courseViewReducer,
       sidebar: sidebarReducer,
       specialExams: specialExamsReducer,
+      plugins: pluginsReducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['plugin/registerOverrideMethod'],
+        ignoredPaths: ['plugins'],
+      },
+    }),
   });
   if (overrideStore) {
     globalStore = store;

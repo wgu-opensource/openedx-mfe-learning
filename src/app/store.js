@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import {
-  coursewareReducer, modelsReducer,
+  coursewareReducer, modelsReducer, pluginsReducer,
 } from '@edx/frontend-app-learning';
 import { reducer as specialExamsReducer } from '@edx/frontend-lib-special-exams';
 import { reducer as courseViewReducer } from '../features/course-view/data';
@@ -14,6 +14,13 @@ export default function initializeStore() {
       courseView: courseViewReducer,
       sidebar: sidebarReducer,
       specialExams: specialExamsReducer,
+      plugins: pluginsReducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['plugin/registerOverrideMethod'],
+        ignoredPaths: ['plugins'],
+      },
+    }),
   });
 }
